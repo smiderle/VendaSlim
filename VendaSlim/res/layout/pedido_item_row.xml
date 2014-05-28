@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"    
+    android:orientation="horizontal"
+    android:padding="5dip" >
+
+    <!-- ListRow Left sied Thumbnail image -->
+
+
+
+
+    <ImageView
+        android:id="@+id/imgViewAdicionar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true" />
+
+    <TextView
+        android:id="@+id/tvDescricao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/thumbnail"
+        android:layout_alignTop="@+id/thumbnail"
+        android:layout_toLeftOf="@+id/imageView1"  
+        android:maxLines="1"     
+        android:text="Tijolo" 
+        android:textColor="@color/gray_font"/>
+    
+
+
+    <TextView
+        android:id="@+id/tvCodigo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/thumbnail"
+        android:layout_below="@+id/tvDescricao"
+        android:text="Cód:"       
+        android:textStyle="bold"  
+        android:textColor="@color/azul_letras"/>
+
+
+    <TextView
+        android:id="@+id/tvCodigoEd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvCodigo"
+        android:layout_alignBottom="@+id/tvCodigo"
+        android:layout_toRightOf="@id/tvCodigo"       
+        android:textColor="@color/gray_font"
+        android:text="125468"/>
+
+
+    <TextView
+        android:id="@+id/tvEstoque"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvCodigoEd"
+        android:layout_alignBottom="@+id/tvCodigoEd"
+        android:layout_marginLeft="34dp"
+        android:layout_toLeftOf="@+id/tvEstoqueEd"         
+        android:text="Estq:"
+        android:textStyle="bold" 
+        android:textColor="@color/azul_letras"/>
+    
+     <TextView
+        android:id="@+id/tvEstoqueEd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvEstoque"
+        android:layout_alignBottom="@+id/tvEstoque"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/gray_font"
+        android:text="1.0" />
+
+    <TextView
+        android:id="@+id/tvPrecoEd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvDescricao"
+        android:layout_marginRight="14dp"
+        android:layout_toLeftOf="@+id/imgViewAdicionar"
+        android:textColor="@color/gray_font"
+        android:text="25,10"  />
+
+    <TextView
+        android:id="@+id/tvPreco"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvDescricao"
+        android:layout_toLeftOf="@+id/tvPrecoEd"
+        android:text="R$: "
+        android:textStyle="bold"  
+        android:textColor="@color/azul_letras"/>
+
+   
+
+</RelativeLayout>

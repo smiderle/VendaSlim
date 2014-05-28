@@ -1,0 +1,89 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="5dip" >
+
+    <TextView
+        android:id="@+id/tvIdPedido"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:paddingLeft="30dp"
+         android:textColor="@color/azul_letras"
+        android:textStyle="bold"
+        android:text="Pedido: " />
+
+    <TextView
+        android:id="@+id/tvIdPedidoEd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvIdPedido"
+        android:layout_alignBottom="@+id/tvIdPedido"
+        android:layout_toRightOf="@+id/tvIdPedido"
+        android:textColor="@color/gray_font"
+        android:text="1" />
+
+    <TextView
+        android:id="@+id/dtEmissaoEd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/gray_font"
+        android:text="01/01/2012" />
+
+    <TextView
+        android:id="@+id/dtEmissao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvIdPedidoEd"
+        android:layout_alignBottom="@+id/tvIdPedidoEd"
+        android:layout_toLeftOf="@+id/dtEmissaoEd"
+        android:textColor="@color/azul_letras"
+        android:textStyle="bold"
+        android:text="Emissão: " />
+
+    <TextView
+        android:id="@+id/tvParcelamento:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvIdPedido"
+        android:layout_below="@+id/tvIdPedido"
+        android:paddingLeft="30dp"
+        android:textColor="@color/azul_letras"
+        android:textStyle="bold"
+        android:text="Condição: " />
+
+    <TextView
+        android:id="@+id/tvParcelamentoEd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvParcelamento:"
+        android:layout_alignBottom="@+id/tvParcelamento:"
+        android:layout_toRightOf="@+id/tvParcelamento:"
+        android:textColor="@color/gray_font"
+        android:text="30/60/90" />
+
+    <TextView
+        android:id="@+id/tvValorTotalEd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        
+        android:layout_below="@+id/dtEmissaoEd"
+        android:layout_toLeftOf="@+id/tvValorTotal"
+        android:textColor="@color/azul_letras"
+        android:textStyle="bold"
+        android:text="Valor Total R$:" />
+
+    <TextView
+        android:id="@+id/tvValorTotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvValorTotalEd"
+        android:layout_alignBottom="@+id/tvValorTotalEd"
+        android:layout_alignRight="@+id/dtEmissaoEd"   
+        android:textColor="@color/gray_font"     
+        android:text="00" />
+
+</RelativeLayout>

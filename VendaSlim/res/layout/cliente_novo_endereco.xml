@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp" >
+
+            <TextView
+                android:id="@+id/tvCep"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/labelsForms"
+                android:text="Cep: " />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <EditText
+                    android:id="@+id/edCep"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="number"/>
+
+                <Button
+                    android:id="@+id/btnBuscarCep"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_button"
+                    android:visibility="invisible"
+                    android:text="Buscar" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvCidade"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/labelsForms"
+                android:text="Cidade:" />
+
+            <AutoCompleteTextView
+                android:id="@+id/acCidade"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:completionThreshold="3"
+                android:completionHint="Cidades"
+                android:ems="10">
+                
+            </AutoCompleteTextView>
+
+            <TextView
+                android:id="@+id/tvBairro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/labelsForms"
+                android:text="Bairro" />
+
+            <EditText
+                android:id="@+id/edBairro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10" />
+
+            <TextView
+                android:id="@+id/tvRua"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/labelsForms"
+                android:text="Rua: " />
+
+            <EditText
+                android:id="@+id/edRua"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10" />
+
+            <TextView
+                android:id="@+id/tvNumero"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/labelsForms"
+                android:text="Numero: " />
+
+            <EditText
+                android:id="@+id/edNumero"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="number" />
+            
+            <EditText
+		        android:id="@+id/edIdCidade"
+		        android:visibility="invisible"		        
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:ems="10" />
+                    
+        </LinearLayout>
+    </ScrollView>
+
+    
+
+    
+
+</LinearLayout>

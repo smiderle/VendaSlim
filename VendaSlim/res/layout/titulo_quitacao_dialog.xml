@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="10dp" >
+
+    <TextView
+        android:id="@+id/tvParcelaEd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/tvParcela"
+        android:paddingTop="5dp"
+        android:text="1" />
+
+	<TextView
+	    android:id="@+id/tvVencimento"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentLeft="true"
+	    android:layout_below="@+id/tvParcelaEd"
+	    android:layout_centerVertical="true"
+	    android:paddingTop="5dp"
+	    android:text="Vencimento: "
+	    android:textColor="@color/holo_blue_dark"
+	    android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvVencimentoEd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        
+		android:layout_alignBaseline="@+id/tvVencimento"
+        android:layout_alignBottom="@+id/tvVencimento"
+        android:layout_toRightOf="@+id/tvVencimento"
+		android:paddingTop="5dp"
+        android:text="01/01/2012" />
+		
+
+	<TextView
+	    android:id="@+id/tvValor"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentLeft="true"
+	    android:layout_below="@+id/tvVencimentoEd"
+	    android:layout_centerVertical="true"
+	    android:paddingTop="5dp"
+	    android:text="Valor R$: "
+	    android:textColor="@color/holo_blue_dark"
+	    android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvValorEd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvValor"
+        android:layout_alignBottom="@+id/tvValor"
+        android:layout_toRightOf="@+id/tvValor"
+		android:paddingTop="5dp"
+        android:text="25,00" />
+		
+
+	<TextView
+	    android:id="@+id/tvJuros"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentLeft="true"
+	    android:layout_below="@+id/tvValorEd"
+	    android:layout_centerVertical="true"
+	    android:paddingTop="5dp"
+	    android:text="Juro R$: "
+	    android:textColor="@color/holo_blue_dark"
+	    android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvJurosEd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvJuros"
+        android:layout_alignBottom="@+id/tvJuros"
+        android:layout_toRightOf="@+id/tvJuros"
+		android:paddingTop="5dp"
+        android:text="00" />
+		
+
+
+	<TextView
+	    android:id="@+id/tvTotal"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentLeft="true"
+	    android:layout_below="@+id/tvJurosEd"
+	    android:layout_centerVertical="true"
+	    android:paddingTop="5dp"
+	    android:text="Total R$: "
+	    android:textSize="@dimen/textview_height"
+	    android:textColor="@color/holo_blue_dark"
+	    android:textStyle="bold" />
+
+
+    <TextView
+        android:id="@+id/tvTotalEd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvTotal"
+        android:layout_alignBottom="@+id/tvTotal"
+        android:layout_toRightOf="@+id/tvTotal"
+        android:paddingTop="5dp"
+        android:text="00"
+        android:textSize="@dimen/textview_height" />
+    
+
+	<TextView
+	    android:id="@+id/tvDtPagamento"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentLeft="true"
+	    android:layout_below="@+id/tvTotalEd"
+	    android:layout_centerVertical="true"
+	    android:paddingTop="5dp"
+	    android:text="Data Pagamento: "
+	    android:textColor="@color/holo_blue_dark"
+	    android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvDtPagamentoEd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvDtPagamento"
+        android:layout_alignBottom="@+id/tvDtPagamento"
+        android:layout_toRightOf="@+id/tvDtPagamento"
+		android:paddingTop="5dp"
+        android:text="01/01/2012" />
+
+    <TextView
+        android:id="@+id/tvParcela"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:paddingTop="5dp"
+        android:text="Parcela: "
+         android:textColor="@color/holo_blue_dark"        
+        android:textStyle="bold" />
+
+</RelativeLayout>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="red">#F83A3A</color>
+    <color name="white">#fff</color>
+    <color name="black">#000</color>
+    <color name="yellow">#FF9105</color>
+    <color name="green">#6DA000</color>
+    <color name="purple">#A041D0</color>
+    <color name="blue">#079DD0</color>
+    <color name="cinza_separador">#EBEDEC</color>
+    
+     <color name="blue_button">#33B5E5</color>
+    <color name="gray_brown">#1A1A1A</color>    
+    <color name="gray">#F1F1F1</color>
+    <color name="gray_background">#B5B5B5</color>
+    <color name="gray_section">#D2D5DA</color>
+    <color name="gray_font">#9699A0</color>
+    
+    
+    
+    <color name="blue_sky">#00A8FF</color>
+    <color name="green_sky">#20BFA3</color>
+    
+    <color name="green_login">#19B46E</color>
+    <color name="green_elegant">#365649</color>
+    <color name="button">#0979B2</color>
+    <color name="orange">#E87C18</color>
+    <color name="blue_messenger">#0084FF</color>
+    <color name="button_pressed">#73BAFF</color>
+    <color name="blue_default">#0072FF</color>
+    <color name="azul_letras">#1CA9F1</color>
+    <color name="preto_letras">#292E31</color>
+    <color name="status_sincronizacao_pendente">#FF8800</color>
+    <color name="status_sincronizacao_concluida">#00E843</color>
+    
+    
+    
+</resources>

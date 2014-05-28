@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+
+
+    <RelativeLayout        
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dip"
+        android:background="@color/gray">
+        
+        <TextView
+            android:id="@+id/tvFiltrarPor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:text="Filtar Por:" />
+       
+        <org.holoeverywhere.widget.Spinner
+            android:id="@+id/spFiltroPedidoItem"
+            android:layout_width="125dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="0dp"      
+            android:layout_below="@+id/tvFiltrarPor"      
+            android:entries="@array/spinerFiltroProdutos" />
+        
+          <EditText
+            android:id="@+id/edFiltro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/spItemGrupo"
+            android:layout_alignTop="@+id/spFiltroPedidoItem"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="Código ou Descrição" >
+            
+        </EditText>
+
+        <org.holoeverywhere.widget.Button
+            android:id="@+id/spItemGrupo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/spFiltroPedidoItem"
+            android:layout_toRightOf="@+id/spFiltroPedidoItem"
+            android:text="Selecione o Grupo"
+            android:textSize="@dimen/font_small_size" />
+         
+        <View		    
+	    	android:layout_width="fill_parent"
+		    android:layout_height="2dp"		    		    
+		    android:layout_below="@id/edFiltro"
+		    android:layout_marginTop="10dp"
+		    android:background="@color/cinza_separador" />
+        
+        
+    </RelativeLayout>
+ 
+   <org.holoeverywhere.widget.ListView
+        android:id="@+id/listItem"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        
+        android:dividerHeight="1dp"/>
+  
+</LinearLayout>

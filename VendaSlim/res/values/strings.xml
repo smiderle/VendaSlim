@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">VendaSlim</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="text_view_filtrar_por">Filtrar Por:</string>
+    <string name="text_view_limite_credito">Limite de Crédito</string>
+    <string name="text_view_estoque_negativo">Estoque Negativo</string>
+    <string name="text_view_titulos_vencidos">Titulos Vencidos</string>
+    <string name="text_view_hint_cliente_pesquisa">Código, Nome, CPF...</string>
+    <string name="label_item">Item:</string>
+    <string name="title_activity_splash_view">SplashView</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_login">Login</string>
+    <string name="title_activity_dialog">DialogActivity</string>
+    <string name="title_activity_tipo_carga">TipoCargaActivity</string>
+    <string name="seja_bem_vindo">Seja bem vindo ao VendaSlim. Precisamos realizar uma carga inicial para receber os produtos, clientes, etc. Selecione que tipo de carga vc desejá realizar..</string>
+    <string name="dados_ficticios">Serão gerados dados ficticios para a avaliação do sistema. Caso tenha interesse em adquirir a versçao PRO, entre em contato.</string>
+    <string name="title_activity_versao_demostracao">VersaoDemostracaoActivity</string>
+    <string name="title_activity_sincronizacao_dialog">SincronizacaoDialog</string>
+    <string name="title_activity_sincroniza_view_teste">Carga Inicial</string>
+    <string name="title_activity_sincronizacao_finalizada_view">Sincronizacao Finalizada</string>
+    <string name="title_activity_demonstracao_expirou">Demonstracao Expirou</string>
+    <string name="title_activity_pedido_concluido">PedidoConcluido</string>
+
+</resources>

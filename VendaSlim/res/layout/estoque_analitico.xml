@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="38dp" >
+
+        <TextView
+            android:id="@+id/textView1"
+            style="@style/labelsForms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="18dp"
+            android:text="@string/label_item" />
+
+        <TextView
+            android:id="@+id/tvDescricaoProduto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textView1"
+            android:layout_alignBottom="@+id/textView1"
+            android:layout_marginLeft="17dp"
+            android:layout_toRightOf="@+id/textView1"
+            android:text="Abacate"
+            android:textSize="@dimen/font_size" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:layout_below="@+id/tvDescricaoProduto"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/blue" />
+    </RelativeLayout>
+
+    <org.holoeverywhere.widget.Spinner
+        android:id="@+id/spFiltro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:entries="@array/spinnerFiltroEstoqueAnalitico" />
+
+    
+    <ListView
+        android:id="@+id/lvItemAnalitico"
+        android:layout_width="match_parent"
+        android:layout_height="361dp"
+        android:layout_weight="0.80" >
+    </ListView>
+
+    <org.holoeverywhere.widget.Button
+            android:id="@+id/btnEntradaSaida"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Entrada/Saida Manual" />
+
+</LinearLayout>

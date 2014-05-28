@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical"
+    android:padding="20dp" >
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tvFoneR"
+                style="@style/labelsForms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Telefone Residêncial" />
+
+            <EditText
+                android:id="@+id/edFoneR"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvFoneR"
+                android:layout_toLeftOf="@+id/btnFoneR"
+                android:ems="10"
+                android:inputType="phone" >
+
+            </EditText>
+
+            <EditText
+                android:id="@+id/edEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignRight="@+id/edFoneR"
+                android:layout_below="@+id/tvEmail"
+                android:inputType="textEmailAddress" >
+            </EditText>
+
+            <TextView
+                android:id="@+id/tvEmail"
+                style="@style/labelsForms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/edCelular"
+                android:text="Email: " />
+
+            <EditText
+                android:id="@+id/edCelular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignRight="@+id/edFoneC"
+                android:layout_below="@+id/tcCel"
+                android:ems="10"
+                android:inputType="phone" />
+
+            <TextView
+                android:id="@+id/tcCel"
+                style="@style/labelsForms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/edFoneC"
+                android:text="Celular: " />
+
+            <TextView
+                android:id="@+id/tvFoneC"
+                style="@style/labelsForms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/edFoneR"
+                android:text="Telefone Comercial: " />
+
+            <EditText
+                android:id="@+id/edFoneC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignRight="@+id/edFoneR"
+                android:layout_below="@+id/tvFoneC"
+                android:inputType="phone" />
+
+            <ImageButton
+                android:id="@+id/btnFoneR"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/tvFoneC"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:background="?attr/selectableItemBackground"
+                android:src="@drawable/phone"
+                android:text="Button" />
+
+            <ImageButton
+                android:id="@+id/btnFoneC"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/tcCel"
+                android:layout_alignLeft="@+id/btnFoneR"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@+id/ViewColorPickerHelper"
+                android:background="?attr/selectableItemBackground"
+                android:src="@drawable/phone"
+                android:text="Button" />
+
+            <ImageButton
+                android:id="@+id/btnEmail"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/btnCelular"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@+id/View02"
+                android:background="?attr/selectableItemBackground"
+                android:src="@drawable/mail"
+                android:text="Button" />
+
+            <View
+                android:id="@+id/ViewColorPickerHelper"
+                android:layout_width="10dip"
+                android:layout_height="1dip"
+                android:layout_above="@+id/tvFoneC"
+                android:layout_alignLeft="@+id/btnFoneR"
+                android:layout_alignParentRight="true"                
+                android:background="@color/blue" />
+
+            <View
+                android:id="@+id/View01"
+                android:layout_width="10dip"
+                android:layout_height="1dip"
+                android:layout_alignLeft="@+id/btnFoneC"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"                
+                android:background="@color/blue" />
+
+            <View
+                android:id="@+id/View02"
+                android:layout_width="10dip"
+                android:layout_height="1dip"
+                android:layout_alignBottom="@+id/edCelular"
+                android:layout_alignLeft="@+id/View01"
+                android:layout_alignParentRight="true"
+                android:background="@color/blue" />
+
+            <View
+                android:id="@+id/View03"
+                android:layout_width="10dip"
+                android:layout_height="1dip"
+                android:layout_alignLeft="@+id/View02"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:background="@color/blue" />
+
+            <ImageButton
+                android:id="@+id/btnCelular"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/tvEmail"
+                android:layout_alignLeft="@+id/btnFoneR"
+                android:layout_alignParentRight="true"
+                android:background="?attr/selectableItemBackground"
+                android:src="@drawable/phone"
+                android:text="Button" />
+
+        </RelativeLayout>
+    </ScrollView>
+
+</LinearLayout>

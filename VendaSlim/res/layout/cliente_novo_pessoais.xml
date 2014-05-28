@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" android:focusableInTouchMode="true">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp" >
+
+            <TextView
+                android:id="@+id/tvNome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/labelsForms"                
+                android:text="Nome: " />
+
+            <EditText
+                android:id="@+id/edNome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLength="60"
+                android:ems="10" >
+
+            </EditText>
+
+            <TextView
+                android:id="@+id/tvContato"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/labelsForms"
+                android:text="Contato: " />
+
+            <EditText
+                android:id="@+id/edContato"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLength="40"
+                android:ems="10" />
+
+            <TextView
+                android:id="@+id/tvTipo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/labelsForms"
+                android:text="Tipo: " />
+
+            <org.holoeverywhere.widget.Spinner
+                android:id="@+id/spTipo"
+                android:layout_width="136dp"
+                android:layout_height="wrap_content"
+                android:entries="@array/spinerTipo" />
+
+            <TextView
+                android:id="@+id/tvCpfCnpj"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/labelsForms"                
+                android:text="Cpf: " />
+
+            <EditText
+                android:id="@+id/edCpfCnpj"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:maxLength="15"
+                android:inputType="number" />
+
+            <TextView
+                android:id="@+id/tvRgIe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/labelsForms"
+                android:text="Rg:" />
+
+            <EditText
+                android:id="@+id/edRgIe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:maxLength="15"
+                android:inputType="number" />
+
+            <TextView
+                android:id="@+id/tvDtNascimento"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/labelsForms"
+                android:text="Data de Nascimento: " />
+
+            <EditText
+                android:id="@+id/edDtNascimento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="date" />
+
+            <TextView
+                android:id="@+id/tvObs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/labelsForms"
+                android:text="Observação: " />
+
+            <EditText
+                android:id="@+id/edObservacao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:gravity="top"
+                android:inputType="textMultiLine"
+                android:maxLength="500"
+                android:lines="5" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

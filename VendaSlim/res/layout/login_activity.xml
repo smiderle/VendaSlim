@@ -1,0 +1,157 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+android:id="@+id/ScrollView01"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:fillViewport="true"
+android:scrollbars="none" >
+
+<LinearLayout android:layout_width="match_parent"
+android:layout_height="match_parent">
+
+
+<RelativeLayout 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blue_sky">
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="150dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/white" >
+
+        
+
+    </RelativeLayout>
+
+    
+    
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:contentDescription="@string/title_activity_login"
+        android:layout_marginTop="31dp"        
+        android:src="@drawable/ceu" />
+    
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/imageView1"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="@string/title_activity_login"
+        android:src="@drawable/cloud" />
+    
+    <org.holoeverywhere.widget.Button
+            android:id="@+id/btnNotification"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="-15dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/notification"
+            android:textColor="@color/white"            
+            android:text="Button" />
+
+    <org.holoeverywhere.widget.Button
+        android:id="@+id/btnLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/relativeLayout2"
+        android:layout_alignRight="@+id/relativeLayout2"
+        android:layout_below="@+id/relativeLayout2"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/button_login"
+        android:text="Login"
+        android:textColor="@color/white" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relativeLayout1"
+        android:layout_centerHorizontal="true" >
+
+        <org.holoeverywhere.widget.Spinner
+            android:id="@+id/spEmpresa"
+            style="@style/SpinerLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/textView1"
+            android:entries="@array/spinnerEmpresa" >
+        </org.holoeverywhere.widget.Spinner>
+
+        <org.holoeverywhere.widget.EditText
+            android:id="@+id/edUsuario"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:layout_alignLeft="@+id/spEmpresa"
+            android:layout_alignRight="@+id/spEmpresa"
+            android:layout_below="@+id/spEmpresa"
+            android:background="@drawable/textlines"
+            android:ems="10"
+            android:hint="Usuário"
+            android:textColor="@color/white"
+            android:textSize="@dimen/textview_height" />
+
+        <org.holoeverywhere.widget.EditText
+            android:id="@+id/edSenha"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:layout_alignLeft="@+id/edUsuario"
+            android:layout_alignRight="@+id/edUsuario"
+            android:layout_below="@+id/edUsuario"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/textlines"
+            android:ems="10"
+            android:hint="Senha"
+            android:inputType="textPassword"
+            android:textColor="@color/white"
+            android:textSize="@dimen/textview_height" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/spEmpresa"
+            android:layout_alignParentTop="true"
+            android:text="Empresa:"
+            android:textColor="@color/white"
+            android:textSize="25dp" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tvDtExpiracao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"        
+         android:layout_centerHorizontal="true"
+        android:layout_below="@+id/tvVersao"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/white"
+        android:visibility="invisible"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/tvVersao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnLogin"        
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/white"
+        android:visibility="invisible"
+        android:text="TextView" />
+
+</RelativeLayout>
+
+</LinearLayout>
+</ScrollView>

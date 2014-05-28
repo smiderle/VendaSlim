@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
+    android:background="@color/gray_section">
+
+
+<RelativeLayout 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    
+    
+    
+    <ListView
+        android:id="@+id/lvPedidos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        
+        android:background="@drawable/shape_listview_sincronizacao" >
+
+    </ListView>
+    
+    
+    <org.holoeverywhere.widget.Button
+        android:id="@+id/btnNotification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-15dp"
+        android:background="@drawable/notification"
+        android:text="Button"
+        android:textColor="@color/white" />
+
+    <org.holoeverywhere.widget.Button
+        android:id="@+id/btnSincronizar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/button_login"
+        android:text="  Sincronizar  "
+        android:textColor="@color/white" />
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="5dp"
+    android:background="@drawable/shape_listview_sincronizacao">
+
+    <TextView
+        android:id="@+id/tvIdPedido"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="4dp"
+        android:layout_toRightOf="@+id/textView1"
+        android:text="0"        
+        android:textColor="@color/gray_font"
+        android:textSize="@dimen/font_size" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/statusSincronizado"
+        android:textColor="@color/azul_letras"
+        android:textSize="@dimen/font_size" 
+        android:text="Pedido Nº" />
+
+    <TextView
+        android:id="@+id/tvCliente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_below="@+id/textView1"
+        android:textColor="@color/azul_letras"
+        android:textSize="@dimen/font_size" 
+        android:text="Cliente:" />
+
+    <TextView
+        android:id="@+id/tvClienteEd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvCliente"
+        android:layout_alignBottom="@+id/tvCliente"
+        android:layout_toRightOf="@+id/tvCliente"
+        android:layout_marginLeft="5dp"
+        android:textColor="@color/gray_font"
+        android:textSize="@dimen/font_size" 
+        android:text="Cliente Exemplo" />
+
+    <TextView
+        android:id="@+id/tvPedidoId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/tvHora"
+        android:layout_marginRight="5dp"
+        android:layout_toLeftOf="@+id/tvValorTotalEd"
+        android:textColor="@color/azul_letras"
+        android:textSize="@dimen/font_size" 
+        android:text="R$:" />
+
+    <TextView
+        android:id="@+id/tvValorTotalEd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvPedidoId"
+        android:layout_alignBottom="@+id/tvPedidoId"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="16dp"
+        android:textColor="@color/gray_font"
+        android:textSize="@dimen/font_size" 
+        android:text="54,00" />
+
+    <View
+        android:id="@+id/statusSincronizado"
+        android:layout_width="6dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:background="@color/status_sincronizacao_pendente" />
+
+    <TextView
+        android:id="@+id/tvHora"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvClienteEd"
+        android:layout_toRightOf="@+id/textView3"
+        android:text="14:55"
+        android:textColor="@color/gray_font"
+        android:layout_marginLeft="5dp"
+        android:textSize="@dimen/font_size" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvHora"
+        android:layout_alignBottom="@+id/tvHora"
+        android:layout_alignLeft="@+id/tvCliente"
+        android:textColor="@color/azul_letras"
+        android:textSize="@dimen/font_size" 
+        android:text="Hora:" />
+
+</RelativeLayout>

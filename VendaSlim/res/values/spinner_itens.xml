@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="spinerTipo">
+        <item>Física</item>
+        <item>Jurídica</item>
+    </string-array>
+    
+    <string-array name="spinerFormaPgto">
+        <item>Dinheiro</item>
+        <item>Cheque</item>
+        <item>Cartão</item>
+        <item>Duplicata</item>
+        <item>Boleto</item>
+        <item>Promissória</item>        
+    </string-array>
+    
+    
+     <string-array name="spinerFiltroHistorico">
+        <item>Por Cliente</item>
+        <item>Por Data</item>
+    </string-array>
+    
+     <string-array name="spinerFiltroTitulos">
+         <item>Titulos em aberto</item>
+         <item>Todos os titulos</item>
+     </string-array>
+     
+     <string-array name="spinerFiltroProdutos">
+         <item>Descrição</item>
+         <item>Grupo</item>
+     </string-array>
+     
+     <string-array name="spinerSettingsBloqueio">
+         <item>Somente avisar</item>
+         <item>Bloquear</item>
+         <item>Não fazer nada</item>
+     </string-array>
+     
+     <string-array name="spinerSettingsBloqueioValues">
+         <item>avisar</item>
+         <item>bloquear</item>
+         <item>nada</item>
+     </string-array>
+     
+     
+     <string-array name="spinnerFiltroEstoqueAnalitico">
+         <item>Todos</item>
+         <item>Entrada Manual</item>
+         <item>Saida Manual</item>
+         <item>Venda Efetivada</item>
+         <item>Venda Cancelada</item>
+         
+     </string-array>
+     
+      <string-array name="spinnerEmpresa">
+         <item>Selecione a Empresa</item>
+         <item>Empresa 1</item>
+         <item>Empresa 2</item>
+         <item>Empresa 3</item>
+     </string-array>
+     
+</resources>

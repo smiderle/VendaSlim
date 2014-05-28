@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="br.com.slim.venda"
+    android:versionCode="3"
+    android:versionName="1.0.2" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="19" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <application
+        android:name="org.holoeverywhere.app.Application"
+        android:allowBackup="true"
+        android:icon="@drawable/cloud"
+        android:label="@string/app_name"
+        android:theme="@style/Holo.Theme.Light.DarkActionBar" >
+        <activity
+            android:name="br.com.slim.venda.splash.SplashView"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="br.com.slim.venda.pedido.PedidoView"
+            android:label="Pedidos"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="br.com.slim.venda.pedidoItem.PedidoItemDialogAdd"
+            android:label="Pedidos"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="br.com.slim.venda.clienteNovo.ClienteNovoView"
+            android:label="Clientes"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="br.com.slim.venda.cliente.ClienteView"
+            android:label="Clientes"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="br.com.slim.venda.historico.HistoricoView"
+            android:label="Historico"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="br.com.slim.venda.item.ItemView"
+            android:label="Itens"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="br.com.slim.venda.item.ItemNovoView"
+            android:label="Itens"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <activity
+            android:name="br.com.slim.venda.titulos.TituloView"
+            android:label="Itens"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="br.com.slim.venda.titulos.TituloDetalheView"
+            android:label="Titulos"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="br.com.slim.venda.titulo.TituloQuitarDialog"
+            android:label="Pagar"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="br.com.slim.venda.TesteHolo"
+            android:label="Pagar"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="br.com.slim.venda.config.ConfigView"
+            android:label="Pagar"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="br.com.slim.venda.analitico.EstoqueAnaliticoView"
+            android:label="Analitico"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="br.com.slim.venda.sincroniza.SincronizarView"
+            android:label="Analitico"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="br.com.slim.venda.menu.Menu"
+            android:label="Menu"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="br.com.slim.venda.login.Login"
+            android:label="@string/title_activity_login"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="br.com.slim.venda.cargaInicial.TipoCargaView"
+            android:label="@string/title_activity_tipo_carga"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="br.com.slim.venda.cargaInicial.VersaoDemostracaoView"
+            android:label="@string/title_activity_versao_demostracao"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="br.com.slim.venda.cargaInicial.SincronizacaoDialog"
+            android:label="@string/title_activity_sincronizacao_dialog"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="br.com.slim.venda.cargaInicial.SincronizacaoItensView"
+            android:label="@string/title_activity_sincroniza_view_teste"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="br.com.slim.venda.SincronizacaoFinalizadaView"
+            android:label="@string/title_activity_sincronizacao_finalizada_view"
+            android:screenOrientation="portrait" >
+        </activity>
+
+        <!--
+        <receiver android:name="br.com.slim.venda.geolocalizacao.GeoStartService" >
+            <intent-filter>
+                <action android:name="br.com.slim.venda.START_SERVICE_GEO" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="br.com.slim.venda.geolocalizacao.GeoService"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
+        -->
+
+        <activity
+            android:name="br.com.slim.venda.versao.DemonstracaoExpirouActivity"
+            android:label="@string/title_activity_demonstracao_expirou"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="br.com.slim.venda.PedidoConcluidoView"
+            android:label="@string/title_activity_pedido_concluido" >
+        </activity>
+    </application>
+
+</manifest>

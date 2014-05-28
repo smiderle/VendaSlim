@@ -1,0 +1,71 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="5dip" >
+
+    <TextView
+        android:id="@+id/tvNrParcela"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"         
+        android:textStyle="bold"
+        android:textColor="@color/azul_letras"
+        android:text="1/1" />
+
+    <TextView
+        android:id="@+id/tvValorParcela"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvNrParcela"
+        android:layout_alignBottom="@+id/tvNrParcela"
+        android:layout_marginLeft="30dp"
+        android:layout_toRightOf="@+id/tvNrParcela"
+         android:textColor="@color/azul_letras"
+        android:textStyle="bold"
+        android:text="R$:" />
+
+    <TextView
+        android:id="@+id/tvValorParcelaEd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvValorParcela"
+        android:layout_alignBottom="@+id/tvValorParcela"
+        android:layout_toRightOf="@+id/tvValorParcela"
+        android:textColor="@color/gray_font"
+        android:text="00" />
+
+    <TextView
+        android:id="@+id/tvStatusParcela"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvValorParcelaEd"
+        android:layout_alignBottom="@+id/tvValorParcelaEd"
+        android:layout_marginLeft="22dp"
+        android:layout_toRightOf="@+id/tvValorParcelaEd"
+        android:textColor="@color/gray_font"
+        android:text="Pendente" />
+
+    <TextView
+        android:id="@+id/tvVencimentoEd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvStatusParcela"
+        android:layout_alignBottom="@+id/tvStatusParcela"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/gray_font"
+        android:text="00/00/0000" />
+
+    <TextView
+        android:id="@+id/tvVencimento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvVencimentoEd"
+        android:layout_alignBottom="@+id/tvVencimentoEd"
+        android:layout_toLeftOf="@+id/tvVencimentoEd"
+        android:textColor="@color/azul_letras"
+        android:textStyle="bold"
+        android:text="Vcto:" />
+
+</RelativeLayout>

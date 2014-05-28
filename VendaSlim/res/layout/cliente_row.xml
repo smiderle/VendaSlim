@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="5dip" >
+
+    <TextView
+        android:id="@+id/tvNome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="1" 
+        android:textColor="@color/gray_font"
+        android:text="Ladair Carlos Smiderle Junior" />
+
+    <TextView
+        android:id="@+id/tvCodigo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvNome"
+        android:text="Cód:"        
+        android:textColor="@color/azul_letras"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvCodigoEd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvCodigo"
+        android:layout_alignBottom="@+id/tvCodigo"
+        android:layout_toRightOf="@id/tvCodigo"
+        android:textColor="@color/gray_font"
+        android:text="125468" />
+
+    <TextView
+        android:id="@+id/tvFone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvCodigoEd"        
+        android:layout_toLeftOf="@+id/tvFoneEd"
+        android:layout_marginRight="5dp"
+        android:text="Fone:"
+        android:textColor="@color/azul_letras"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvFoneEd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvFone"
+        android:layout_alignBottom="@+id/tvFone"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/gray_font"
+        android:text="(46) 32246501" />
+    
+    
+    <TextView
+        android:id="@+id/tvEndereco"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvCodigo"
+        android:text="Endereço:"
+        android:textColor="@color/azul_letras"
+        android:textStyle="bold" />
+    
+    <TextView
+        android:id="@+id/tvEnderecoEd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvEndereco"
+        android:layout_alignBottom="@+id/tvEndereco"
+        android:layout_toRightOf="@+id/tvEndereco"
+        android:textColor="@color/gray_font"
+        android:text="Itacolomi 2490" />
+
+</RelativeLayout>

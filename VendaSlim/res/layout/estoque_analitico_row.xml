@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="5dip" >
+
+    <TextView
+        android:id="@+id/tvTipoMov"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="Entrada" />
+
+    <TextView
+        android:id="@+id/tvDtMov"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvDtMovEd"
+        android:layout_alignBottom="@+id/tvDtMovEd"
+        android:layout_alignParentLeft="true"
+        android:text="Data:" />
+
+    <TextView
+        android:id="@+id/tvDtMovEd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvTipoMov"
+        android:layout_toRightOf="@+id/tvDtMov"
+        android:text="01/01/2012" />
+
+    <TextView
+        android:id="@+id/tvQtdMovEd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvDtMovEd"
+        android:layout_alignBottom="@+id/tvDtMovEd"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="14dp"
+        android:text="5" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvQtdMovEd"
+        android:layout_alignBottom="@+id/tvQtdMovEd"
+        android:layout_marginRight="14dp"
+        android:layout_toLeftOf="@+id/tvQtdMovEd"
+        android:text="Qtd:" />
+
+    <TextView
+        android:id="@+id/tvEntradaSaida"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvTipoMov"
+        android:layout_alignBottom="@+id/tvTipoMov"
+        android:layout_alignRight="@+id/tvQtdMovEd"
+        android:text="Entrada" />
+
+</RelativeLayout>

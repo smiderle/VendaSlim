@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" android:focusableInTouchMode="true" >
+<RelativeLayout 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/tvCodigo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="15dp"
+        style="@style/labelsForms"        
+        android:text="Código:"/>
+
+    <EditText
+        android:id="@+id/edCodigo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvCodigo"
+        android:layout_alignRight="@+id/tvDescMax"
+        android:layout_below="@+id/tvCodigo"
+        android:ems="10" />
+
+    <TextView
+        android:id="@+id/tvDescricao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvCodigo"
+        android:layout_below="@+id/edCodigo"
+        android:layout_marginTop="5dp"
+        style="@style/labelsForms"
+        android:text="Descrição:" />
+
+    <EditText
+        android:id="@+id/edDescricao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvCodigo"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/tvDescricao"
+        android:layout_marginRight="25dp"
+        android:ems="10" >
+    </EditText>
+
+    <TextView
+        android:id="@+id/tvGrupo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvCodigo"
+        android:layout_below="@+id/edDescricao"
+        android:layout_marginTop="5dp"
+        style="@style/labelsForms"
+        android:text="Grupo:" />
+
+    <org.holoeverywhere.widget.Spinner
+        android:id="@+id/spGrupo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvGrupo"
+        android:layout_below="@+id/tvGrupo" />
+    
+     <TextView
+        android:id="@+id/tvPreco"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/spGrupo"
+        android:layout_below="@+id/spGrupo"
+        android:layout_marginTop="5dp"
+        style="@style/labelsForms"
+        android:text="Preço de Venda:" />
+     
+
+      <EditText
+          android:id="@+id/edPreco"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignLeft="@+id/tvPreco"
+          android:layout_below="@+id/tvPreco"
+          android:ems="10"
+          android:inputType="number" />
+
+    <EditText
+        android:id="@+id/edDescMax"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvDescMax"
+        android:layout_alignRight="@+id/tvDescMax"
+        android:layout_below="@+id/tvDescMax"
+        android:inputType="number"
+        android:ems="10" />
+
+    <TextView
+        android:id="@+id/tvUnidade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/edDescMax"
+        android:layout_below="@+id/edDescMax"
+        style="@style/labelsForms"
+        android:text="Unidade:" />
+
+    <EditText
+        android:id="@+id/edUnidade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvUnidade"
+        android:layout_alignRight="@+id/edDescMax"
+        android:layout_below="@+id/tvUnidade"
+        android:ems="10"/>
+
+    <org.holoeverywhere.widget.CheckBox
+        android:id="@+id/cbInativo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tvDescricao"
+        android:layout_marginLeft="21dp"
+        android:layout_toRightOf="@+id/edCodigo"        
+        android:text="Inativo" >
+    </org.holoeverywhere.widget.CheckBox>
+
+    <TextView
+        android:id="@+id/tvEstoque"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/tvUnidade"
+        android:layout_below="@+id/edUnidade"
+        style="@style/labelsForms"
+        android:text="Estoque:" />
+
+    <EditText
+        android:id="@+id/edEstoque"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvEstoque"
+        android:layout_alignRight="@+id/edUnidade"
+        android:layout_below="@+id/tvEstoque"
+        android:ems="10"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/edPrecoCompra"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/edPreco"
+        android:layout_below="@+id/tvPrecoCompra"
+        android:ems="10"
+        android:inputType="numberDecimal" >
+    </EditText>
+
+    <TextView
+        android:id="@+id/tvPrecoCompra"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/edPreco"
+        android:layout_below="@+id/edPreco"
+        style="@style/labelsForms"
+        android:text="Preço de Compra:" />
+
+    <TextView
+        android:id="@+id/tvDescMax"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/edPrecoCompra"
+        android:layout_below="@+id/edPrecoCompra"
+        android:layout_marginTop="17dp"
+        style="@style/labelsForms"
+        android:text="Desconto Máximo:" />
+
+    <org.holoeverywhere.widget.Button
+        android:id="@+id/btnMovimentacao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/edEstoque"
+        android:layout_toRightOf="@+id/edEstoque"
+        android:text="Movimentação" />
+
+</RelativeLayout>
+</ScrollView>

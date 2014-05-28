@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="5dip">
+
+    <TextView
+        android:id="@+id/tvCliente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cliente:"        
+        android:textColor="@color/azul_letras"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvIdPedido"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvCliente"
+        android:text="Pedido:"        
+        android:textColor="@color/azul_letras"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/tvIdPedidoEd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvIdPedido"
+        android:layout_alignBottom="@+id/tvIdPedido"
+        android:layout_toRightOf="@+id/tvIdPedido"
+        android:textColor="@color/gray_font"
+        android:text="50" />
+
+    <TextView
+        android:id="@+id/tvClienteNome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tvEndereco"
+        android:layout_toRightOf="@+id/tvCliente"
+        android:maxLines="1"
+        android:textColor="@color/gray_font"
+        android:text=" 1 - Ladair Carlos Smiderle Junior" />
+
+    <TextView
+        android:id="@+id/tvTotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvIdPedidoEd"
+        android:layout_alignBottom="@+id/tvIdPedidoEd"
+        android:layout_marginLeft="14dp"
+        android:layout_toRightOf="@+id/tvIdPedidoEd"
+        android:text="Total: R$: "
+        android:textColor="@color/azul_letras"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/tvTotalEd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvClienteNome"
+        android:layout_toRightOf="@+id/tvTotal"
+        android:textColor="@color/gray_font"
+        android:text="50" />
+
+
+    <TextView
+        android:id="@+id/tvDesconto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvTotalEd"
+        android:layout_alignBottom="@+id/tvTotalEd"
+        android:layout_toLeftOf="@+id/tvDescontoEd"
+        android:text="Desconto R$:"
+        android:textColor="@color/azul_letras"
+        android:textStyle="bold" />
+
+
+    <TextView
+        android:id="@+id/tvDescontoEd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvDesconto"
+        android:layout_alignBottom="@+id/tvDesconto"
+         android:layout_alignParentRight="true"
+         android:textColor="@color/gray_font"
+        android:text="0.00" />
+
+
+    <TextView
+        android:id="@+id/tvDtEmissao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvIdPedido"
+        android:layout_below="@+id/tvIdPedido"
+        android:text="Emissão: "
+        android:textColor="@color/azul_letras"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvDtEmissaoEd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvDtEmissao"
+        android:layout_alignBottom="@+id/tvDtEmissao"
+        android:layout_toRightOf="@+id/tvDtEmissao"
+        android:textColor="@color/gray_font"
+        android:text="09/05/2013" />
+
+</RelativeLayout>

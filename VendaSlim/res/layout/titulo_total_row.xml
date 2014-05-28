@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="5dip">
+
+    <TextView
+        android:id="@+id/tvClienteNome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="Nome" 
+        android:textColor="@color/gray_font"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/tvTotalTitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvClienteNome"
+        android:layout_below="@+id/tvClienteNome"
+        android:textColor="@color/azul_letras"
+        android:textStyle="bold"
+        android:text="Valor Total Titulos R$: " />
+
+    <TextView
+        android:id="@+id/tvValorTotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvTotalTitulo"
+        android:layout_alignBottom="@+id/tvTotalTitulo"
+        android:layout_marginLeft="16dp"
+        android:layout_toRightOf="@+id/tvTotalTitulo"
+        android:textColor="@color/gray_font"
+        android:text="50.00" />
+
+    <TextView
+        android:id="@+id/tvDetalhes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="Detalhar" />
+    
+    <ImageView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/next"
+         android:layout_below="@+id/tvDetalhes"
+         android:layout_marginRight="15dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"/>
+    
+</RelativeLayout>

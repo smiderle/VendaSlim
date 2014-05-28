@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:padding="20dip" android:focusableInTouchMode="true">
+
+    <TextView
+        android:id="@+id/tvIdPedido"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pedido:"
+        android:textColor="@color/azul_letras"
+        android:textSize="@dimen/font_titulos" />
+
+    <EditText
+        android:id="@+id/edIdPedido"
+        android:layout_width="64dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="none">       
+    </EditText>
+  
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cliente"
+        android:textColor="@color/azul_letras"
+        android:textSize="@dimen/font_titulos" />
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <EditText
+                android:id="@+id/edClienteNome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.58"
+                android:ems="10" />
+
+            <ImageButton
+                android:id="@+id/btnFindCliente"
+                android:layout_width="wrap_content"
+                android:layout_height="34dp"
+                android:layout_weight="1.01"
+                android:background="@drawable/button_login"
+                android:src="@drawable/search" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txtTabPreco"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tabela de Preço"
+        android:textColor="@color/azul_letras"
+        android:textSize="@dimen/font_titulos" />
+
+    <org.holoeverywhere.widget.Spinner
+        android:id="@+id/spTabPreco"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/tvDtEmissao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Data de Emissão:"
+        android:textColor="@color/azul_letras"
+        android:textSize="@dimen/font_titulos" />
+
+    <EditText
+        android:id="@+id/edDtEmissao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:enabled="false"
+        android:inputType="date" />
+
+    <TextView
+        android:id="@+id/txtObservacoes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Observações"
+        android:textColor="@color/azul_letras"
+        android:textSize="@dimen/font_titulos" />
+
+    <EditText
+        android:id="@+id/edObservacao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="20"
+        android:inputType="textMultiLine" 
+        android:gravity="top"
+        android:lines="5"/>
+    
+      <EditText
+        android:id="@+id/edIdCliente"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="20"
+        android:inputType="textMultiLine" 
+        android:gravity="top"
+        android:lines="5"/>
+           
+    
+    
+</LinearLayout>

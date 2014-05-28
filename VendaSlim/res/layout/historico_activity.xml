@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" android:focusableInTouchMode="true">
+    
+      <RelativeLayout
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          android:padding="5dip" >
+
+          <EditText
+              android:id="@+id/edFiltro"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_alignParentLeft="true"
+              android:layout_alignParentRight="true"
+              android:ems="10"
+              android:hint="Cliente, Pedido ..." >
+
+          </EditText>
+
+          <EditText
+              android:id="@+id/edDtInicio"
+              android:layout_width="125dp"
+              android:layout_height="wrap_content"
+              android:layout_alignBaseline="@+id/edFiltro"
+              android:layout_alignBottom="@+id/edFiltro"
+              android:layout_alignParentLeft="true"
+              android:ems="10"
+              android:focusable="false"
+              android:hint="Inicio"
+              android:inputType="date" />
+
+          <EditText
+              android:id="@+id/edDtFim"
+              android:layout_width="125dp"
+              android:layout_height="wrap_content"
+              android:layout_alignBaseline="@+id/edFiltro"
+              android:layout_alignBottom="@+id/edFiltro"
+              android:layout_marginLeft="21dp"
+              android:layout_toRightOf="@+id/edDtInicio"
+              android:ems="10"
+              android:focusable="false"
+              android:hint="Fim"
+              android:inputType="date" >
+
+              <requestFocus />
+          </EditText>
+
+          
+           <View		    
+	    	android:layout_width="fill_parent"
+		    android:layout_height="2dp"		    		    
+		    android:layout_below="@id/edFiltro"
+		    android:layout_marginTop="10dp"
+		    android:background="@color/blue" />
+          
+      </RelativeLayout>
+ 
+    <ListView
+        android:id="@+id/listHistoricoPedidos"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"        
+        android:dividerHeight="1dp"
+        android:listSelector="@drawable/list_selector" />
+  
+</LinearLayout>

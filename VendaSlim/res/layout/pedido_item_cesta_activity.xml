@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@color/gray_background" >
+    
+    
+    <org.holoeverywhere.widget.ListView
+        android:id="@+id/listItemCesta"
+        android:layout_width="fill_parent"
+        android:layout_height="400dp"
+        android:layout_weight="0.74"
+        android:divider="#b5b5b5"
+        android:dividerHeight="1dp" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:layout_weight="0.91" 
+        android:background="@color/gray">
+
+        <TextView
+            android:id="@+id/tvTotalDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Descontos R$: " />
+
+        <TextView
+            android:id="@+id/tvTotalPedido"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:text="Total Pedido R$: " />
+
+        <TextView
+            android:id="@+id/tvDescontoTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/tvTotalDesc"
+            android:text="0.0"
+            android:textColor="@color/red"
+            android:textSize="21dp" />
+
+        <TextView
+            android:id="@+id/tvValorTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tvDescontoTotal"
+            android:layout_alignBottom="@+id/tvDescontoTotal"
+            android:layout_alignParentRight="true"
+            android:text="0.0"
+            android:textColor="@color/green"
+            android:textSize="21dp" />
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="5dip" android:background="#fff">
+
+    <!-- ListRow Left sied Thumbnail image -->
+
+    <TextView
+        android:id="@+id/tvDescricao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/thumbnail"
+        android:layout_alignTop="@+id/thumbnail"
+        android:textColor="@color/gray_font"
+        android:maxLines="1"
+        android:text="Tijolo" />
+
+    <TextView
+        android:id="@+id/tvCodigo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/thumbnail"
+        android:layout_below="@+id/tvDescricao"
+        android:text="Cód:"        
+        android:textColor="@color/azul_letras"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvCodigoEd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvCodigo"
+        android:layout_alignBottom="@+id/tvCodigo"
+        android:layout_toRightOf="@id/tvCodigo" 
+        android:textColor="@color/gray_font"       
+        android:text="125468" />
+    
+    
+    
+    
+    
+    <TextView
+        android:id="@+id/tvDescontoEd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvQtdEd"
+        android:layout_alignBottom="@+id/tvQtdEd"
+        android:layout_alignParentRight="true"    
+        android:textColor="@color/gray_font"    
+        android:text="00%" />
+
+    <TextView
+        android:id="@+id/tvDesconto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvDescontoEd"
+        android:layout_alignBottom="@+id/tvDescontoEd"
+        android:layout_toLeftOf="@+id/tvDescontoEd"
+        android:text="  Desc: "
+        android:textColor="@color/azul_letras"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvPrecoVenda"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvPrecoVendaEd"
+        android:layout_alignBottom="@+id/tvPrecoVendaEd"
+        android:layout_toLeftOf="@+id/tvPrecoVendaEd"
+        android:text="R$: "
+        android:textColor="@color/azul_letras"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvQtdEd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvQtd"
+        android:layout_alignBottom="@+id/tvQtd"
+        android:layout_toRightOf="@+id/tvQtd"        
+        android:textColor="@color/gray_font"
+        android:text="1.0" />
+
+    <TextView
+        android:id="@+id/tvQtd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvCodigoEd"
+        android:layout_alignBottom="@+id/tvCodigoEd"
+        android:layout_marginLeft="14dp"
+        android:layout_toRightOf="@+id/tvCodigoEd"
+        android:text="Qtd: "
+        android:textColor="@color/azul_letras"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvPrecoVendaEd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvDesconto"
+        android:layout_alignBottom="@+id/tvDesconto"
+        android:layout_marginRight="16dp"
+        android:layout_toLeftOf="@+id/tvDesconto" 
+        android:textColor="@color/gray_font"       
+        android:text="25,10" />
+
+</RelativeLayout>
