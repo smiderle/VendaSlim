@@ -1,0 +1,159 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="/restrito/principal.xhtml">
+	
+	<f:metadata>	
+    	<f:viewParam name="idProduto" value="#{cadastroProdutoBean.produto.idProduto}" />
+    	<f:viewParam name="edicao" value="#{cadastroProdutoBean.edicao}" />
+    	<f:event type="postAddToView" listener="#{cadastroProdutoBean.initForm}"/>   	
+	</f:metadata>
+	
+	
+	<ui:define name="title">Cadastro de Produtos</ui:define>
+	<ui:param name="heightRodape" value="30" />
+
+	<ui:define name="centerContent">
+		<h:form prependId="false" id="form">		
+			<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>              
+					<p:dialog modal="true" widgetVar="statusDialog" header="Carregando..."   
+		        		draggable="false" closable="false">  
+		    			<p:graphicImage library="img" name="ajaxloadingbar.gif"/>  
+					</p:dialog>  
+		
+			<p:panel id="acoes">
+			<p:commandButton value="Voltar" id="btnVoltar" immediate="true"
+					action="#{cadastroProdutoBean.voltar}" />
+			
+				<p:commandButton value="Salvar" id="btnSalvar" styleClass="button-verde"
+					action="#{cadastroProdutoBean.salvar}"
+					icon="ui-icon-check" />					
+									
+			</p:panel>
+			<p:messages id="messages" autoUpdate="true" showDetail="true" />
+
+			<p:panel id="panel" header="#{cadastroProdutoBean.edicao ? 'Editar' : 'Cadastrar'} Produtos"
+				style="margin-bottom: 10px;">
+				<h:panelGrid columns="3">
+					<h:outputLabel for="codigo" value="Código:" />
+					<h:panelGroup>
+						<p:inputText id="codigo" value="#{cadastroProdutoBean.produto.idProduto}"
+							maxlength="8" size="8" disabled="#{not cadastroProdutoBean.informarCodigo}"/>
+							<h:outputLabel  value="&nbsp;" />							
+							<p:selectBooleanCheckbox id="abilitaCodigo" value="#{cadastroProdutoBean.informarCodigo}"  rendered="#{not cadastroProdutoBean.edicao}">
+								<p:ajax update="codigo"/>
+							</p:selectBooleanCheckbox>
+							<h:outputLabel for="abilitaCodigo" value="&nbsp;Informar código manualmente"  rendered="#{not cadastroProdutoBean.edicao}" />
+						</h:panelGroup>
+					<p:message for="codigo" />
+
+					<h:outputLabel for="descricao" value="Descrição:" />
+					<p:inputText id="descricao" value="#{cadastroProdutoBean.produto.descricao}"
+						 label="Descrição" required="true" requiredMessage="A Descrição é Obrigatório" size="80"/>
+					<p:message for="descricao" />
+					
+					<h:outputLabel for="referencia" value="Referência:" />
+					<p:inputText id="referencia" 
+						value="#{cadastroProdutoBean.produto.referencia}"
+						 label="Referência" size="80"/>
+					<p:message for="referencia" />
+					
+					<h:outputLabel for="idGrupo" value="Grupo:" />
+					<h:panelGroup>
+						<p:inputText id="idGrupo"
+							value="#{cadastroProdutoBean.produto.grupoProduto.idGrupo}" size="6" disabled="true">
+							<p:ajax event="blur"
+								listener="#{cadastroProdutoBean.buscaGrupoProdutoPorId()}"
+								update="idGrupo grupoDescricao" />
+						</p:inputText>
+						<p:watermark for="idGrupo" value="Código" />
+						<p:inputText id="grupoDescricao" disabled="true"
+							value="#{cadastroProdutoBean.produto.grupoProduto.descricao}" size="25" />
+						<p:watermark for="grupoDescricao" value="Descrição Grupo" />
+						<p:commandButton id="btnPesquisaGrupo" icon="ui-icon-search"
+							type="button" />
+					</h:panelGroup>
+					<p:message for="idGrupo" />
+					
+					<h:outputLabel for="unidade" value="Unidade:" />
+					<p:inputText id="unidade" value="#{cadastroProdutoBean.produto.unidade}"
+						 label="Unidade" />
+					<p:message for="unidade" />
+					
+					<h:outputLabel for="codbar" value="Código de Barras:" />
+					<p:inputText id="codbar" value="#{cadastroProdutoBean.produto.codbar}"
+						 label="Código de Barras" />
+					<p:message for="codbar" />
+
+					<h:outputLabel for="descMax" value="Desconto Máximo" />
+					<p:inputText id="descMax" value="#{cadastroProdutoBean.produto.descMax}"
+						label="Desconto Máximo" >
+						<f:convertNumber pattern="#0.00"></f:convertNumber>
+						</p:inputText>
+					<p:message for="descMax" />
+					
+					<h:outputLabel for="estoque" value="Estoque" />
+					<p:inputText id="estoque" value="#{cadastroProdutoBean.produto.quantidade}"
+						label="Estoque">
+							<f:convertNumber pattern="#0.00"></f:convertNumber>	
+					</p:inputText>											
+					<p:message for="estoque" />
+					
+					
+					<h:outputLabel for="precovenda" value="Preço de Venda" />
+					<p:inputText id="precovenda" 
+						value="#{cadastroProdutoBean.produto.precoVenda}"
+						label="Preço de Venda">
+							<f:convertNumber pattern="#0.00"></f:convertNumber>	
+						</p:inputText>						
+					<p:message for="precovenda" />
+					
+					<h:outputLabel for="precopromocao" value="Preço de Promoção" />
+					<p:inputText id="precopromocao" 
+						value="#{cadastroProdutoBean.produto.precoPromocao}"
+						label="Preço de Promoção" >
+							<f:convertNumber pattern="#0.00"></f:convertNumber>	
+					</p:inputText>						
+					<p:message for="precopromocao" />
+				</h:panelGrid>
+				
+				
+				<p:overlayPanel id="grupoProdutoPanel" for="btnPesquisaGrupo"
+							hideEffect="fade" dynamic="true" style="width:50%; height:50%;"
+							widgetVar="grupoProdutoWVar">
+
+							<p:inputText value="#{cadastroProdutoBean.filtroGrupoProduto}" size="40">
+								<p:ajax event="keyup"
+									listener="#{cadastroProdutoBean.handleFiltroGrupoChange()}"
+									update="produtoGrupoTable" />
+							</p:inputText>
+							<p:dataTable id="produtoGrupoTable" var="grupoProduto"								
+								value="#{cadastroProdutoBean.grupoProdutoDatamodel}"
+								selection="#{cadastroProdutoBean.produto.grupoProduto}" rows="20"
+								selectionMode="single" emptyMessage="Nenhum grupo encontrada">
+
+								<p:ajax event="rowSelect" 
+									update=":form:idGrupo :form:grupoDescricao"
+									oncomplete="grupoProdutoWVar.hide();" />
+
+								<p:column headerText="Código">
+									<h:outputText value="#{grupoProduto.idGrupo}" />
+								</p:column>
+
+								<p:column headerText="Nome">
+									<h:outputText value="#{grupoProduto.descricao}" />
+								</p:column>								
+							</p:dataTable>
+						</p:overlayPanel>
+						
+				
+				
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

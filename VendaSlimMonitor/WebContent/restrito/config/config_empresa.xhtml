@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    
+
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="/restrito/principal.xhtml">
+
+
+	<ui:define name="title">Configurações Gerais</ui:define>
+	<ui:param name="heightRodape" value="30" />
+
+	<ui:define name="centerContent">
+       
+		<h:form prependId="false" id="form">
+			<p:panel id="acoes">							
+				<p:commandButton value="Salvar" 
+					id="btnSalvar"
+					disabled="true"
+					styleClass="button-verde"/>
+			</p:panel>
+			<p:messages id="messages" autoUpdate="true" showDetail="true" />
+
+			<p:panel id="panel" header="Filial"
+				style="margin-bottom: 10px;">
+				<h:panelGrid columns="2">
+					<p:outputLabel value="Razão Social:"/>
+					<p:inputText value="#{cadastroFilialBean.filial.razaoSocial}" size="100"/>
+					
+					<p:outputLabel value="Nome Fantasia:" size="100"/>
+					<p:inputText value="#{cadastroFilialBean.filial.nomeFantasia}"/>
+					
+					<p:outputLabel value="Rua:" size="100"/>
+					<p:inputText value="#{cadastroFilialBean.filial.rua}"/>
+					
+					<p:outputLabel value="Bairro:" size="100"/>
+					<p:inputText value="#{cadastroFilialBean.filial.bairro}"/>
+					
+					<p:outputLabel value="Cep:" size="100"/>
+					<p:inputText value="#{cadastroFilialBean.filial.cep}"/>
+					
+					<p:outputLabel value="Numero:" size="100"/>
+					<p:inputText value="#{cadastroFilialBean.filial.numero}"/>
+										
+					<p:outputLabel value="Fone:"/>					
+					<p:inputText value="#{cadastroFilialBean.filial.fone}" />
+					
+					<p:outputLabel value="Fax:"/>
+					<p:inputText value="#{cadastroFilialBean.filial.fax}" />
+					
+					<p:outputLabel value="WebSite:"/>
+					<p:inputText value="#{cadastroFilialBean.filial.website}" />
+
+					<p:outputLabel value="Email Pedidos:"/>
+					<p:inputText value="#{cadastroFilialBean.filial.filialMobileConfig.emailPedidos}" size="30"/>
+
+					<p:outputLabel value="Exibir Estoque do Produto"/>
+					<p:selectBooleanCheckbox value="#{cadastroFilialBean.filial.filialMobileConfig.exibeEstoque}"/>
+
+					<p:outputLabel value="Estoque Negativo"/>
+					<p:selectBooleanCheckbox value="#{cadastroFilialBean.filial.filialMobileConfig.permiteVendaEstoqueNegativo}"/>
+					
+					<p:outputLabel value="Cadastrar Cliente"/>
+					<p:selectBooleanCheckbox value="#{cadastroFilialBean.filial.filialMobileConfig.permiteCadastrarCliente}"/>
+					
+					<p:outputLabel value="Enviar Email Cliente"/>
+					<p:selectBooleanCheckbox value="#{cadastroFilialBean.filial.filialMobileConfig.enviarEmailCliente}"/>
+					
+					<p:outputLabel value="Enviar Email"/>
+					<p:selectBooleanCheckbox value="#{cadastroFilialBean.filial.filialMobileConfig.enviarEmailAdmin}"/>
+										
+					<p:outputLabel value="Carencia Venciemento"/>
+					<p:inputText value="#{cadastroFilialBean.filial.filialMobileConfig.diasVenciemento}"/>
+					
+					<p:outputLabel value="Limite de Crédito."/>
+					<p:selectOneMenu value="#{cadastroFilialBean.filial.filialMobileConfig.acaoLimiteCredito}">
+						<f:selectItem itemLabel="Selecione a Ação" itemValue=""></f:selectItem>
+						<f:selectItem itemLabel="Somente Avisar" itemValue="1"></f:selectItem>
+						<f:selectItem itemLabel="Bloquear Venda" itemValue="2"></f:selectItem>
+						<f:selectItem itemLabel="Nenhuma Ação" itemValue="3"></f:selectItem>
+					</p:selectOneMenu>
+					
+					
+					<p:outputLabel value="Titulos Vencidos."/>
+					<p:selectOneMenu value="#{cadastroFilialBean.filial.filialMobileConfig.acaoTituloVencido}">						
+						<f:selectItem itemLabel="Selecione a Ação" itemValue=""></f:selectItem>
+						<f:selectItem itemLabel="Somente Avisar" itemValue="1"></f:selectItem>
+						<f:selectItem itemLabel="Bloquear Venda" itemValue="2"></f:selectItem>
+						<f:selectItem itemLabel="Nenhuma Ação" itemValue="3"></f:selectItem>
+					</p:selectOneMenu>
+					
+				</h:panelGrid>
+					
+			</p:panel>			
+		</h:form>
+	</ui:define>
+</ui:composition>

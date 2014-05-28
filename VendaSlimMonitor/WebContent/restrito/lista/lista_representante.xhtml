@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="/restrito/principal.xhtml">
+
+	<ui:define name="title">Representantes</ui:define>
+	<ui:param name="heightRodape" value="30" />
+
+	<ui:define name="centerContent">
+		<h:form prependId="false" id="form">
+			<p:panel id="acoes">
+				<p:commandButton value="Novo" id="btnNovo"
+					action="#{repreBean.novo}" title="Novo Representante"
+					styleClass="button-azul"
+					 icon="ui-icon-plus"/>				
+			</p:panel>
+			<p:messages id="messages" autoUpdate="true" showDetail="true" />
+
+			<p:dataTable id="dtRepresentantes" value="#{repreBean.listaRepresentantes()}"
+				var="represent" scrollable="true" scrollHeight="750">
+				
+				<f:facet name="header">
+                    	Representantes  
+        		</f:facet>  	
+					
+					<p:column headerText="">
+					<p:button id="viewButton2" icon="ui-icon-pencil" outcome="/restrito/cadastro/cadastro_representante" title="Editar">            	
+						<f:param name="idRepresentante" value="#{represent.idRepresentante}"/>
+						<f:param name="edicao" value="true" />
+					</p:button>
+					
+					<p:commandButton icon="ui-icon-close" action="#{repreBean.excluir()}" update="dtRepresentantes">						
+						<f:setPropertyActionListener target="#{repreBean.representante}" value="#{represent}" />
+					</p:commandButton>					
+				</p:column>
+				
+				<p:column sortBy="#{represent.idRepresentante}" headerText="Código">
+					<h:outputText value="#{represent.idRepresentante}" />
+				</p:column>
+
+				<p:column sortBy="#{represent.nome}" headerText="Nome">
+					<h:outputText value="#{represent.nome}" />
+				</p:column>
+
+
+				<p:column sortBy="#{represent.login}" headerText="Login">
+					<h:outputText value="#{represent.login}" />
+				</p:column>
+				
+				
+				<p:column sortBy="#{represent.senha}" headerText="Senha">
+					<h:outputText value="#{represent.senha}" />
+				</p:column>
+				
+				
+				<p:column sortBy="#{represent.foneComercial}" headerText="Fone Comercial">
+					<h:outputText value="#{represent.foneComercial}" />
+				</p:column>
+				
+				<p:column sortBy="#{represent.celular}" headerText="Fone Comercial">
+					<h:outputText value="#{represent.celular}" />
+				</p:column>
+				
+				<p:column sortBy="#{represent.inativo}" headerText="Inativo">
+					<h:outputLabel rendered="#{represent.inativo}" value="Sim"/>
+					<h:outputLabel rendered="#{not represent.inativo}" value="Não"/>					
+				</p:column>
+			</p:dataTable>			
+		</h:form>
+	</ui:define>
+</ui:composition>

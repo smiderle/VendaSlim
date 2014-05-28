@@ -1,0 +1,74 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+	<h:outputStylesheet library="css" name="bootstrap-responsive.min.css" />
+	<h:outputStylesheet library="css" name="default.css" />
+	<h:outputStylesheet library="css" name="login.css" />
+	
+</h:head>
+<h:body>
+
+	<div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">VendaSlim</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li class="dropdown-header">Nav header</li>
+                <li><a href="#">Separated link</a></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul>
+            </li>
+          </ul>          
+        </div><!--/.navbar-collapse -->
+      </div>
+    </div>
+
+	<h:panelGroup rendered="#{!empty param.login_error}">
+		<span style="font-color:red">Erro ao efetuar login</span><br/>
+		Motivo: #{SPRING_SECURITY_LAST_EXCEPTION.message}
+	</h:panelGroup>
+
+	<div class="container">
+		<form class="form-signin" id="login" method="post" action="#{request.contextPath}/j_spring_security_check" >
+			<h2 class="form-signin-heading">Efetue o login.</h2>
+			<input type="text" class="input-block-level" placeholder="Usuário" name="j_username"/><input
+				type="password" class="input-block-level" placeholder="Senha" name="j_password"/><label
+				class="checkbox"> <input type="checkbox" value="remember-me" name="_spring_security_remember_me"/>
+				Lembrar Senha
+			</label>
+			<button class="btn btn-large btn-primary" type="submit">Entrar</button>
+			 <script>
+            	document.getElementById("login").j_username.value = "#{SPRING_SECURITY_LAST_USERNAME}";
+            </script>
+		</form>
+	</div>
+ <div id="footer">
+      <div class="container">
+        <p class="muted credit">Todos os direitos reservados copyright 2013.</p>
+      </div>
+    </div>
+    <h:outputScript library="js" name="jquery.js" />
+    <h:outputScript library="js" name="bootstrap.min.js" />
+</h:body>
+</html>

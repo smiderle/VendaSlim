@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="/restrito/principal.xhtml">
+	<ui:define name="title">Vendas Slim Força de Vendas</ui:define>
+	<ui:param name="heightRodape" value="30" />
+		
+
+	<ui:define name="centerContent">
+		<p:dialog id="dialog" 
+			header="Selecione a Empresa" 
+			widgetVar="dlg" 
+			dynamic="true" 
+			closable="false"  
+			visible="true"			 
+			rendered="#{contextoBean.selecionarFiliais()}"
+			draggable="false"
+			modal="true"
+			appendToBody="true">  
+			<h:form>
+ 				<h:outputText value="Selecione a empresa que deseja logar." />
+  				<p:selectOneRadio id="options" 
+	  				layout="pageDirection"
+	  				value="#{contextoBean.filial}"
+	  				converter="filialConverter">  
+	  					<f:selectItems value="#{contextoBean.filiais}" 
+		  					var="filial"		  					
+		  					itemLabel="#{filial.idFilial} - #{filial.nomeFantasia}" 
+		  					itemValue="#{filial}"/>
+		  					<p:ajax/>
+					<!-- p:ajax  oncomplete="dlg.hide();"/-->							  						  				
+      			</p:selectOneRadio>     
+      			<p:commandButton  action="/restrito/principal?faces-redirect=true" value="Aplicar"/>
+      			</h:form>
+		</p:dialog>
+	</ui:define>
+</ui:composition>

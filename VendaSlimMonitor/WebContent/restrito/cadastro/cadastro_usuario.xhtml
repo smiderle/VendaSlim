@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="/restrito/principal.xhtml">
+	<ui:define name="title">Vendas Slim Força de Vendas</ui:define>
+	<ui:param name="heightRodape" value="30" />
+
+	<ui:define name="centerContent">
+		<h:form prependId="false" id="form">
+			<p:panel id="acoes">
+				<p:commandButton id="btnVoltar" 
+					value="Cancelar"  
+					action="#{cadastroUsuarioBean.voltar()}" 
+					immediate="true" 
+					styleClass="button-laranja"/>
+				<p:commandButton value="Salvar" id="btnSalvar"
+					styleClass="button-verde"
+					icon="ui-icon-check"
+					action="#{cadastroUsuarioBean.save}" update="panel" />
+			</p:panel>
+			<p:messages id="messages" autoUpdate="true" showDetail="true" />
+
+			<p:panel id="panel" header="Novo Usuário"
+				style="margin-bottom: 10px;">
+				<h:panelGrid columns="3">
+					<h:outputLabel for="codigo" value="Código:" styleClass="labelForm"/>
+					<p:inputText id="codigo" value="#{cadastroUsuarioBean.usuario.idUsuario}"
+						maxlength="8" size="8" disabled="true"/>
+					<p:message for="codigo"/>
+
+					<h:outputLabel for="filial" value="Empresa" styleClass="labelForm"/>					
+					<p:selectOneMenu id="filial" value="#{cadastroUsuarioBean.usuario.filial}" required="true" 
+						converter="filialConverter" >
+						<f:selectItems value="#{cadastroUsuarioBean.listaFilial()}" var="fl" 
+							itemLabel="#{fl.nomeFantasia}" itemValue="#{fl}" />
+						<!-- p:ajax update="selectRepresentantes" 
+							listener="#{cadastroUsuarioBean.handleRepresentChange(cadastroUsuarioBean.usuario.filial)}"/-->
+					</p:selectOneMenu>
+					<p:message for="filial" />
+					
+					<h:outputLabel for="login" value="Login:" styleClass="labelForm"/>
+					<p:inputText id="login" value="#{cadastroUsuarioBean.usuario.login}"
+						label="Login" >
+							<p:ajax event="blur"  update="outLogin msgLogin" listener="#{cadastroUsuarioBean.loginDisponivel}"/>
+						</p:inputText>						
+					<h:panelGroup>
+						<h:outputText id="outLogin" value="#{cadastroUsuarioBean.msgLogin}" />
+						<p:message id="msgLogin" for="login"  />
+					</h:panelGroup>
+					
+
+					<h:outputLabel for="senha" value="Senha:" styleClass="labelForm"/>
+					<p:inputText id="senha" value="#{cadastroUsuarioBean.usuario.senha}"
+						required="true" label="Senha" />
+					<p:message for="senha"  />
+
+					<h:outputLabel for="confirmaSenha" value="Repita Senha:" styleClass="labelForm"/>
+					<p:inputText id="confirmaSenha"
+						value="#{cadastroUsuarioBean.confirmaSenha}" required="true" label="Senha" />
+					<p:message for="confirmaSenha" />
+
+					<h:outputLabel for="nome" value="Nome:" styleClass="labelForm"/>
+					<p:inputText id="nome" value="#{cadastroUsuarioBean.usuario.nome}"
+						required="true" maxlength="50" label="Nome"/>
+					<p:message for="nome" />
+
+
+					<h:outputLabel for="email" value="Email:" styleClass="labelForm"/>
+					<p:inputText id="email" value="#{cadastroUsuarioBean.usuario.email}"
+						required="false" label="Email" />
+					<p:message for="email" />
+
+					<h:outputLabel for="fone" value="Fone:" styleClass="labelForm"/>
+					<p:inputText id="fone" value="#{cadastroUsuarioBean.usuario.fone}" label="Telefone" />
+					<p:message for="fone" />
+					
+					<h:outputText value="Ativo" styleClass="labelForm"/>
+					<p:selectBooleanCheckbox value="#{cadastroUsuarioBean.usuario.ativo}"/>
+					<h:outputText/>
+					
+					<!-- h:outputText value="Vincular ao representante:" />
+					<p:selectOneMenu id="selectRepresentantes" value="#{cadastroUsuarioBean.usuario.representante}" 
+						converter="representanteConverter">
+						<f:selectItems value="#{cadastroUsuarioBean.lsRepresentantes}" var="representante" 
+							itemValue="#{representante}" itemLabel="#{representante.nome}"/>
+					</p:selectOneMenu-->
+				</h:panelGrid>
+
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC 
+    "-//Hibernate/Hibernate Configuration DTD//EN"
+    "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+		<property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+        <!-- property name="connection.driver_class">org.postgresql.Driver</property>
+        <property name="connection.url">jdbc:postgresql://localhost/VENDASLIMDB</property>
+        <property name="connection.username">root</property>
+        <property name="connection.password">root</property-->
+        <property name="connection.datasource">java:/comp/env/jdbc/VendaSlimDB</property>		
+		<property name="show_sql">false</property>
+		<property name="format_sql">false</property>
+		<property name="current_session_context_class">thread</property>
+		<!-- property name="hibernate.hbm2ddl.auto">create</property-->
+		
+		<mapping class="br.com.vendaslim.domain.cadastro.Cidade"/>
+		<mapping class="br.com.vendaslim.domain.cadastro.Empresa"/>		
+		<mapping class="br.com.vendaslim.domain.cadastro.Estado"/>
+		<mapping class="br.com.vendaslim.domain.cadastro.Filial"/>
+		<mapping class="br.com.vendaslim.domain.cadastro.FilialMobileConfig"/>		
+		<mapping class="br.com.vendaslim.domain.cadastro.Mensagem"/>				
+		<mapping class="br.com.vendaslim.domain.cadastro.Menu"/>
+		<mapping class="br.com.vendaslim.domain.cadastro.Usuario"/>
+		<mapping class="br.com.vendaslim.domain.cadastro.UsuarioAcesso"/>
+		<mapping class="br.com.vendaslim.domain.cliente.Cliente"/>
+		<mapping class="br.com.vendaslim.domain.produto.GrupoProduto"/>
+		<mapping class="br.com.vendaslim.domain.produto.Produto"/>				
+		<mapping class="br.com.vendaslim.domain.representante.GrupoRepresentante"/>
+		<mapping class="br.com.vendaslim.domain.representante.GrupoRepresentanteTabPreco"/>
+		<mapping class="br.com.vendaslim.domain.representante.GrupoRepresentanteParcelamento"/>			
+		<mapping class="br.com.vendaslim.domain.representante.Representante"/>
+		<mapping class="br.com.vendaslim.domain.representante.RepresentanteRota"/>		
+		<mapping class="br.com.vendaslim.domain.representante.RepresentanteFilial"/>
+		<mapping class="br.com.vendaslim.domain.representante.RepresentanteTabPreco"/>
+		<mapping class="br.com.vendaslim.domain.representante.RepresentanteParcelamento"/>
+		<mapping class="br.com.vendaslim.domain.pedido.Parcelamento"/>		
+		<mapping class="br.com.vendaslim.domain.pedido.TabelaPreco"/>
+		<mapping class="br.com.vendaslim.domain.pedido.Pedido"/>
+		<mapping class="br.com.vendaslim.domain.pedidoItem.PedidoItem"/>
+		
+		
+    </session-factory>
+</hibernate-configuration>

@@ -1,0 +1,124 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="/restrito/principal.xhtml">
+
+	<ui:define name="title">Produtos</ui:define>
+	<ui:param name="heightRodape" value="30" />
+
+	<ui:define name="centerContent">
+		<h:form prependId="false" id="form">
+		
+    		<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>              
+			<p:dialog modal="true" widgetVar="statusDialog" header="Carregando..."   
+        		draggable="false" closable="false">  
+    			<p:graphicImage library="img" name="ajaxloadingbar.gif"/>  
+			</p:dialog>  
+			
+			<p:panel id="acoes">
+				<p:commandButton value="Novo" id="btnNovo" styleClass="button-azul"
+					action="#{cadastroProdutoBean.novo}" icon="ui-icon-plus"/>					
+			</p:panel>
+			
+			<p:messages id="messages" autoUpdate="true" showDetail="true" />
+			
+			<p:panel id="filtro">
+				<h:outputLabel for="filtroProduto" 
+					value="Busca: " />
+				<p:inputText id="filtroProduto" 
+					value="#{cadastroProdutoBean.filtro}"
+	 				label="Filtro"  
+	 				size="65"/>
+	 				<p:watermark value="Descrição, Código." for="filtroProduto"/>
+	 				
+	 			<p:commandButton id="btnFind" 
+	 				icon="ui-icon-search" 
+	 				title="Pesquisar" 
+	 				update="dtProdutos btnLimparFiltro"
+	 				action="#{cadastroProdutoBean.pesquisarProduto()}">	 				
+	 			</p:commandButton>
+	 			
+	 			
+	 			<p:commandButton id="btnLimparFiltro"
+	 			 	value="Limpar Filtro" 
+	 			 	disabled="#{cadastroProdutoBean.filtro == null}" 
+	 			 	update="filtroProduto dtProdutos btnLimparFiltro"
+	 			 	action="#{cadastroProdutoBean.removerFiltro()}">	 				
+	 			</p:commandButton>		
+	 				
+			</p:panel>
+
+			<p:dataTable id="dtProdutos" 
+				value="#{cadastroProdutoBean.listaTodosPorFilial()}"
+				var="prod" 
+				scrollable="true" 
+				scrollHeight="750" 
+				scrollRows="70" 
+				liveScroll="true" 
+				emptyMessage="Nenhum produto cadastrado">
+				<f:facet name="header"> 
+					Produtos
+				</f:facet>
+				
+				<p:column headerText="" width="7%">
+					<p:button id="viewButton2" icon="ui-icon-pencil" outcome="/restrito/cadastro/cadastro_produto" title="Editar">
+						<f:param name="idProduto" value="#{prod.idProduto}"/>
+						<f:param name="edicao" value="true" />
+					</p:button>
+					
+					<p:commandButton icon="ui-icon-close" action="#{cadastroProdutoBean.excluir()}" update="dtProdutos" id="btnRemover">						
+						<f:setPropertyActionListener target="#{cadastroProdutoBean.produto}" value="#{prod}" />
+					</p:commandButton>					
+				</p:column>
+				
+			
+
+				<p:column sortBy="#{prod.idProduto}" headerText="Código" width="8%">
+					<h:outputText value="#{prod.idProduto}" />
+				</p:column>
+
+				<p:column sortBy="#{prod.descricao}" headerText="Descrição">
+					<h:outputText value="#{prod.descricao}" />
+				</p:column>
+				
+				<p:column sortBy="#{prod.referencia}" headerText="Referência" width="15%">
+					<h:outputText value="#{prod.referencia}" />
+				</p:column>
+				
+				<p:column sortBy="#{prod.unidade}" headerText="Unidade" width="8%">
+					<h:outputText value="#{prod.unidade}" />
+				</p:column>
+				
+				<p:column sortBy="#{prod.quantidade}" headerText="Estoque" width="8%">
+					<h:outputText value="#{prod.quantidade}" >						
+						<f:convertNumber pattern="#0.00"></f:convertNumber>
+					</h:outputText>
+				</p:column>
+				
+				<p:column sortBy="#{prod.precoVenda}" headerText="Preço de Venda" width="8%">
+					<h:outputText value="#{prod.precoVenda}" >
+						<f:convertNumber pattern="#0.00"></f:convertNumber>
+					</h:outputText>
+				</p:column>
+				
+				<p:column sortBy="#{prod.precoPromocao}" headerText="Preço de Promoção" width="8%">
+					<h:outputText value="#{prod.precoPromocao}">
+						<f:convertNumber pattern="#0.00"></f:convertNumber>
+					</h:outputText>
+				</p:column>
+
+				<p:column sortBy="#{prod.descMax}" headerText="Desconto Máximo" width="8%">
+					<h:outputText value="#{prod.descMax}" >
+						<f:convertNumber pattern="#0.00"></f:convertNumber>
+					</h:outputText>
+				</p:column>
+			</p:dataTable>
+			
+		</h:form>
+	</ui:define>
+</ui:composition>

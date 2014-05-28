@@ -1,0 +1,307 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    
+
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="/restrito/principal.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="idCliente" value="#{cadastroClienteBean.cliente.idCliente}"/>
+		<f:viewParam name="edicao" value="#{cadastroClienteBean.edicao}" />
+		<f:event type="postAddToView" listener="#{cadastroClienteBean.initForm}"/>
+	</f:metadata>
+
+
+	<ui:define name="title">Cadastro de Clientes</ui:define>
+	<ui:param name="heightRodape" value="30" />
+
+	<ui:define name="centerContent">
+       
+		<h:form prependId="false" id="form">
+			<p:panel id="acoes">
+			<p:commandButton value="Voltar" id="btnVoltar"
+					immediate="true"
+					action="#{cadastroClienteBean.voltar}" />
+			
+				<p:commandButton value="Salvar" id="btnSalvar"
+					action="#{cadastroClienteBean.salvar}" 
+					styleClass="button-verde"
+					icon="ui-icon-check"/>
+			</p:panel>
+			<p:messages id="messages" autoUpdate="true" showDetail="true" />
+
+			<p:panel id="panel" header="Novo Cliente"
+				style="margin-bottom: 10px;">
+		
+				
+				
+				<p:tabView id="tabView">
+					<p:tab id="tabContato" title="Contato">
+						<h:panelGrid columns="2">
+							<p:fieldset>
+								<h:panelGrid columns="3">
+								
+									<h:outputLabel for="codigo" value="Código:" />
+										<h:panelGroup>
+											<p:inputText id="codigo" value="#{cadastroClienteBean.cliente.idCliente}"
+												maxlength="8" size="8" disabled="#{not cadastroClienteBean.informarCodigo}"/>
+												<h:outputLabel  value="&nbsp;" />							
+												<p:selectBooleanCheckbox id="abilitaCodigo" value="#{cadastroClienteBean.informarCodigo}"  rendered="#{not cadastroClienteBean.edicao}">
+													<p:ajax update="codigo"/>
+												</p:selectBooleanCheckbox>
+												<h:outputLabel for="abilitaCodigo" value="&nbsp;Informar código manualmente"  rendered="#{not cadastroClienteBean.edicao}" />
+											</h:panelGroup>
+									<p:message for="codigo" />
+
+
+									<h:outputLabel for="nome" 
+										value="Nome:" />
+									<p:inputText id="nome" 
+										value="#{cadastroClienteBean.cliente.nome}"
+						 				label="Nome" 
+						 				required="true"
+						 				size="65"/>
+									<p:message for="nome" />
+									
+									<h:outputLabel for="apelido" 
+										value="Apelido:" />
+									<p:inputText id="apelido" 
+										value="#{cadastroClienteBean.cliente.apelido}"
+						 				label="Apelido" />
+									<p:message for="apelido" />
+									
+									<h:outputLabel for="inativo" value="Inativo:"/>
+										<p:selectBooleanCheckbox id="inativo"
+											value="#{cadastroClienteBean.cliente.inativo}" />
+									<h:message for="inativo" />								
+								
+								
+									<h:outputLabel for="tipoPessoa" value="Tipo:" />
+									<p:selectOneRadio id="tipoPessoa"
+										value="#{cadastroClienteBean.cliente.tipoPessoa}">
+										<f:selectItem itemLabel="Fisica" itemValue="1" />
+										<f:selectItem itemLabel="Juridíca" itemValue="2" />
+										<p:ajax update="lblCpfCnpj cpfCnpj lblRgInsc" />
+									</p:selectOneRadio>
+									<h:message for="tipoPessoa" />
+
+									<h:outputLabel id="lblCpfCnpj" for="cpfCnpj"
+										value="#{cadastroClienteBean.labelTipoPessoa}:" />
+									<p:inputMask mask="#{cadastroClienteBean.getMascaraTipoPessoa()}"
+										id="cpfCnpj" value="#{cadastroClienteBean.cliente.cpfCnpj}"
+										maxlength="14" size="18" />
+									<p:message for="cpfCnpj" />
+
+									<h:outputLabel id="lblRgInsc" for="rgInsc"
+										value="#{cadastroClienteBean.labelInscricao}:" />
+									<p:inputText id="rgInsc"
+										value="#{cadastroClienteBean.cliente.incricao}" />
+									<p:message for="rgInsc" />
+
+									<h:outputLabel for="contato" value="Contato:" />
+									<p:inputText id="contato"
+										value="#{cadastroClienteBean.cliente.contato}" />
+									<p:message for="contato" />
+
+									<h:outputLabel for="idCidade" value="Cidade:" />
+									<h:panelGroup>
+										<p:inputText id="idCidade"
+											value="#{cadastroClienteBean.idCidade}" size="6">
+											<p:ajax event="blur"
+												listener="#{cadastroClienteBean.buscaCidadePorCodigo()}"
+												update="idCidade cidadeDescricao" />
+										</p:inputText>
+										<p:watermark for="idCidade" value="Código" />
+										<p:inputText id="cidadeDescricao" disabled="true"
+											value="#{cadastroClienteBean.cliente.cidade.nome}" size="25" />
+										<p:watermark for="cidadeDescricao" value="Nome Cidade" />
+										<p:commandButton id="btnPesquisaCidade" icon="ui-icon-search"
+											type="button" />
+									</h:panelGroup>
+									<p:message for="idCidade" />
+
+									<h:outputLabel for="rua" value="Rua:" />
+									<p:inputText id="rua" value="#{cadastroClienteBean.cliente.rua}"
+										size="40" />
+									<p:message for="rua" />
+
+									<h:outputLabel for="numero" value="Nº:" />
+									<p:inputText id="numero"
+										value="#{cadastroClienteBean.cliente.numero}" size="5" />
+									<p:message for="numero" />
+
+									<h:outputLabel for="bairro" value="Bairro:" />
+									<p:inputText id="bairro"
+										value="#{cadastroClienteBean.cliente.bairro}" />
+									<p:message for="bairro" />
+
+									<h:outputLabel for="complemento" value="Complemento:" />
+									<p:inputText id="complemento"
+										value="#{cadastroClienteBean.cliente.complemento}" />
+									<p:message for="complemento" />
+
+									<h:outputLabel for="cep" value="Cep:" />
+									<p:inputMask mask="99999-999" id="cep" value="#{cadastroClienteBean.cliente.cep}"
+										size="8" />
+									<p:message for="cep" />
+
+									<h:outputLabel for="foneR" value="Fone Residencial:" />
+									<p:inputText id="foneR"
+										value="#{cadastroClienteBean.cliente.foneResidencial}" />
+									<p:message for="foneR" />
+
+									<h:outputLabel for="foneC" value="Fone Comercial:" />
+									<p:inputText id="foneC"
+										value="#{cadastroClienteBean.cliente.foneComercial}" />
+									<p:message for="foneC" />
+
+									<h:outputLabel for="celular" value="Celular:" />
+									<p:inputText id="celular"
+										value="#{cadastroClienteBean.cliente.celular}" />
+									<p:message for="celular" />
+
+									<h:outputLabel for="fax" value="Fax:" />
+									<p:inputText id="fax" value="#{cadastroClienteBean.cliente.fax}" />
+									<p:message for="fax" />
+									
+									
+									<h:outputLabel for="email" value="Email:" />
+									<p:inputText id="email"
+										value="#{cadastroClienteBean.cliente.email}" />
+									<p:message for="email" />
+									
+									
+									
+									<h:outputLabel for="obs" value="Observação:" />
+									<p:inputTextarea id="obs"
+										value="#{cadastroClienteBean.cliente.observacao}" />
+									<p:message for="obs" />
+									
+									
+									<h:outputLabel for="dtNascimento" value="Data de Nascimento:" />
+									<p:inputMask id="dtNascimento" mask="99/99/9999" value="#{cadastroClienteBean.cliente.dtNascimento}">
+										<f:convertDateTime pattern="dd/MM/yyyy"/>
+									</p:inputMask>
+									<p:message for="dtNascimento" />
+								</h:panelGrid>
+							</p:fieldset>							
+						</h:panelGrid>
+						
+						<!--INICIO PAINEL CIDADE -->
+						
+						<p:overlayPanel id="cidadePanel" for="btnPesquisaCidade"
+							hideEffect="fade" dynamic="true" style="width:50%; height:50%;"
+							widgetVar="cidadePanelWVar">
+
+							<p:inputText value="#{cidadeBean.filtroCidade}" size="40">
+								<p:ajax event="keyup"
+									listener="#{cidadeBean.handleFiltroCidadeChange()}"
+									update="cidadeTable" />
+							</p:inputText>
+							<p:dataTable id="cidadeTable" var="cidade"
+								value="#{cidadeBean.cidadeDataModel}"
+								selection="#{cadastroClienteBean.cidadeSelecionada}" rows="20"
+								selectionMode="single" emptyMessage="Nenhuma cidade encontrada">
+
+								<p:ajax event="rowSelect" 
+									update=":form:tabView:idCidade :form:tabView:cidadeDescricao"
+									oncomplete="cidadePanelWVar.hide();" />
+
+								<p:column headerText="Código">
+									<h:outputText value="#{cidade.idCidade}" />
+								</p:column>
+
+								<p:column headerText="Nome">
+									<h:outputText value="#{cidade.nome}" />
+								</p:column>
+
+								<p:column headerText="Estado">
+									<h:outputText value="#{cidade.estado.uf}" />
+								</p:column>
+							</p:dataTable>
+						</p:overlayPanel>
+						
+						<!--FIM PAINEL CIDADE -->
+						
+					</p:tab>
+					<p:tab id="tabFinanceiro" title="Financeiro">
+						<h:panelGroup>
+								<p:fieldset legend="">
+									<h:panelGrid columns="3">									
+										<p:outputLabel value="Tabele de Preço:"></p:outputLabel>
+										<p:selectOneMenu id="tabelaPreco"
+											label="Selecione a Tabela de Preço Padrão"
+											items="#{cadastroClienteBean.listaTabelaPreco()}" filter="true"
+											filterMatchMode="startsWith" panelStyle="width:400px"
+											value="#{cadastroClienteBean.cliente.tabelaPreco}"
+											converter="tabelaPrecoConverter">
+											<f:selectItem itemLabel="TABELA DE PREÇO PADRÃO"></f:selectItem>
+											<f:selectItems value="#{cadastroClienteBean.listaTabelaPreco()}"
+												var="tabela" itemLabel="#{tabela.descricao}"
+												itemValue="#{tabela}" />
+										</p:selectOneMenu>
+										<p:message for="tabelaPreco" />
+										
+										
+										<h:outputLabel for="parcelamentos" value="Parcelamento:" />
+										<p:selectOneMenu id="parcelamentos"
+											label="Selecione os Parcelamentos    "
+											items="#{cadastroClienteBean.listaParcelamento()}" filter="true"
+											filterMatchMode="startsWith" panelStyle="width:400px"
+											value="#{cadastroClienteBean.cliente.parcelamento}"
+											converter="parcelamentoConverter">
+											<f:selectItem itemLabel="PARCELAMENTO PADRÃO"></f:selectItem>
+											<f:selectItems value="#{cadastroClienteBean.listaParcelamento()}"
+												var="parcela" itemLabel="#{parcela.descricao}"
+												itemValue="#{parcela}" />
+										</p:selectOneMenu>
+										<p:message for="parcelamentos" />
+										
+										
+										<h:outputLabel for="representantes" value="Representantes:" />
+										<p:selectOneMenu id="representantes"
+											label="Selecione o Representante Padrão "
+											items="#{cadastroClienteBean.listaRepresentantes()}" filter="true"
+											filterMatchMode="startsWith" panelStyle="width:400px"
+											value="#{cadastroClienteBean.cliente.representante}"
+											converter="representanteConverter">
+											<f:selectItem itemLabel="REPRESENTANTE PADRÃO"></f:selectItem>
+											<f:selectItems value="#{cadastroClienteBean.listaRepresentantes()}"
+												var="representante" itemLabel="#{representante.nome}"
+												itemValue="#{representante}" />
+										</p:selectOneMenu>
+										<p:message for="representantes" />
+										
+										
+										
+										
+										
+										<h:outputLabel for="limiteCredito" value="Limite de Crédito (R$):" />
+										<p:inputText id="limiteCredito"
+											value="#{cadastroClienteBean.cliente.limiteCredito}" />
+										<p:message for="limiteCredito" />
+										
+										<h:outputLabel for="descMax" value="Desconto Máximo (%):" />
+										<p:inputText id="descMax"
+											value="#{cadastroClienteBean.cliente.descMax}" />
+										<p:message for="descMax" />										
+										
+										<h:outputLabel for="descPadrao" value="Desconto Padrão (%):" />
+										<p:inputText id="descPadrao"
+											value="#{cadastroClienteBean.cliente.descPadrao}" />
+										<p:message for="descPadrao" />
+										
+									</h:panelGrid>
+								</p:fieldset>
+							</h:panelGroup>
+					</p:tab>
+				</p:tabView>
+					
+			</p:panel>			
+		</h:form>
+	</ui:define>
+</ui:composition>

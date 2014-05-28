@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="/restrito/principal.xhtml">
+	<ui:define name="title">Lista de Usuários</ui:define>
+	<ui:param name="heightRodape" value="30" />
+
+	<ui:define name="centerContent">
+		<h:form prependId="false" id="form">		
+			<p:panel id="acoes">
+				<p:commandButton value="Novo" id="btnNovo"
+					styleClass="button-azul"
+					action="#{cadastroUsuarioBean.novo}"
+					 icon="ui-icon-plus"/>
+			</p:panel>		
+		
+			<p:dataTable id="dtUsuarios"
+				scrollHeight="58%" 
+				scrollRows="70"  
+				value="#{cadastroUsuarioBean.listarUsuario()}" 
+				var="us">
+				<f:facet name="header">
+					Usuários
+				</f:facet>
+				<p:column>
+					<p:commandButton action="#{cadastroUsuarioBean.editar()}" icon="ui-icon-pencil">
+						<f:setPropertyActionListener target="#{cadastroUsuarioBean.usuario}" value="#{us}"/>
+					</p:commandButton>
+				</p:column>
+				<p:column sortBy="#{us.idUsuario}" headerText="Código">
+					<h:outputText value="#{us.idUsuario}"/>
+				</p:column>
+				
+				<p:column sortBy="#{us.login}" headerText="Login">
+					<h:outputText value="#{us.login}"/>
+				</p:column>
+				
+				<p:column sortBy="#{us.senha}" headerText="Senha">
+					<h:outputText value="#{us.senha}"/>
+				</p:column>
+				
+				<p:column sortBy="#{us.nome}" headerText="Nome">
+					<h:outputText value="#{us.nome}"/>
+				</p:column>
+				
+				<p:column sortBy="#{us.email}" headerText="Email">
+					<h:outputText value="#{us.email}"/>
+				</p:column>
+				
+				<p:column sortBy="#{us.fone}" headerText="Fone">
+					<h:outputText value="#{us.fone}"/>
+				</p:column>
+				
+				<p:column sortBy="#{us.ativo}" headerText="Situação">
+					<h:outputText value="#{us.ativo}"/>
+				</p:column>
+								
+				<p:column sortBy="#{us.representante.nome}" headerText="Representante">
+					<h:outputText value="#{us.representante.nome}"/>
+				</p:column>
+				
+				
+
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>

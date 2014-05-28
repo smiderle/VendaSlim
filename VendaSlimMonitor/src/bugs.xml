@@ -1,0 +1,7 @@
+<bug>
+	<classe>RepresentanteBean</classe>
+	<metodo>handleGrupoChange</metodo>
+	<linha>249</linha>
+	<descricao>AO DESVINCULAR O GRUPO E SALVAR, ESTA CARREGANDO OS PRODUTOS DO GRUPO AINDA</descricao>
+	<data>19/10/2013 08:48</data>
+</bug>

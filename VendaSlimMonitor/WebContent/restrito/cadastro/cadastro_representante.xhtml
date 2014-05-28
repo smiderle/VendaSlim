@@ -1,0 +1,549 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    
+
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="/restrito/principal.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="idRepresentante" value="#{repreBean.representante.idRepresentante}"/>
+		<f:viewParam name="edicao" value="#{repreBean.edicao}" />
+		<f:event type="postAddToView" listener="#{repreBean.initForm}"/>
+	</f:metadata>
+
+
+	<ui:define name="title">Cadastro de Representante</ui:define>
+	<ui:param name="heightRodape" value="30" />
+
+	<ui:define name="centerContent">
+       
+		<h:form prependId="false" id="form">
+			<p:panel id="acoes">
+				<p:commandButton value="Voltar" id="btnVoltar"
+					immediate="true"
+					action="#{repreBean.voltar}" />
+			
+				<p:commandButton value="Salvar" id="btnSalvar"
+					action="#{repreBean.salvar}"
+					styleClass="button-verde"
+					icon="ui-icon-check"/>
+			</p:panel>
+			<p:messages id="messages" autoUpdate="true" showDetail="true" />
+
+			<p:panel id="panel" header="Novo Representante"
+				style="margin-bottom: 10px;">
+		
+				
+				
+				<p:tabView id="tabView">				
+					<p:tab id="tabPrincipal" title="Principal">
+						<h:panelGrid columns="1">
+							<h:panelGrid columns="3">
+								<h:outputLabel for="codigo" value="Código:" />
+								<h:panelGroup>
+									<p:inputText id="codigo"
+										value="#{repreBean.representante.idRepresentante}"
+										maxlength="8" size="8"
+										disabled="#{not repreBean.informarCodigo}" />
+									<h:outputLabel value="&nbsp;" />
+									<p:selectBooleanCheckbox id="abilitaCodigo"
+										value="#{repreBean.informarCodigo}"
+										rendered="#{not repreBean.edicao}">
+										<p:ajax update="codigo" />
+									</p:selectBooleanCheckbox>
+									<h:outputLabel for="abilitaCodigo"
+										value="&nbsp;Informar código manualmente"
+										rendered="#{not repreBean.edicao}" />
+								</h:panelGroup>
+								<p:message for="codigo" />
+
+								<h:outputLabel for="nome" value="Nome:" />
+								<p:inputText id="nome" value="#{repreBean.representante.nome}"
+									label="Nome" />
+								<p:message for="nome" />
+
+								<h:outputLabel for="login" value="Login:" />
+								<p:inputText id="login" value="#{repreBean.representante.login}"
+									label="login" />
+								<p:message for="login" />
+
+								<h:outputLabel for="senha" value="Senha:" />
+								<p:inputText id="senha" value="#{repreBean.representante.senha}"
+									label="Senha" />
+								<p:message for="senha" />
+
+								<h:outputLabel for="email" value="Email:" />
+								<p:inputText id="email" value="#{repreBean.representante.email}"
+									label="email" />
+								<p:message for="email" />
+
+								<h:outputLabel for="inativo" value="Inativo"/>
+								<p:selectBooleanCheckbox id="inativo"
+									value="#{repreBean.representante.inativo}" />
+								<h:message for="inativo" />
+							</h:panelGrid>							
+							<p:commandButton value="Vincular a uma empresa" id="btnVincularEmpresa" type="button" onclick="dlgRepresentEmpresa.show()"/>
+							
+						</h:panelGrid>							
+										
+						
+							<!-- INICIO DIALOG REPRESENTANTE FILIAL -->
+						<p:dialog 
+							id="dlgRepresentEmpresaId"
+							widgetVar="dlgRepresentEmpresa"   
+							showEffect="drop" 
+							hideEffect="drop" 
+							modal="false" 
+							height="700" 
+							closable="false" 
+							width="800"  
+							resizable="false"
+							header="Configurações da Empresa do Representante.">
+										
+							<h:panelGrid columns="3" id="pgPedido">
+								<h:outputLabel for="filial" value="Empresa"
+									styleClass="labelForm" />
+								<p:selectOneMenu id="filial" value="#{repreBean.filial}"
+									converter="filialConverter" 
+									label="Empresa" 
+									requiredMessage="É necessario informar uma empresa." 
+									disabled="#{repreBean.edicaoFilial}">
+									<f:selectItem itemLabel="Selecione a Empresa" itemValue="" />
+									<f:selectItems value="#{repreBean.listaFilial()}" var="fl"
+										itemLabel="#{fl.nomeFantasia}" itemValue="#{fl}" />
+									<p:ajax update="grupoReprese tabelas parcelamentos considGrupo descMax minVenda comicao verCliente dtGrupoProduto"
+										listener="#{repreBean.handleFilialChange()}" />
+								</p:selectOneMenu>
+								<p:message for="filial" />
+																
+								
+								
+								
+								
+								<h:outputLabel for="grupoReprese"
+									value="Grupo de Representante:" />
+								<p:selectOneMenu id="grupoReprese"
+									value="#{repreBean.grupoRepresentanteSelecionado}"
+									converter="repreGrupoConverter"
+									items="#{repreBean.listaGrupo()}"
+									disabled="#{repreBean.filial == null or repreBean.filial.idFilial == null}">
+									
+									<f:selectItem itemLabel="Nenhum" itemValue="" />
+									<f:selectItems value="#{repreBean.listaGrupo()}" var="grupo"
+										itemLabel="#{grupo.descricao}" itemValue="#{grupo}" />
+									<p:ajax update="considGrupo descMax minVenda comicao parcelamentos tabelas verCliente dtGrupoProduto"
+										listener="#{repreBean.handleGrupoChange}" />
+								</p:selectOneMenu>
+								<p:message for="grupoReprese" />
+								
+									<p:selectBooleanCheckbox id="considGrupo"
+										value="#{repreBean.considerarGrupo}"
+										disabled="#{not repreBean.abilitaConsiderarGrupo}">
+										<p:ajax
+											update="descMax minVenda comicao parcelamentos tabelas verCliente dtGrupoProduto"
+											listener="#{repreBean.handleConsiderarGrupoChange}"/>
+									</p:selectBooleanCheckbox>
+									<h:outputLabel value="Considerar dados do grupo" />
+									<h:outputLabel />
+									
+
+									<h:outputLabel for="descMax" value="Desconto Máximo (%):" />
+									<p:inputText id="descMax"
+										value="#{repreBean.representanteFilial.descMax}"
+										disabled="#{repreBean.considerarGrupo}" label="Desconto Máximo"/>
+									<p:message for="descMax" />
+
+									<h:outputLabel for="minVenda" value="Valor Minimo de Venda:" />
+									<p:inputText id="minVenda"
+										value="#{repreBean.representanteFilial.minVenda}"
+										disabled="#{repreBean.considerarGrupo}" />
+									<p:message for="minVenda" />
+
+
+									<h:outputLabel for="comicao" value="Comição:" />
+									<p:inputText id="comicao"
+										value="#{repreBean.representanteFilial.comicaoVenda}"
+										disabled="#{repreBean.considerarGrupo}" />
+									<p:message for="comicao" />
+
+									<h:outputLabel for="verCliente"
+										value="Visualiza todos os clientes" />
+									<p:selectBooleanCheckbox id="verCliente"
+										value="#{repreBean.representanteFilial.visualizaTodosClientes}" 
+										disabled="#{repreBean.considerarGrupo}"/>
+									<p:message for="verCliente" />
+
+									<h:outputLabel for="tabelas" value="Tabelas de Preço:" />
+									<p:selectCheckboxMenu id="tabelas"
+										label="Selecione as Tabelas de Preço"
+										items="#{repreBean.listaTabelaPreco()}" filter="true"
+										filterMatchMode="startsWith" panelStyle="width:400px"
+										value="#{repreBean.tabelasSelecionadas}"
+										converter="tabelaPrecoConverter" 
+										disabled="#{repreBean.considerarGrupo}">
+										<f:selectItems value="#{repreBean.listaTabelaPreco()}"
+											var="tabela" itemLabel="#{tabela.descricao}"
+											itemValue="#{tabela}" />
+									</p:selectCheckboxMenu>
+									<p:message for="tabelas" />
+
+									<h:outputLabel for="parcelamentos" value="Parcelamentos:" />
+									<p:selectCheckboxMenu id="parcelamentos"
+										label="Selecione os Parcelamentos    "
+										items="#{repreBean.listaParcelamento()}" filter="true"
+										filterMatchMode="startsWith" panelStyle="width:400px"
+										value="#{repreBean.parcelamentosSelecionados}"
+										converter="parcelamentoConverter"
+										disabled="#{repreBean.considerarGrupo}">
+										<f:selectItems value="#{repreBean.listaParcelamento()}"
+											var="parcela" itemLabel="#{parcela.descricao}"
+											itemValue="#{parcela}" />
+									</p:selectCheckboxMenu>
+									<p:message for="parcelamentos" />
+								</h:panelGrid>
+																
+																
+								<p:dataTable 
+									emptyMessage="Nenhum Grupo de Produtos Cadastrado." 
+									id="dtGrupoProduto"  
+									value="#{gruproProdBean.listaTodos(repreBean.filial)}" 
+									selection="#{repreBean.representanteFilial.gruposProdutos}" 
+									var="grupo"															
+									rowKey="#{grupo.idGrupo}">
+							
+									<f:facet name="header">Grupos de Produtos</f:facet>
+									
+									<p:column selectionMode="multiple" style="width:2%" disabledSelection="#{repreBean.considerarGrupo}"/>
+									
+									<p:column headerText="Código" >
+										#{grupo.idGrupo}
+									</p:column>
+																		
+									<p:column headerText="Descrição">
+										#{grupo.descricao}
+									</p:column>
+								</p:dataTable>
+								
+								<h:panelGrid columns="2">								
+									<p:commandButton value="Cancelar" 
+										actionListener="#{repreBean.cancelaVinculaFilial()}"
+										oncomplete="dlgRepresentEmpresa.hide();return false;"
+										update="filial grupoReprese descMax minVenda comicao parcelamentos tabelas verCliente dtGrupoProduto"
+										/>
+									<p:commandButton value="Aplicar" 
+										actionListener="#{repreBean.vinculaFilial}"  
+										oncomplete="dlgRepresentEmpresa.hide();" 
+										update=":form:tabView:dtEmpresasRep" 
+										styleClass="button-azul">
+										
+									</p:commandButton>
+								</h:panelGrid>
+							</p:dialog>						
+							<!-- FIM DIALOG REPRESENTANTE FILIAL -->
+							
+														
+							<p:inputTextarea id="txtObs" 
+								value="#{repreBean.representante.observacao}" 
+								style="width:30%" 
+								rows="10" 
+								maxlength="300" />
+							<p:watermark for="txtObs" value="Observação..."></p:watermark>
+							
+						<!-- INICIO DATATABLE EMPRESAS -->
+						<p:dataTable 
+							id="dtEmpresasRep" 
+							emptyMessage="Nenhuma empresa foi adicionada para este Representante." 
+							value="#{repreBean.representante.representanteFilial}" 
+							var="repfilial" 
+							style="margin-top:6px;">
+							
+							<p:column>
+								<p:commandButton icon="ui-icon-close" action="#{repreBean.desvinculaFilial()}" update="dtEmpresasRep">									
+									<f:setPropertyActionListener target="#{repreBean.representanteFilialSelecionado}" 
+										value="#{repfilial}"/>
+								</p:commandButton>
+																
+								<p:commandButton icon="ui-icon-pencil" 
+									action="#{repreBean.editarRepresentFilial()}" 
+									oncomplete="dlgRepresentEmpresa.show();" 
+									update=":form:tabView:dlgRepresentEmpresaId">
+									<f:setPropertyActionListener target="#{repreBean.representanteFilialSelecionado}" 
+										value="#{repfilial}"/>
+								</p:commandButton>
+							</p:column>
+												
+							<p:column headerText="Empresa">
+								<h:outputText value="#{repfilial.filial.idFilial}" />						
+							</p:column>
+							
+							<p:column headerText="Empresa">
+								<h:outputText value="#{repfilial.filial.nomeFantasia}" />						
+							</p:column>
+							
+							<p:column headerText="Comição (%)">
+								<h:outputLabel value="#{repfilial.comicaoVenda}" rendered="#{repfilial.grupoRepresentante == null}"/>
+								<h:outputText value="#{repfilial.grupoRepresentante.comicaoVenda}" rendered="#{repfilial.grupoRepresentante != null}"/>
+							</p:column>
+								
+							<p:column headerText="Desconto Máximo (%)">
+								<h:outputLabel value="#{repfilial.descMax}" rendered="#{repfilial.grupoRepresentante == null}"/>
+								<h:outputText value="#{repfilial.grupoRepresentante.descMax}" rendered="#{repfilial.grupoRepresentante != null}"/>
+							</p:column>
+													
+							<p:column headerText="R$ Minimo por Venda">
+								<h:outputLabel value="#{repfilial.minVenda}" rendered="#{repfilial.grupoRepresentante == null}" />
+								<h:outputText value="#{repfilial.grupoRepresentante.minVenda}" rendered="#{repfilial.grupoRepresentante != null}"/>						
+							</p:column>
+							
+							<p:column headerText="Tabelas de Preço">
+								<h:outputLabel value="#{repfilial.tabelasPrecoString}" rendered="#{repfilial.grupoRepresentante == null}"/>
+								<h:outputText value="#{repfilial.grupoRepresentante.tabelasPrecoString}" rendered="#{repfilial.grupoRepresentante != null}"/>
+							</p:column>
+							
+							<p:column headerText="Parcelamentos">
+								<h:outputLabel value="#{repfilial.parcelamentosString}" rendered="#{repfilial.grupoRepresentante == null}"/>			
+								<h:outputText value="#{repfilial.grupoRepresentante.parcelamentosString}" rendered="#{repfilial.grupoRepresentante != null}"/>			
+							</p:column>
+							
+							<p:column headerText="Grupo">
+								<h:outputLabel value="#{repfilial.grupoRepresentante.descricao}"/>
+							</p:column>
+							
+							<!-- p:column headerText="Produtos">
+								<p:commandButton icon="ui-icon-search" 
+									oncomplete="dlgGrupoProduto.show();" 
+									action="#{repreBean.carregaGrupoProdutos()}"
+									update=":form:tabView:dtGrupoProdutoDlg">
+									<f:setPropertyActionListener target="#{repreBean.representanteFilialSelecionado}" 
+										value="#{repfilial}"/>
+								</p:commandButton>
+							</p:column-->
+							
+							<p:column headerText="Todos Clientes">	
+								<h:outputLabel rendered="#{repfilial.visualizaTodosClientes and repfilial.grupoRepresentante == null}" value="Sim"/>
+								<h:outputLabel rendered="#{not repfilial.visualizaTodosClientes and repfilial.grupoRepresentante == null}" value="Não"/>
+								
+								<h:outputLabel rendered="#{repfilial.grupoRepresentante.visualizaTodosClientes and repfilial.grupoRepresentante != null}" value="Sim"/>
+								<h:outputLabel rendered="#{not repfilial.grupoRepresentante.visualizaTodosClientes and repfilial.grupoRepresentante != null}" value="Não"/>													
+							</p:column>				
+						</p:dataTable>	
+						<!-- FIM DATATABLE EMPRESAS -->		
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						<!-- INICIO DIALOG GRUPOS DE PRODUTOS
+						<p:dialog widgetVar="dlgGrupoProduto"   
+						showEffect="drop" 
+						hideEffect="drop" 
+						modal="false" 
+						height="700" 
+						closable="true" 
+						width="800"  
+						resizable="false">
+						
+						<h:outputLabel value="Grupo de Produtos. " />
+						<p:dataTable 
+							id="dtGrupoProdutoDlg"  
+							value="#{gruproProdBean.listaTodos(repreBean.filial)}" 
+							selection="#{repreBean.representanteFilialSelecionado.gruposProdutos}" 
+							var="grupo"									
+							rowKey="#{grupo.idGrupo}">
+					
+							<f:facet name="header">Grupos de Produtos</f:facet>
+							
+							<p:column selectionMode="multiple" 
+								style="width:2%" 
+								disabledSelection="true"/>
+							
+							<p:column headerText="Código">
+								#{grupo.idGrupo}
+							</p:column>
+																
+							<p:column headerText="Descrição">
+								#{grupo.descricao}
+							</p:column>
+						</p:dataTable>
+							
+						<p:commandButton value="Fechar" onclick="dlgGrupoProduto.hide()"/>						
+						
+					</p:dialog>
+					FIM DIALOG GRUPOS DE PRODUTOS -->	
+						
+						
+						
+						
+					</p:tab>
+
+					<p:tab id="tabContato" title="Contato">
+						<h:panelGrid columns="2">
+							<p:fieldset>
+								<h:panelGrid columns="3">
+
+									<h:outputLabel for="tipoPessoa" value="Tipo:" />
+									<p:selectOneRadio id="tipoPessoa"
+										value="#{repreBean.representante.tipoPessoa}">
+										<f:selectItem itemLabel="Fisica" itemValue="1" />
+										<f:selectItem itemLabel="Juridíca" itemValue="2" />
+										<p:ajax update="lblCpfCnpj cpfCnpj lblRgInsc" />
+									</p:selectOneRadio>
+									<h:message for="tipoPessoa" />
+
+									<h:outputLabel id="lblCpfCnpj" for="cpfCnpj"
+										value="#{repreBean.labelTipoPessoa}:" />
+									<p:inputMask mask="#{repreBean.getMascaraTipoPessoa()}"
+										id="cpfCnpj" value="#{repreBean.representante.cpfCnpj}"
+										maxlength="14" size="18" />
+									<p:message for="cpfCnpj" />
+
+									<h:outputLabel id="lblRgInsc" for="rgInsc"
+										value="#{repreBean.labelInscricao}:" />
+									<p:inputText id="rgInsc"
+										value="#{repreBean.representante.incricao}" />
+									<p:message for="rgInsc" />
+
+									<h:outputLabel for="contato" value="Contato:" />
+									<p:inputText id="contato"
+										value="#{repreBean.representante.contato}" />
+									<p:message for="contato" />
+
+									<h:outputLabel for="idCidade" value="Cidade:" />
+									<h:panelGroup>
+										<p:inputText id="idCidade"
+											value="#{repreBean.idCidade}" size="6">
+											<p:ajax event="blur"
+												listener="#{repreBean.buscaCidadePorCodigo()}"
+												update="idCidade cidadeDescricao" />
+										</p:inputText>
+										<p:watermark for="idCidade" value="Código" />
+										<p:inputText id="cidadeDescricao" disabled="true"
+											value="#{repreBean.representante.cidade.nome}" size="25" />
+										<p:watermark for="cidadeDescricao" value="Nome Cidade" />
+										<p:commandButton id="btnPesquisaCidade" icon="ui-icon-search"
+											type="button" />
+									</h:panelGroup>
+									<p:message for="idCidade" />
+
+									<h:outputLabel for="rua" value="Rua:" />
+									<p:inputText id="rua" value="#{repreBean.representante.rua}"
+										size="40" />
+									<p:message for="rua" />
+
+									<h:outputLabel for="numero" value="Nº:" />
+									<p:inputText id="numero"
+										value="#{repreBean.representante.numero}" size="5" />
+									<p:message for="numero" />
+
+									<h:outputLabel for="bairro" value="Bairro:" />
+									<p:inputText id="bairro"
+										value="#{repreBean.representante.bairro}" />
+									<p:message for="bairro" />
+
+									<h:outputLabel for="complemento" value="Complemento:" />
+									<p:inputText id="complemento"
+										value="#{repreBean.representante.complemento}" />
+									<p:message for="complemento" />
+
+									<h:outputLabel for="cep" value="Cep:" />
+									<p:inputMask mask="99999-999" id="cep" value="#{repreBean.representante.cep}"
+										size="8" />
+									<p:message for="cep" />
+
+									<h:outputLabel for="foneR" value="Fone Residencial:" />
+									<p:inputText id="foneR"
+										value="#{repreBean.representante.foneResidencial}" />
+									<p:message for="foneR" />
+
+									<h:outputLabel for="foneC" value="Fone Comercial:" />
+									<p:inputText id="foneC"
+										value="#{repreBean.representante.foneComercial}" />
+									<p:message for="foneC" />
+
+									<h:outputLabel for="celular" value="Celular:" />
+									<p:inputText id="celular"
+										value="#{repreBean.representante.celular}" />
+									<p:message for="celular" />
+
+									<h:outputLabel for="fax" value="Fax:" />
+									<p:inputText id="fax" value="#{repreBean.representante.fax}" />
+									<p:message for="fax" />
+									
+									<h:outputLabel for="dtNascimento" value="Data de Nascimento:" />
+									<p:inputMask id="dtNascimento" mask="99/99/9999" value="#{repreBean.representante.dtNascimento}">
+										<f:convertDateTime pattern="dd/MM/yyyy"/>
+									</p:inputMask>
+									<p:message for="dtNascimento" />
+								</h:panelGrid>
+							</p:fieldset>							
+						</h:panelGrid>
+						
+						<!--INICIO PAINEL CIDADE -->
+						
+						<p:overlayPanel id="cidadePanel" for="btnPesquisaCidade"
+							hideEffect="fade" dynamic="true" style="width:50%; height:50%;"
+							widgetVar="cidadePanelWVar">
+
+							<p:inputText value="#{cidadeBean.filtroCidade}" size="40">
+								<p:ajax event="keyup"
+									listener="#{cidadeBean.handleFiltroCidadeChange()}"
+									update="cidadeTable" />
+							</p:inputText>
+							<p:dataTable id="cidadeTable" var="cidade"
+								value="#{cidadeBean.cidadeDataModel}"
+								selection="#{repreBean.cidadeSelecionada}" rows="20"
+								selectionMode="single" emptyMessage="Nenhuma cidade encontrada">
+
+								<p:ajax event="rowSelect" 
+									update=":form:tabView:idCidade :form:tabView:cidadeDescricao"
+									oncomplete="cidadePanelWVar.hide();" />
+
+								<p:column headerText="Código">
+									<h:outputText value="#{cidade.idCidade}" />
+								</p:column>
+
+								<p:column headerText="Nome">
+									<h:outputText value="#{cidade.nome}" />
+								</p:column>
+
+								<p:column headerText="Estado">
+									<h:outputText value="#{cidade.estado.uf}" />
+								</p:column>
+							</p:dataTable>
+						</p:overlayPanel>
+						
+						<!--FIM PAINEL CIDADE -->
+						
+					</p:tab>
+					<p:tab id="tabAdicional" title="Adicional">
+						<h:panelGroup>
+								<p:fieldset legend="Adicional">
+									<h:panelGrid columns="3">
+										<h:outputLabel for="placa" value="Placa:" />
+										<p:inputText id="placa"
+											value="#{repreBean.representante.placa}" />
+										<p:message for="placa" />
+
+										<h:outputLabel for="veiculo" value="Veiculo:" />
+										<p:inputText id="veiculo"
+											value="#{repreBean.representante.veiculo}" />
+										<p:message for="veiculo" />
+									</h:panelGrid>
+								</p:fieldset>
+							</h:panelGroup>
+					</p:tab>
+				</p:tabView>
+					
+			</p:panel>			
+		</h:form>
+	</ui:define>
+</ui:composition>

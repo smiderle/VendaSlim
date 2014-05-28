@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="/restrito/principal.xhtml">
+
+	<ui:define name="title">Grupos de Representantes</ui:define>
+	<ui:param name="heightRodape" value="30" />
+
+	<ui:define name="centerContent">
+		<h:form prependId="false" id="form">
+			<p:panel id="acoes">
+				<p:commandButton value="Novo" id="btnNovo"
+					action="#{grupoRepBean.novo}"
+					styleClass="button-azul"
+					 icon="ui-icon-plus" />
+			</p:panel>
+
+			<p:dataTable id="dtGruposUsuario" value="#{grupoRepBean.lista()}"
+				var="gr"
+				scrollable="true" 
+				scrollHeight="750">
+				<f:facet name="header"> 
+					Grupos de Representantes
+				</f:facet>
+				<p:column>
+					<p:button  icon="ui-icon-pencil"  outcome="/restrito/cadastro/cadastro_representante_grupo">
+						<f:param name="grupoRepreseID" value="#{gr.idGrupo}" />
+						<f:param name="idFilial" value="#{gr.filial.idFilial}" />
+						<f:param name="idEmpresa" value="#{gr.filial.empresa.idEmpresa}" />
+						<f:param name="edicao" value="true" />
+					</p:button>
+					<p:commandButton  icon="ui-icon-close" action="#{grupoRepBean.excluir()}" update="dtGruposUsuario">						
+						<f:setPropertyActionListener target="#{grupoRepBean.grupoRepresentante}" value="#{gr}" ></f:setPropertyActionListener>
+					</p:commandButton>
+				</p:column>
+				<p:column sortBy="#{gr.filial.idFilial}" headerText="Empresa">
+					<h:outputText value="#{gr.filial.idFilial}" />
+				</p:column>
+
+				<p:column sortBy="#{gr.idGrupo}" headerText="Código">
+					<h:outputText value="#{gr.idGrupo}" />
+				</p:column>
+
+				<p:column sortBy="#{gr.descricao}" headerText="Descrição">
+					<h:outputText value="#{gr.descricao}" />
+				</p:column>
+
+				<p:column sortBy="#{gr.descMax}" headerText="Desconto Máximo">
+					<h:outputText value="#{gr.descMax}" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" 
+	template="/restrito/principal.xhtml">
+
+	<ui:define name="title">Tabelas de Preços</ui:define>
+	<ui:param name="heightRodape" value="30" />
+
+	<ui:define name="centerContent">
+		<h:form prependId="false" id="form">
+			<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>              
+			<p:dialog modal="true" widgetVar="statusDialog" header="Carregando..."   
+	       		draggable="false" closable="false">  
+	   			<p:graphicImage library="img" name="ajaxloadingbar.gif"/>  
+			</p:dialog>  
+		
+			<p:panel id="acoes">
+				<p:commandButton value="Novo" id="btnNovo"
+					action="#{cadastroTabelaPrecoBean.novo}"
+					icon="ui-icon-plus"					
+					styleClass="button-azul" />
+			</p:panel>
+
+			<p:messages id="messages" autoUpdate="true" showDetail="true" />
+			
+			<p:dataTable id="dtTabPreco" value="#{cadastroTabelaPrecoBean.listarPorFilial()}"
+				var="tabPreco"
+				scrollable="true" 
+				scrollHeight="750" 
+				scrollRows="70" 
+				liveScroll="true" 
+						
+				emptyMessage="Nenhuma Tabela de Preço Cadastrada">
+				<f:facet name="header"> 
+					Tabelas de Preço
+				</f:facet>
+			
+					
+			<p:column headerText="">
+					<p:button id="viewButton2" icon="ui-icon-pencil" outcome="/restrito/cadastro/cadastro_tabela_preco" title="Editar">
+						<f:param name="idTabelaPreco" value="#{tabPreco.idTabelaPreco}"/>
+						<f:param name="edicao" value="true" />
+					</p:button>
+					
+					<p:commandButton icon="ui-icon-close" action="#{cadastroTabelaPrecoBean.excluir()}" update="dtTabPreco">						
+						<f:setPropertyActionListener target="#{cadastroTabelaPrecoBean.tabelaPreco}" value="#{tabPreco}" />
+					</p:commandButton>					
+				</p:column>
+				
+				<p:column sortBy="#{tabPreco.idTabelaPreco}" headerText="Código">
+					<h:outputText value="#{tabPreco.idTabelaPreco}" />
+				</p:column>
+			
+				<p:column sortBy="#{tabPreco.descricao}" headerText="Descrição">
+					<h:outputText value="#{tabPreco.descricao}" />
+				</p:column>
+			
+				
+				<p:column sortBy="#{tabPreco.percentual}" headerText="Percentual">
+					<h:outputText value="#{tabPreco.percentual}" >
+						<f:convertNumber pattern="#0.00"/>
+					</h:outputText>
+				</p:column>
+				
+				<p:column sortBy="#{tabPreco.acrescimo}" headerText="Acréscimo">
+					<h:outputLabel rendered="#{tabPreco.acrescimo}" value="Acréscimo"/>
+					<h:outputLabel rendered="#{not tabPreco.acrescimo}" value="Desconto"/>					
+				</p:column>
+				
+				<p:column sortBy="#{tabPreco.inativo}" headerText="Inativo">
+					<h:outputLabel rendered="#{tabPreco.inativo}" value="Sim"/>
+					<h:outputLabel rendered="#{not tabPreco.inativo}" value="Não"/>					
+				</p:column>
+									
+				</p:dataTable>
+			
+			<p:blockUI block="form" trigger="btnNovo"></p:blockUI>
+    		  
+		</h:form>
+		
+		
+	</ui:define>
+</ui:composition>

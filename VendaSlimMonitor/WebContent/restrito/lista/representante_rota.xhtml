@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="/restrito/principal.xhtml">
+
+	<ui:define name="title">Trajeto Representante</ui:define>
+	<ui:param name="heightRodape" value="30" />	
+
+	<ui:define name="centerContent">
+		<h:form prependId="false" id="form">
+			<p:panel id="acoes">
+				
+			</p:panel>
+
+			<p:growl id="growl" showDetail="true" />
+			
+			<h:panelGrid columns="2">
+				<h:outputLabel for="representante" value="Representante" styleClass="labelForm"/>
+					<p:selectOneMenu id="representante" 
+						value="#{representanteRotaBean.representante}"
+						items="#{representanteRotaBean.listaRepresentantes()}"
+						converter="representanteConverter">						
+						<f:selectItem itemLabel="Selecione um Representante" itemValue=""/>
+						<f:selectItems value="#{representanteRotaBean.listaRepresentantes()}" var="rep" 
+							itemLabel="#{rep.nome}" itemValue="#{rep}" />
+						<p:ajax update="dtRotas idMapaRota" listener="#{representanteRotaBean.handleRepresentanteChange()}"/>
+					</p:selectOneMenu>
+				
+				<p:outputLabel value="Data"/>
+				<p:calendar effect="drop" value="#{representanteRotaBean.dtRota}">
+					<p:ajax event="dateSelect" 
+						listener="#{representanteRotaBean.handleDateSelect()}" 
+						update="dtRotas idMapaRota"/>
+				</p:calendar>
+			</h:panelGrid>
+
+			<p:panelGrid columns="2" width="100%">
+				<p:panel header="Localização" style="width:800px;height:400px">			 
+					<p:gmap
+						id="idMapaRota" 
+						center="#{representanteRotaBean.latitudoLongitudeSelecionado}" 
+						zoom="16" 
+						type="HYBRID"
+						model="#{representanteRotaBean.simpleModel}"
+						style="height:350px">
+						<p:ajax event="overlaySelect"
+							listener="#{representanteRotaBean.onMarkerSelect}" update="growl" />
+					</p:gmap> 			
+				</p:panel>
+				
+				<p:panel header="Historico Rotas" style="width:800px;height:400px">
+					<p:dataTable id="dtRotas" 
+						value="#{representanteRotaBean.representanteRotaDataModel}" 
+						var="rotas"
+						selection="#{representanteRotaBean.representanteRotaSelecionado}" 
+						selectionMode="single"
+						scrollable="true" 
+						scrollHeight="350" 
+						scrollRows="30" 
+						liveScroll="true" 		
+						emptyMessage="Nenhuma rota registrada para o filtro">
+						
+						<p:ajax event="rowSelect"
+									listener="#{representanteRotaBean.rowSelectDataTable()}" 
+									update=":form:idMapaRota"/>
+						
+						<p:column headerText="Sequencia">
+							<h:outputText value="1"/>
+						</p:column>
+						
+						<p:column headerText="Hora">
+							<h:outputText value="#{rotas.horaFormatada}"></h:outputText>
+						</p:column>
+					</p:dataTable>
+				</p:panel>
+			</p:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>

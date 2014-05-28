@@ -1,0 +1,172 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="/restrito/principal.xhtml">
+	
+	<f:metadata>
+    	<f:viewParam name="grupoRepreseID" value="#{grupoRepBean.grupoRepresentante.idGrupo}" />
+    	<f:viewParam name="idFilial" value="#{grupoRepBean.grupoRepresentante.filial.idFilial}" />
+    	<f:viewParam name="idEmpresa" value="#{grupoRepBean.grupoRepresentante.filial.empresa.idEmpresa}" />
+    	<f:viewParam name="edicao" value="#{grupoRepBean.edicao}" />
+    	<f:event type="postAddToView" listener="#{grupoRepBean.initForm}"/>   	
+	</f:metadata>
+	
+	
+	
+	<ui:define name="title">Cadastro Grupos de Representante</ui:define>
+	<ui:param name="heightRodape" value="30" />
+
+	<ui:define name="centerContent">
+		<h:form prependId="false" id="form">
+			<p:panel id="acoes">
+				<p:commandButton value="Salvar" id="btnSalvar"
+					action="#{grupoRepBean.salvar}" 
+					styleClass="button-verde"
+					icon="ui-icon-check"/>					
+			</p:panel>
+			<p:messages id="messages" autoUpdate="true" showDetail="true" />
+
+			<p:panel id="panel" header="Novo Grupo de Representante"
+				style="margin-bottom: 10px;">
+				<h:panelGrid columns="3">
+					<h:outputLabel for="filial" value="Empresa" styleClass="labelForm"/>					
+					<p:selectOneMenu id="filial" value="#{grupoRepBean.filial}" 
+						converter="filialConverter" disabled="#{grupoRepBean.edicao}">						
+						<f:selectItem itemLabel="Selecione a Empresa" itemValue=""/>
+						<f:selectItems value="#{grupoRepBean.listaFilial()}" var="fl" 
+							itemLabel="#{fl.nomeFantasia}" itemValue="#{fl}" />
+						<p:ajax update="tabelas parcelamentos btnGrupoProduto dtGrupoProduto" listener="#{grupoRepBean.handleFilialChange()}"/>
+					</p:selectOneMenu>
+					<p:message for="filial" />
+					
+				
+				
+					<h:outputLabel for="codigo" value="Código:" />
+					<h:panelGroup>
+						<p:inputText id="codigo" value="#{grupoRepBean.grupoRepresentante.idGrupo}"
+							maxlength="8" size="8" disabled="#{not grupoRepBean.informarCodigo}"/>
+							<h:outputLabel  value="&nbsp;" />							
+							<p:selectBooleanCheckbox id="abilitaCodigo" value="#{grupoRepBean.informarCodigo}"  rendered="#{not grupoRepBean.edicao}">
+								<p:ajax update="codigo"/>
+							</p:selectBooleanCheckbox>
+							<h:outputLabel for="abilitaCodigo" value="&nbsp;Informar código manualmente"  rendered="#{not grupoRepBean.edicao}" />
+						</h:panelGroup>
+					<p:message for="codigo" />
+
+					<h:outputLabel for="descricao" value="Descrição:" />
+					<p:inputText id="descricao" value="#{grupoRepBean.grupoRepresentante.descricao}"
+						 label="Descrição" />
+					<p:message for="descricao" />
+
+					<h:outputLabel for="descMax" value="Desconto Máximo" />
+					<p:inputText id="descMax" value="#{grupoRepBean.grupoRepresentante.descMax}"
+						label="Desconto Máximo" >
+						<f:convertNumber/>
+						</p:inputText>
+					<p:message for="descMax" />
+					
+					<h:outputLabel for="minVenda" value="Valor Minimo de Venda:"/>
+					<p:inputText id="minVenda" value="#{grupoRepBean.grupoRepresentante.minVenda}"/>
+					<p:message for="minVenda" />
+					
+					<h:outputLabel for="comicao" value="Comição %:"/>
+					<p:inputText id="comicao" value="#{grupoRepBean.grupoRepresentante.comicaoVenda}"/>
+					<p:message for="comicao" />
+					
+					<h:outputLabel for="verCliente" value="Visualiza todos os clientes"/>
+					<p:selectBooleanCheckbox id="verCliente" value="#{grupoRepBean.grupoRepresentante.visualizaTodosClientes}"/>					
+					<p:message for="verCliente" />
+					
+					<h:outputLabel for="tabelas" value="Tabelas de Preço:"/>
+					<p:selectCheckboxMenu id="tabelas" 
+						label="Selecione as Tabelas de Preço" 
+						items="#{grupoRepBean.listaTabelaPreco()}"
+						filter="true" 
+						filterMatchMode="startsWith" 
+						panelStyle="width:400px" 
+						value="#{grupoRepBean.tabelasSelecionadas}" 
+						converter="tabelaPrecoConverter" 
+						disabled="#{grupoRepBean.filial == null}">
+							<f:selectItems value="#{grupoRepBean.listaTabelaPreco()}" 
+								var="tabela" 
+								itemLabel="#{tabela.descricao}" 
+								itemValue="#{tabela}" />
+					</p:selectCheckboxMenu>
+					<p:message for="tabelas" />
+					
+					<h:outputLabel for="parcelamentos" value="Parcelamentos:"/>																	
+					<p:selectCheckboxMenu id="parcelamentos" 
+						label="Selecione os Parcelamentos    " 
+						items="#{grupoRepBean.listaParcelamento()}"
+						filter="true" 
+						filterMatchMode="startsWith" 
+						panelStyle="width:400px" 
+						value="#{grupoRepBean.parcelamentosSelecionados}" 
+						converter="parcelamentoConverter"
+						disabled="#{grupoRepBean.filial == null}">
+						
+							<f:selectItems value="#{grupoRepBean.listaParcelamento()}" 
+								var="parcela" 
+								itemLabel="#{parcela.descricao}" 
+								itemValue="#{parcela}" />						
+					</p:selectCheckboxMenu>
+					
+					
+					<p:message for="parcelamentos" />
+					
+					<h:outputLabel/>
+					<p:commandButton id="btnGrupoProduto" value="Selecionar Grupos de Produtos" onclick="dlgGrupoProduto.show();" type="button" disabled="#{grupoRepBean.filial == null}">
+					</p:commandButton>
+					
+					
+					
+					<p:dialog widgetVar="dlgGrupoProduto"   
+						showEffect="drop" 
+						hideEffect="drop" 
+						modal="false" 
+						height="700" 
+						closable="true" 
+						width="800"  
+						resizable="false">
+						
+						<h:outputLabel value="O Grupo de Representantes poderão vender somente os Grupos de Produtos selecionados a baixo. " />
+						
+						
+						<p:dataTable value="#{gruproProdBean.listaTodos(grupoRepBean.filial)}" 
+							selection="#{grupoRepBean.grupoRepresentante.gruposProdutos}" 
+							var="grupo" 
+							id="dtGrupoProduto" 
+							rowKey="#{grupo.idGrupo}"
+							emptyMessage="Nenhum Grupo Encontrado">
+							
+							<f:facet name="header">Grupos de Produtos</f:facet>
+							
+							<p:column selectionMode="multiple" style="width:2%"/>
+							
+							<p:column headerText="Código">
+								#{grupo.idGrupo}
+							</p:column>
+							
+							<p:column headerText="Descrição">
+								#{grupo.descricao}
+							</p:column>
+							
+							
+						</p:dataTable>
+							
+						<p:commandButton value="Fechar" onclick="dlgGrupoProduto.hide()"/>						
+						
+					</p:dialog>
+					
+				</h:panelGrid>
+				
+
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

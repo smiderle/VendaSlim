@@ -1,0 +1,156 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"	
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="/restrito/principal.xhtml">
+
+	<ui:define name="title">Mensagens</ui:define>
+	<ui:param name="heightRodape" value="30" />
+
+	<ui:define name="centerContent">
+		<h:form prependId="false" id="form">
+			<p:panel id="acoes">
+				<p:commandButton id="btnNovo"
+							value="Nova Mensagem"
+							oncomplete="dlgMensagem.show()"
+							action="#{mensagemBean.novaMensagem()}"
+							update=":form:dlgMensagemId"/>
+							
+			</p:panel>
+			
+			
+			<p:panel id="filtro">
+				<h:outputLabel for="representante" value="Representante"
+						styleClass="labelForm" />
+					<p:selectOneMenu id="representante"
+						value="#{mensagemBean.representanteSelecionado}"
+						items="#{mensagemBean.listaRepresentantes()}"
+						converter="representanteConverter">
+						<f:selectItem itemLabel="Selecione um Representante" itemValue="" />
+						<f:selectItems value="#{mensagemBean.listaRepresentantes()}"
+							var="rep" itemLabel="#{rep.nome}" itemValue="#{rep}" />
+					</p:selectOneMenu>
+			</p:panel>
+			
+			<p:dataTable id="dtMensagens" value="#{mensagemBean.mensagemDataModel()}"
+				var="mensagem" scrollable="true" 
+				scrollHeight="550" 
+				style="width:100%;"
+				selection="#{mensagemBean.mensagemSelecionada}"
+				selectionMode="single">
+				
+				<p:ajax event="rowSelect"
+						update=":form:dlgMensagemId"
+						oncomplete="dlgMensagem.show();" />
+				
+				<f:facet name="header">
+                    	Mensagens
+        		</f:facet>
+        						
+				<p:column headerText="Código" style="text-align:center;" width="10%">
+					<h:outputText value="#{mensagem.idMensagem}" />
+				</p:column>
+				
+				<p:column headerText="Titulo" width="30%">
+					<h:outputText value="#{mensagem.titulo}" />
+				</p:column>
+				
+				<p:column headerText="Mensagem" width="45%">
+					<h:outputText value="#{mensagem.mensagem}" />
+				</p:column>
+				
+				<p:column headerText="De" width="10%">
+				<h:outputText value="#{mensagem.usuarioOrigem.nome}" rendered="#{mensagem.usuarioOrigem != null}"/>
+					<h:outputText value="#{mensagem.representantenOrigem.nome}" rendered="#{mensagem.usuarioOrigem == null}"/>
+				</p:column>
+				
+				<p:column headerText="Para" width="10%">
+					<h:outputText value="#{mensagem.usuarioDestino.nome}" rendered="#{mensagem.usuarioDestino != null}"/>
+					<h:outputText value="#{mensagem.representantenDestino.nome}" rendered="#{mensagem.usuarioDestino == null}"/>
+				</p:column>
+				
+				
+				<p:column headerText="Hora" style="text-align:center;" width="15%">
+					<h:outputText value="#{mensagem.dtHrCadastro}" >
+						<f:convertDateTime locale="pt_BR" dateStyle="long" timeStyle="short" pattern="dd/MM/yyyy - HH:mm:ss"/>
+					</h:outputText>
+				</p:column>
+				
+			</p:dataTable>
+			<p:outputLabel value="* Primeiras #{applicationConfigurationBean.constantsRepository.maxResultMensagens} registros." ></p:outputLabel>
+			
+			
+			
+			<p:dialog 
+				id="dlgMensagemId"
+				widgetVar="dlgMensagem"   
+				showEffect="drop" 
+				hideEffect="drop" 
+				modal="false"  
+				height="700" 
+				closable="false" 
+				width="1000"  
+				resizable="false">
+
+				<p:panel id="panelVisualizaMensagem">
+					<p:panel id="panelVisualizar" rendered="#{mensagemBean.mensagemSelecionada.idMensagem != null}">
+						<p:panelGrid style="width:100%;" id="pnlCabecalho" columns="2" >
+								<p:outputLabel value="De: "/>
+								<p:inputText size="30" disabled="true" value="#{mensagemBean.mensagemSelecionada.usuarioOrigem.nome}" rendered="#{mensagemBean.mensagemSelecionada.usuarioOrigem != null}"/>
+								<p:inputText size="30" disabled="true" value="#{mensagemBean.mensagemSelecionada.representantenOrigem.nome}" rendered="#{mensagemBean.mensagemSelecionada.usuarioOrigem == null}"/>
+								
+								<p:outputLabel value="Para: "/>
+								<p:inputText size="30" disabled="true" value="#{mensagemBean.mensagemSelecionada.usuarioDestino.nome}" rendered="#{mensagemBean.mensagemSelecionada.usuarioDestino != null}"/>
+								<p:inputText size="30" disabled="true" value="#{mensagemBean.mensagemSelecionada.representantenDestino.nome}" rendered="#{mensagemBean.mensagemSelecionada.usuarioDestino == null}"/>
+						</p:panelGrid>
+					</p:panel>
+					
+					<p:panel id="panelNovaMensagem" rendered="#{mensagemBean.mensagemSelecionada.idMensagem == null}">
+						<h:panelGrid columns="2">
+							<p:outputLabel value="Para: "/>
+								<p:selectCheckboxMenu id="representantes"
+										label="Selecione os Representantes"
+										items="#{mensagemBean.listaRepresentantes()}" 
+										filter="true"
+										filterMatchMode="startsWith" 
+										panelStyle="width:400px"
+										value="#{mensagemBean.representantesSelecionados}"
+										converter="representanteConverter" >
+										<f:selectItems value="#{mensagemBean.listaRepresentantes()}"
+											var="representante" itemLabel="#{representante.nome}"
+											itemValue="#{representante}" />
+									</p:selectCheckboxMenu>
+						</h:panelGrid>
+					</p:panel>
+					
+					
+					<h:panelGrid columns="1" style="width:100%;" >
+						<h:panelGroup>
+							<p:outputLabel value="Titulo: "/>
+							<p:inputText value="#{mensagemBean.mensagemSelecionada.titulo}" style="width:80%;" />
+						</h:panelGroup>
+						<p:separator />
+						<p:inputTextarea rows="20" style="width:100%;"  value="#{mensagemBean.mensagemSelecionada.mensagem}" />
+					</h:panelGrid>
+				</p:panel>
+				
+				
+				<p:commandButton value="Fechar"
+					oncomplete="dlgMensagem.hide();">										
+				</p:commandButton>
+				
+				<p:commandButton
+					id="btnEnviar" 
+					value="Enviar" 
+					action="#{mensagemBean.salvar()}"
+					oncomplete="dlgMensagem.hide();"
+					update=":form:dtMensagens" 
+					rendered="#{mensagemBean.mensagemSelecionada.idMensagem == null}"/>
+			</p:dialog>
+		</h:form>
+	</ui:define>
+</ui:composition>

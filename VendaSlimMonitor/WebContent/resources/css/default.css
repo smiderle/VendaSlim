@@ -1,0 +1,64 @@
+@CHARSET "ISO-8859-1";
+
+.ui-widget,.ui-widget .ui-widget {
+	font-size: 13px !important;
+}
+
+.ui-layout-north {
+	z-index:20 !important;
+	overflow:visible !important;;
+}
+
+.ui-layout-north .ui-layout-unit-content {
+	overflow:visible !important;
+}
+
+.ui-widget-content.ui-datatable-empty-message td{
+	text-align: center;
+}
+
+.ui-inputtext{
+	/* text-transform: uppercase; */
+}
+
+
+form .button-azul{
+	/* background: #3276B1 !important;
+	font-family:cursive;
+	color: white; */
+}
+
+form .button-verde{
+	background: #5CB85C !important;	
+}
+
+form .button-laranja{
+	/* background: #F0AD4E !important;	 */
+}
+
+
+form .button-azul span{	
+	/* color: white; */
+}
+
+form .button-verde span{	
+	color: white;
+}
+
+form .button-laranja span{	
+	/* color: white; */
+}
+
+
+.colun20{
+	width: 20px;
+}
+
+
+.colun40{
+	width: 40px;
+}
+
+.colun60{
+	width: 60px;
+}

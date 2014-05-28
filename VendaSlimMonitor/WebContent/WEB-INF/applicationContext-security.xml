@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<b:beans xmlns="http://www.springframework.org/schema/security"
+    xmlns:b="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+          http://www.springframework.org/schema/security
+          http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+	<http>
+
+		<intercept-url pattern="/admin/**" access="ROLE_ADMIN" />
+		<intercept-url pattern="/restrito/**" access="ROLE_USER" />
+		<form-login login-page="/publico/index.jsf"
+			always-use-default-target="true" default-target-url="/restrito/selecao_empresa.jsf"
+			authentication-failure-url="/publico/login.jsf?login_error=1" />
+		<logout/>
+		<remember-me />
+	</http>
+
+	<authentication-manager>
+		<authentication-provider>
+			<jdbc-user-service data-source-ref="vendaSlimDataSource"
+				authorities-by-username-query="SELECT U.LOGIN, P.PERMISSAO 
+											 FROM USUARIO U, USUARIOPERMISSAO P 
+											WHERE U.IDUSUARIO = P.IDUSUARIO 
+											  AND UPPER(U.LOGIN) = UPPER(?)"
+				users-by-username-query="SELECT LOGIN, SENHA, ATIVO 
+									   FROM USUARIO 
+									  WHERE UPPER(LOGIN) = UPPER(?)" />
+		</authentication-provider>
+	</authentication-manager>
+</b:beans>

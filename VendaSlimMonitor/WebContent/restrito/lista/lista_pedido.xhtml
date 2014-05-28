@@ -1,0 +1,346 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="/restrito/principal.xhtml">
+
+	<ui:define name="title">Pedidos</ui:define>
+	<ui:param name="heightRodape" value="30" />
+
+	<ui:define name="centerContent">
+		<h:form prependId="false" id="form">
+			<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>              
+			<p:dialog modal="true" widgetVar="statusDialog" header="Carregando..."   
+        		draggable="false" closable="false">  
+    			<p:graphicImage library="img" name="ajaxloadingbar.gif"/>  
+			</p:dialog>
+
+			<p:panel id="filtro">
+				<h:panelGrid columns="2">
+					<h:outputLabel value="Pedido:" />
+					<h:panelGroup>
+						<p:inputText id="filtroPedido"
+							value="#{pedidoBean.filtro.idPedido}" label="Filtro" size="20" />
+						<p:watermark value="Código do Pedido" for="filtroPedido" />
+					</h:panelGroup>
+
+
+					<h:outputLabel value="Cliente:" />
+					<h:panelGroup>
+						<p:inputText id="filtroIdCliente"
+							value="#{pedidoBean.filtro.cliente.idCliente}" label="Filtro"
+							size="5">
+							
+							<p:ajax event="blur"
+								listener="#{pedidoBean.buscaClientePorCodigo()}"
+								update="filtroIdCliente filtroNomeCliente" />
+						</p:inputText>
+
+						<p:inputText id="filtroNomeCliente"
+							value="#{pedidoBean.filtro.cliente.nome}"
+							size="60"
+							disabled="true"/>	
+							
+							
+						<p:watermark value="Código do Cliente" for="filtroIdCliente" />
+						<p:commandButton id="btnFindCliente" icon="ui-icon-search" 
+							action="#{cadastroClienteBean.pesquisarCliente()}"/>
+						<h:outputLabel value="#{pedidoBean.filtro.cliente.nome}"
+							rendered="#{pedidoBean.filtro.cliente.idCliente != null}" />
+					</h:panelGroup>
+
+					<h:outputLabel for="representante" value="Representante"
+						styleClass="labelForm" />
+					<p:selectOneMenu id="representante"
+						value="#{pedidoBean.filtro.representanteSelecionado}"
+						items="#{pedidoBean.listaRepresentantes()}"
+						converter="representanteConverter">
+						<f:selectItem itemLabel="Selecione um Representante" itemValue="" />
+						<f:selectItems value="#{pedidoBean.listaRepresentantes()}"
+							var="rep" itemLabel="#{rep.nome}" itemValue="#{rep}" />
+					</p:selectOneMenu>
+
+
+					<p:outputLabel value="Inicio: " />
+					<h:panelGroup>
+						<p:calendar effect="drop" value="#{pedidoBean.filtro.dtInicio}" />
+						<p:spacer width="20" />
+						<p:outputLabel value="Fim: " />
+						<p:calendar effect="drop" value="#{pedidoBean.filtro.dtFim}" />
+					</h:panelGroup>
+
+
+
+					<h:outputLabel />
+					<h:panelGroup>
+						<p:commandButton id="btnFiltrar" 
+							value="Filtrar"
+							update=":form:dtPedidos" 
+							action="#{pedidoBean.filtrarPedidos()}"/>
+						<p:commandButton id="btnLimparFiltro" 
+							value="Limpar Filtros"
+							action="#{pedidoBean.limparFiltro()}"
+							update=":form:dtPedidos :form:filtro"/>
+					</h:panelGroup>
+				</h:panelGrid>
+			</p:panel>
+			
+			<p:overlayPanel id="clientePanel" for="btnFindCliente"
+					hideEffect="fade" dynamic="true" style="width:50%; height:50%;"
+					widgetVar="clientePanelWVar">
+
+					<p:panel id="filtroClientePanel">
+						<p:inputText id="filtroCliente"
+							value="#{cadastroClienteBean.filtro}" label="Filtro" size="65" />
+						<p:watermark value="Nome, Código , CPF." for="filtroCliente" />
+
+						<p:commandButton id="btnFind" icon="ui-icon-search"
+							title="Pesquisar" update="dtClientes btnLimparFiltroCliente"
+							action="#{cadastroClienteBean.pesquisarCliente()}" />
+
+						<p:commandButton id="btnLimparFiltroCliente" value="Limpar Filtro"
+							disabled="#{cadastroClienteBean.filtro == null}"
+							update="filtroCliente dtClientes btnLimparFiltroCliente"
+							action="#{cadastroClienteBean.removerFiltro()}" />
+					</p:panel>
+
+
+					<p:dataTable id="dtClientes"
+						value="#{cadastroClienteBean.clientesDataModel()}" 
+						var="cliente"
+						scrollable="true"						
+						selection="#{pedidoBean.filtro.cliente}"
+						selectionMode="single"
+						emptyMessage="Nenhum cliente encontado"
+						rows="20">
+						
+							<p:ajax event="rowSelect" 
+									update=":form:filtroIdCliente :form:filtroNomeCliente"
+									oncomplete="clientePanelWVar.hide();" />
+
+						<f:facet name="header">
+                    		Clientes  
+        				</f:facet>
+        				
+						<p:column headerText="Código">
+							<h:outputText value="#{cliente.idCliente}" />
+						</p:column>
+
+						<p:column headerText="Nome">
+							<h:outputText value="#{cliente.nome}" />
+						</p:column>
+						
+						<p:column headerText="Apelido">
+							<h:outputText value="#{cliente.apelido}" />
+						</p:column>
+						
+					</p:dataTable>
+					
+					<p:outputLabel value="Primeiros #{applicationConfigurationBean.constantsRepository.maxResultClientes} registros."></p:outputLabel>
+				</p:overlayPanel>
+
+			<p:dataTable id="dtPedidos" value="#{pedidoBean.pedidoDataModel}"
+				var="pedido" selection="#{pedidoBean.pedidoSelecionado}"				
+				selectionMode="single" 
+				emptyMessage="Nenhuma pedido encontrado">
+				
+				<p:ajax event="rowSelect" update=":form:btnVisualizar :form:dtItens :form:pnlCabecalho :form:pnlRodape"/>
+				
+				<f:facet name="header">
+                    	Pedidos 
+        		</f:facet>
+
+				<p:column sortBy="#{pedido.idPedido}" headerText="Pedido">
+					<h:outputText value="#{pedido.idPedido}" />
+				</p:column>
+
+				<p:column sortBy="#{pedido.cliente.idCliente}" headerText="Cliente">
+					<h:outputText value="#{pedido.cliente.idCliente}" />
+				</p:column>
+
+				
+				<p:column sortBy="#{pedido.cliente.nome}" headerText="Nome">
+					<h:outputText value="#{pedido.cliente.nome}" />
+				</p:column>
+				
+				<p:column sortBy="#{pedido.representanteFilial.representante.idRepresentante}" headerText="Representante">
+					<h:outputText value="#{pedido.representanteFilial.representante.idRepresentante} - #{pedido.representanteFilial.representante.nome}" />
+				</p:column>
+				
+				
+				<p:column sortBy="#{pedido.descontoTotal}" headerText="Desconto/Acréscimo">
+					<h:outputText rendered="#{pedido.descontoTotal > 0}" value="#{pedido.descontoTotal}" style="color:red"><f:convertNumber pattern="#0.00"/></h:outputText>
+					<h:outputText rendered="#{0 > pedido.descontoTotal }" value="#{pedido.descontoTotal * (-1)}" style="color:blue"><f:convertNumber pattern="#0.00"/></h:outputText>
+					<h:outputText rendered="#{0 == pedido.descontoTotal }" value="#{pedido.descontoTotal}" ><f:convertNumber pattern="#0.00"/></h:outputText>
+										
+				</p:column>
+				
+				<p:column sortBy="#{pedido.valorLiquido}" headerText="Valor Total">
+					<h:outputText value="#{pedido.valorLiquido}" >
+						<f:convertNumber pattern="#0.00"></f:convertNumber>
+					</h:outputText>
+				</p:column>
+				
+				
+				<p:column headerText="Emissão">
+					<h:outputText value="#{pedido.dtHrEmissao}" >
+						<f:convertDateTime locale="pt_BR" dateStyle="long" timeStyle="short" pattern="dd/MM/yyyy - HH:mm:ss"/>
+					</h:outputText>
+				</p:column>
+			</p:dataTable>
+			
+			<p:panel>
+				<p:commandButton  id="btnVisualizar"  
+					value="Visualizar Pedido"
+					type="button" 
+					onclick="dlgPedidoItem.show()"
+					disabled="#{pedidoBean.pedidoSelecionado == null}"
+					styleClass="button-verde"/>
+			</p:panel>
+			
+			
+			<p:dialog 
+				id="dlgPedidoItemId"
+				widgetVar="dlgPedidoItem"   
+				showEffect="drop" 
+				hideEffect="drop" 
+				modal="false"  
+				height="50%" 
+				closable="false"				  
+				resizable="false">
+
+				<p:panelGrid style="width:100%;" id="pnlCabecalho" >
+					<p:row>
+						<p:column style="width:10px">
+							<h:outputLabel value="Cliente: " />
+						</p:column>
+						<p:column>
+							<p:inputText value="#{pedidoBean.pedidoSelecionado.cliente.nome}" disabled="true"
+								style="color:#0084c6;width:90%;" />
+						</p:column>
+						<p:column rowspan="2" style="font-weight: bold; font-size:30px; text-align:center;"><h:outputLabel value="#{pedidoBean.pedidoSelecionado.idPedido}" /></p:column>
+						
+					</p:row>
+
+					<p:row>
+						<p:column>
+							<h:outputLabel value="Representante: " />
+						</p:column>
+						<p:column>
+							<p:inputText value="#{pedidoBean.pedidoSelecionado.representanteFilial.representante.nome}" disabled="true"
+								style="color:#0084c6;width:90%;" />
+						</p:column>
+					</p:row>
+					
+					<p:row>		
+						<p:column colspan="3" style="border: 0;">
+								<h:panelGroup>
+									<h:outputLabel value="Tabela de Preço: " />
+									<p:inputText value="#{pedidoBean.pedidoSelecionado.tabelaPreco.descricao}" disabled="true"
+										style="color:#0084c6;"></p:inputText>
+								</h:panelGroup>
+		
+								<h:panelGroup>
+									<p:spacer width="10"/>
+									<h:outputLabel value="Parcelamento: " />
+									<p:inputText value="#{pedidoBean.pedidoSelecionado.parcelamento.descricao}" disabled="true"
+										style="color:#0084c6;"></p:inputText>
+								</h:panelGroup>
+		
+								<h:panelGroup>
+									<p:spacer width="10"/>
+									<h:outputLabel value="Emissão: " />
+									
+									<p:inputText value="#{pedidoBean.pedidoSelecionado.dtHrEmissao}" disabled="true"
+										style="color:#0084c6;">
+										<f:convertDateTime locale="pt_BR" dateStyle="long" timeStyle="short" pattern="dd/MM/yyyy - HH:mm:ss"/>
+									</p:inputText>
+								</h:panelGroup>
+		
+								<h:panelGroup>
+									<p:spacer width="10"/>
+									<h:outputLabel value="Status: " />
+									<p:inputText value="#{pedidoBean.pedidoSelecionado.status.descricao}"
+										 disabled="true"
+										style="color:#0084c6;"
+										size="35"></p:inputText>
+								</h:panelGroup>
+							
+						</p:column>
+					</p:row>
+
+				</p:panelGrid>
+
+
+				<p:dataTable id="dtItens" value="#{pedidoBean.itensPedidos()}"
+					var="itemPedido"
+					emptyMessage="Nenhuma pedido encontrado" 
+					rows="20">
+				
+				<f:facet name="header">
+                    	Produtos 
+        		</f:facet>
+				
+				<p:column headerText="" width="10">
+					<h:outputText value="#{itemPedido.sequencia}" />
+				</p:column>        		
+        						
+				<p:column headerText="Código" width="10">
+					<h:outputText value="#{itemPedido.produto.idProduto}"/>
+				</p:column>
+
+				<p:column headerText="Produto" width="300">
+					<h:outputText value="#{itemPedido.produto.descricao}" />
+				</p:column>
+								
+				<p:column headerText="Quantidade" width="10">
+					<h:outputText value="#{itemPedido.quantidade}" >
+						<f:convertNumber pattern="#0.00"/>
+					</h:outputText>
+				</p:column>				
+				
+				<p:column headerText="Valor Unitario" width="10">
+					<h:outputText value="#{itemPedido.precoVenda}" >
+						<f:convertNumber pattern="#0.00"/>
+					</h:outputText>
+				</p:column>
+				
+				
+				<p:column headerText="Total" width="10">
+					<h:outputText value="#{itemPedido.valorTotal}" >
+						<f:convertNumber pattern="#0.00"/>
+					</h:outputText>
+				</p:column>
+				
+			</p:dataTable>
+			<p:panel style="height: 40px;">
+			<h:panelGroup style="float:right;" id="pnlRodape">				
+			
+					<h:outputText value="Valor Bruto R$:"/>				
+					<p:inputText value="#{pedidoBean.pedidoSelecionado.valorBruto}" disabled="true" style="color:#0084c6;" size="10"><f:convertNumber pattern="#0.00"/></p:inputText>
+					<p:spacer width="10"/>
+					<h:outputText value="#{pedidoBean.labelDescontoAcrescimo} R$:"/>				
+					<p:inputText value="#{pedidoBean.pedidoSelecionado.descontoTotal}" rendered="#{pedidoBean.pedidoSelecionado.descontoTotal > 0}"  disabled="true" style="color:#0084c6;" size="10"><f:convertNumber pattern="#0.00"/></p:inputText>
+					<p:inputText value="#{pedidoBean.pedidoSelecionado.descontoTotal * (-1)}" rendered="#{0 > pedidoBean.pedidoSelecionado.descontoTotal}" disabled="true" style="color:#0084c6;" size="10"><f:convertNumber pattern="#0.00"/></p:inputText>
+					<p:spacer width="10"/>				
+					<h:outputText value="Total R$:"/>				
+					<p:inputText value="#{pedidoBean.pedidoSelecionado.valorLiquido}" disabled="true" style="color:#0084c6;" size="10"><f:convertNumber pattern="#0.00"/></p:inputText>
+				
+			</h:panelGroup>
+				
+			</p:panel>
+									
+				
+				<p:commandButton value="Fechar"
+					oncomplete="dlgPedidoItem.hide();">										
+				</p:commandButton>
+				
+				
+			</p:dialog>
+		</h:form>
+	</ui:define>
+</ui:composition>

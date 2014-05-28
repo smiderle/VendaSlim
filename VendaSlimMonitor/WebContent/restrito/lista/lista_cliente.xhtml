@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="/restrito/principal.xhtml">
+
+	<ui:define name="title">Clientes</ui:define>
+	<ui:param name="heightRodape" value="30" />
+	
+	
+
+	<ui:define name="centerContent">
+		<h:form prependId="false" id="form">
+			<p:panel id="acoes">
+				<p:commandButton value="Novo" id="btnNovo"
+					action="#{cadastroClienteBean.novo}" title="Novo Cliente"
+					styleClass="button-azul"
+					 icon="ui-icon-plus"/>				
+			</p:panel>
+			
+			<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>              
+			<p:dialog modal="true" widgetVar="statusDialog" header="Carregando..."   
+        		draggable="false" closable="false">  
+    			<p:graphicImage library="img" name="ajaxloadingbar.gif"/>  
+			</p:dialog>  
+			
+			<p:messages id="messages" autoUpdate="true" showDetail="true" />
+			
+			<p:panel id="filtro">
+				<h:outputLabel for="filtroCliente" 
+					value="Busca: " />
+				<p:inputText id="filtroCliente" 
+					value="#{cadastroClienteBean.filtro}"
+	 				label="Filtro"  
+	 				size="65"/>
+	 				<p:watermark value="Nome, Código , CPF." for="filtroCliente"/>
+	 				
+	 			<p:commandButton id="btnFind" 
+	 				icon="ui-icon-search" 
+	 				title="Pesquisar" 
+	 				update="dtClientes btnLimparFiltro"
+	 				action="#{cadastroClienteBean.pesquisarCliente()}">	 				
+	 			</p:commandButton>
+	 			
+	 			
+	 			<p:commandButton id="btnLimparFiltro"
+	 			 	value="Limpar Filtro" 
+	 			 	disabled="#{cadastroClienteBean.filtro == null}" 
+	 			 	update="filtroCliente dtClientes btnLimparFiltro"
+	 			 	action="#{cadastroClienteBean.removerFiltro()}">	 				
+	 			</p:commandButton>		
+	 				
+			</p:panel>
+
+			<p:dataTable id="dtClientes" value="#{cadastroClienteBean.listaClientes()}"
+				var="cliente" 
+				scrollable="true"			
+				scrollHeight="650"				 
+				scrollRows="70" 
+				liveScroll="true" 
+				emptyMessage="Nenhum Cliente Encontrado">
+				
+				<f:facet name="header">
+                    	Clientes  
+        		</f:facet>
+        		
+        		<p:column headerText="">
+					<p:button id="viewButton2" icon="ui-icon-pencil" outcome="/restrito/cadastro/cadastro_cliente" title="Editar">            	
+						<f:param name="idCliente" value="#{cliente.idCliente}"/>
+						<f:param name="edicao" value="true" />
+					</p:button>
+					
+					<p:commandButton icon="ui-icon-close" action="#{cadastroClienteBean.excluir()}" update="dtClientes">						
+						<f:setPropertyActionListener target="#{cadastroClienteBean.cliente}" value="#{cliente}" />
+					</p:commandButton>					
+				</p:column>        		
+        						
+				<p:column sortBy="#{cliente.idCliente}" headerText="Código">
+					<h:outputText value="#{cliente.idCliente}" />
+				</p:column>
+
+				<p:column sortBy="#{cliente.nome}" headerText="Nome">
+					<h:outputText value="#{cliente.nome}" />
+				</p:column>
+
+				
+				<p:column sortBy="#{cliente.foneComercial}" headerText="Fone Comercial">
+					<h:outputText value="#{cliente.foneComercial}" />
+				</p:column>
+				
+				<p:column sortBy="#{cliente.celular}" headerText="Fone Comercial">
+					<h:outputText value="#{cliente.celular}" />
+				</p:column>
+				
+				<p:column sortBy="#{cliente.inativo}" headerText="Inativo">
+					<h:outputLabel rendered="#{cliente.inativo}" value="Sim"/>
+					<h:outputLabel rendered="#{not cliente.inativo}" value="Não"/>					
+				</p:column>
+			</p:dataTable>
+			
+			<p:blockUI block="dtClientes" trigger="btnFind">  
+        		CARREGANDO<br />  
+        		<p:graphicImage library="img" name="ajax-loader.gif"/>  
+    		</p:blockUI>
+		</h:form>
+	</ui:define>
+</ui:composition>

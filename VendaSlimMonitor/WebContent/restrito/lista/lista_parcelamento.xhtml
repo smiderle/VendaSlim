@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" 
+	template="/restrito/principal.xhtml">
+
+	<ui:define name="title">Parcelamentos</ui:define>
+	<ui:param name="heightRodape" value="30" />
+
+	<ui:define name="centerContent">
+		<h:form prependId="false" id="form">
+			<p:panel id="acoes">
+				<p:commandButton value="Novo" id="btnNovo"
+					action="#{cadastroParcelamentoBean.novo}" 
+					styleClass="button-azul"
+					 icon="ui-icon-plus"/>
+			</p:panel>
+			
+			<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>              
+			<p:dialog modal="true" widgetVar="statusDialog" header="Carregando..."   
+	       		draggable="false" closable="false">  
+	   			<p:graphicImage library="img" name="ajaxloadingbar.gif"/>  
+			</p:dialog>  
+			
+			<p:messages id="messages" autoUpdate="true" showDetail="true" />
+
+			<p:dataTable id="dtParcelamento" 
+				value="#{cadastroParcelamentoBean.listarPorFilial()}"
+				var="parcela" 
+				scrollable="true" 
+				scrollHeight="750">
+				<f:facet name="header"> 
+					Parcelamento
+				</f:facet>
+			
+					
+			<p:column headerText="" width="100">				
+					<p:button id="viewButton2" icon="ui-icon-pencil" outcome="/restrito/cadastro/cadastro_parcelamento" title="Editar">
+						<f:param name="idParcelamento" value="#{parcela.idParcelamento}"/>
+						<f:param name="edicao" value="true" />
+					</p:button>
+					
+					<p:commandButton icon="ui-icon-close" action="#{cadastroParcelamentoBean.excluir()}" update="dtParcelamento">						
+						<f:setPropertyActionListener target="#{cadastroParcelamentoBean.parcelamento}" value="#{parcela}" />
+					</p:commandButton>					
+				</p:column>
+				
+				<p:column sortBy="#{parcela.idParcelamento}" headerText="Código" width="10%">
+					<h:outputText value="#{parcela.idParcelamento}" />
+				</p:column>
+			
+				<p:column sortBy="#{parcela.descricao}" headerText="Descrição">
+					<h:outputText value="#{parcela.descricao}" />
+				</p:column>
+			
+				<p:column sortBy="#{parcela.carencia}" headerText="Carencia" width="100">
+					<h:outputText value="#{parcela.carencia}" />
+				</p:column>
+
+				<p:column sortBy="#{parcela.numeroParcelas}" headerText="Nº de Parcelas" width="100">
+					<h:outputText value="#{parcela.numeroParcelas}" />
+				</p:column>
+				
+				<p:column sortBy="#{parcela.diasEntreParcelas}" headerText="Dias Entre Parcelas" width="100">
+					<h:outputText value="#{parcela.diasEntreParcelas}" />
+				</p:column>
+				
+				<p:column sortBy="#{parcela.percentualAcrescimo}" headerText="Percentual de Acréscimo" width="100">
+					<h:outputText value="#{parcela.percentualAcrescimo}" >
+						<f:convertNumber pattern="#0.00"/>
+					</h:outputText>
+				</p:column>
+				
+				<p:column sortBy="#{parcela.inativo}" headerText="Inativo" width="100">
+					<h:outputLabel rendered="#{parcela.inativo}" value="Sim"/>
+					<h:outputLabel rendered="#{not parcela.inativo}" value="Não"/>					
+				</p:column>
+									
+				</p:dataTable>
+			
+			
+    		  
+		</h:form>
+	</ui:define>
+</ui:composition>
