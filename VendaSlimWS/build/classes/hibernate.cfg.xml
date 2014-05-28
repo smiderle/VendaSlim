@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC 
+    "-//Hibernate/Hibernate Configuration DTD//EN"
+    "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+		<property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+        <property name="connection.driver_class">org.postgresql.Driver</property>
+		<property name="connection.url">jdbc:postgresql://localhost/VENDASLIMDB</property>
+        <property name="connection.username">root</property>
+        <property name="connection.password">root</property>
+        				
+        				<!-- PRODUCAO -->
+        <!-- <property name="connection.url">jdbc:postgresql://localhost/vendasli_vsdb</property>
+        <property name="connection.username">vendasli</property>
+        <property name="connection.password">l@d@!r8580</property>
+ -->        
+        <!-- property name="connection.datasource">java:/comp/env/jdbc/VendaSlimDB</property-->		
+		<property name="show_sql">false</property>
+		<property name="format_sql">false</property>
+		<property name="current_session_context_class">thread</property>
+		<!-- property name="hibernate.hbm2ddl.auto">create</property-->
+		
+		<mapping class="br.com.vendaslim.ws.domain.ClienteIntegration"/>
+		<mapping class="br.com.vendaslim.ws.domain.DeviceIntegration"/>
+		<mapping class="br.com.vendaslim.ws.domain.EmpresaIntegration"/>		
+		<mapping class="br.com.vendaslim.ws.domain.ItemIntegration"/>
+		<mapping class="br.com.vendaslim.ws.domain.ParcelamentoIntegration"/>
+		<mapping class="br.com.vendaslim.ws.domain.FilialIntegration"/>
+		<mapping class="br.com.vendaslim.ws.domain.FilialMobileConfigIntegration"/>
+		<mapping class="br.com.vendaslim.ws.domain.GrupoProdutoIntegration"/>
+		<mapping class="br.com.vendaslim.ws.domain.GrupoRepresentanteParcelamentoIntegration"/>
+		<mapping class="br.com.vendaslim.ws.domain.GrupoRepresentanteIntegration"/>
+		<mapping class="br.com.vendaslim.ws.domain.GrupoRepresentanteTabPrecoIntegration"/>
+		<mapping class="br.com.vendaslim.ws.domain.MensagemIntegration"/>		
+		<mapping class="br.com.vendaslim.ws.domain.PedidoIntegration"/>
+		<mapping class="br.com.vendaslim.ws.domain.PedidoItemIntegration"/>		
+		<mapping class="br.com.vendaslim.ws.domain.RepresentanteIntegration"/>
+		<mapping class="br.com.vendaslim.ws.domain.RepresentanteRotaIntegration"/>		
+		<mapping class="br.com.vendaslim.ws.domain.RepresentanteParcelamentoIntegration"/>
+		<mapping class="br.com.vendaslim.ws.domain.RepresentanteTabPrecoIntegration"/>
+		<mapping class="br.com.vendaslim.ws.domain.RepresentanteFilialIntegration"/>		
+		<mapping class="br.com.vendaslim.ws.domain.Sincronizacao"/>
+		<mapping class="br.com.vendaslim.ws.domain.TabelaPrecoIntegration"/>
+		<mapping class="br.com.vendaslim.ws.domain.UsuarioIntegration"/>
+		<mapping class="br.com.vendaslim.ws.domain.UsuarioPermissao"/>		
+		<mapping class="br.com.vendaslim.ws.domain.VersaoPda"/>
+		<mapping class="br.com.vendaslim.ws.domain.Websinc"/>
+    </session-factory>
+</hibernate-configuration>
