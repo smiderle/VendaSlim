@@ -10,6 +10,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import br.com.vendaslim.ws.controller.WebsincController;
 import br.com.vendaslim.ws.domain.Websinc;
+import br.com.vendaslim.ws.support.ApiResponse;
+import br.com.vendaslim.ws.support.ServiceResponse;
 
 import com.google.gson.Gson;
 
@@ -26,14 +28,27 @@ public class WebsincResource extends Resource{
 			@QueryParam("idFilial") Integer idFilial,
 			@QueryParam("idRepresentante") Integer idRepresentante){
 		
-		openTransaction();
-		WebsincController controller = new WebsincController();
-		List<Websinc> lsWebsinc = controller.buscaPorRepresentante(idEmpresa, idFilial, idRepresentante);
+		ApiResponse<ServiceResponse<List<Websinc>>> apiResponse = new ApiResponse<ServiceResponse<List<Websinc>>>();
 		
-		closeTransaction();
+		try {
+			openTransaction();
+			WebsincController controller = new WebsincController();
+			List<Websinc> lsWebsinc = controller.buscaPorRepresentante(idEmpresa, idFilial, idRepresentante);
+
+			final ServiceResponse<List<Websinc> > response = new ServiceResponse<List<Websinc> >(lsWebsinc, lsWebsinc != null ?  lsWebsinc.size() : 0l);
+			apiResponse.setResult(response);
+			apiResponse.setStatus(ApiResponse.STATUS_SUCCESS);
+			apiResponse.setMessage(ApiResponse.STATUS_SUCCESS);		
+		} catch(Exception e){
+			apiResponse.setStatus(ApiResponse.STATUS_FAILURE);
+			apiResponse.setCode("500");			
+			apiResponse.setMessage("Problemas na sincronização. Tente novamente mais tarde!");			
+			e.printStackTrace();
+		} finally {
+			closeTransaction();
+		}
 		
-		return new Gson().toJson(lsWebsinc);
-		
+		return new Gson().toJson(apiResponse);
 	}
 	
 	
@@ -43,11 +58,15 @@ public class WebsincResource extends Resource{
 	public void deleteWebsinc(
 			@QueryParam("sequencias") String sequencias){
 		
-		openTransaction();
-		WebsincController controller = new WebsincController();
-		if(sequencias != null && !sequencias.trim().equals(""))
-			controller.deleteWebsinc(sequencias);
-		
-		closeTransaction();		
+		try {
+			openTransaction();
+			WebsincController controller = new WebsincController();
+			if(sequencias != null && !sequencias.trim().equals(""))
+				controller.deleteWebsinc(sequencias);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			closeTransaction();
+		}			
 	}
 }

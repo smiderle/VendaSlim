@@ -30,6 +30,9 @@ import br.com.vendaslim.ws.domain.RepresentanteIntegration;
 import br.com.vendaslim.ws.domain.RepresentanteParcelamentoIntegration;
 import br.com.vendaslim.ws.domain.RepresentanteRotaIntegration;
 import br.com.vendaslim.ws.domain.RepresentanteTabPrecoIntegration;
+import br.com.vendaslim.ws.support.ApiResponse;
+import br.com.vendaslim.ws.support.ServiceResponse;
+import br.com.vendaslim.ws.support.TaxExceptionWapper;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -48,12 +51,29 @@ public class RepresentanteResource extends Resource{
 			@QueryParam("changeDate") long changeDate,			
 			@QueryParam("idEmpresa") int idEmpresa, 
 			@QueryParam("idFilial") int idFilial) throws Exception {
-		openTransaction();
-		GrupoRepresentanteController controller = new GrupoRepresentanteController();
-		List<GrupoRepresentanteIntegration> lsProduto =  controller.buscarPorDataAlteracao(changeDate, idEmpresa, idFilial);
-		closeTransaction();
-		
-		return new Gson().toJson(lsProduto);
+
+		ApiResponse<ServiceResponse<List<GrupoRepresentanteIntegration>>> apiResponse = new ApiResponse<ServiceResponse<List<GrupoRepresentanteIntegration>>>();
+
+		try {
+			openTransaction();
+			GrupoRepresentanteController controller = new GrupoRepresentanteController();
+			List<GrupoRepresentanteIntegration> lsProduto =  controller.buscarPorDataAlteracao(changeDate, idEmpresa, idFilial);
+
+			final ServiceResponse<List<GrupoRepresentanteIntegration>> response = new ServiceResponse<List<GrupoRepresentanteIntegration>>(lsProduto, lsProduto != null ?  lsProduto.size() : 0l);
+			apiResponse.setResult(response);
+			apiResponse.setStatus(ApiResponse.STATUS_SUCCESS);
+			apiResponse.setMessage(ApiResponse.STATUS_SUCCESS);
+		} catch (Exception e) {
+			apiResponse.setStatus(ApiResponse.STATUS_FAILURE);
+			apiResponse.setCode("500");
+			apiResponse.setMessage("Problemas na sincronização. Tente novamente mais tarde!");			
+			e.printStackTrace();
+		} finally{
+			closeTransaction();
+		}
+
+
+		return new Gson().toJson(apiResponse);
 	}
 	
 	
@@ -64,12 +84,29 @@ public class RepresentanteResource extends Resource{
 			@QueryParam("changeDate") long changeDate,			
 			@QueryParam("idEmpresa") int idEmpresa, 
 			@QueryParam("idFilial") int idFilial) throws Exception {
-		openTransaction();
-		GrupoRepresentanteParcelamentoController controller = new GrupoRepresentanteParcelamentoController();
-		List<GrupoRepresentanteParcelamentoIntegration> lsProduto =  controller.buscarPorDataAlteracao(changeDate, idEmpresa, idFilial);
-		closeTransaction();
-		
-		return new Gson().toJson(lsProduto);
+
+		ApiResponse<ServiceResponse<List<GrupoRepresentanteParcelamentoIntegration>>> apiResponse = new ApiResponse<ServiceResponse<List<GrupoRepresentanteParcelamentoIntegration>>>();
+
+		try {
+			openTransaction();
+
+			GrupoRepresentanteParcelamentoController controller = new GrupoRepresentanteParcelamentoController();
+			List<GrupoRepresentanteParcelamentoIntegration> lsProduto =  controller.buscarPorDataAlteracao(changeDate, idEmpresa, idFilial);
+
+			final ServiceResponse<List<GrupoRepresentanteParcelamentoIntegration>> response = new ServiceResponse<List<GrupoRepresentanteParcelamentoIntegration>>(lsProduto, lsProduto != null ?  lsProduto.size() : 0l);
+			apiResponse.setResult(response);
+			apiResponse.setStatus(ApiResponse.STATUS_SUCCESS);
+			apiResponse.setMessage(ApiResponse.STATUS_SUCCESS);
+		} catch (Exception e) {
+			apiResponse.setStatus(ApiResponse.STATUS_FAILURE);
+			apiResponse.setCode("500");
+			apiResponse.setMessage("Problemas na sincronização. Tente novamente mais tarde!");
+			e.printStackTrace();
+		}  finally{
+			closeTransaction();
+		}
+
+		return new Gson().toJson(apiResponse);
 	}
 	
 	
@@ -80,12 +117,30 @@ public class RepresentanteResource extends Resource{
 			@QueryParam("changeDate") long changeDate,			
 			@QueryParam("idEmpresa") int idEmpresa, 
 			@QueryParam("idFilial") int idFilial) throws Exception {
-		openTransaction();
-		GrupoRepresentanteTabPrecoController controller = new GrupoRepresentanteTabPrecoController();
-		List<GrupoRepresentanteTabPrecoIntegration> ls =  controller.buscarPorDataAlteracao(changeDate, idEmpresa, idFilial);
-		closeTransaction();
-		
-		return new Gson().toJson(ls);
+
+
+		ApiResponse<ServiceResponse<List<GrupoRepresentanteTabPrecoIntegration>>> apiResponse = new ApiResponse<ServiceResponse<List<GrupoRepresentanteTabPrecoIntegration>>>();
+
+		try {
+			openTransaction();
+
+			GrupoRepresentanteTabPrecoController controller = new GrupoRepresentanteTabPrecoController();
+			List<GrupoRepresentanteTabPrecoIntegration> ls =  controller.buscarPorDataAlteracao(changeDate, idEmpresa, idFilial);
+
+			final ServiceResponse<List<GrupoRepresentanteTabPrecoIntegration>> response = new ServiceResponse<List<GrupoRepresentanteTabPrecoIntegration>>(ls, ls != null ?  ls.size() : 0l);
+			apiResponse.setResult(response);
+			apiResponse.setStatus(ApiResponse.STATUS_SUCCESS);
+			apiResponse.setMessage(ApiResponse.STATUS_SUCCESS);
+		} catch (Exception e) {
+			apiResponse.setStatus(ApiResponse.STATUS_FAILURE);
+			apiResponse.setCode("500");			
+			apiResponse.setMessage("Problemas na sincronização. Tente novamente mais tarde!");			
+			e.printStackTrace();
+		}  finally{
+			closeTransaction();
+		}
+
+		return new Gson().toJson(apiResponse);
 	}
 	
 	
@@ -95,12 +150,29 @@ public class RepresentanteResource extends Resource{
 	public String getAllRepresentativeBranchOfficeByChangeDate(
 			@QueryParam("changeDate") long changeDate,			
 			@QueryParam("idEmpresa") int idEmpresa) throws Exception {
-		openTransaction();
-		RepresentanteFilialController controller = new RepresentanteFilialController();
-		List<RepresentanteFilialIntegration> ls =  controller.buscarPorDataAlteracao(changeDate, idEmpresa);
-		closeTransaction();
-		
-		return new Gson().toJson(ls);
+
+		ApiResponse<ServiceResponse<List<RepresentanteFilialIntegration>>> apiResponse = new ApiResponse<ServiceResponse<List<RepresentanteFilialIntegration>>>();
+
+		try {
+			openTransaction();
+
+			RepresentanteFilialController controller = new RepresentanteFilialController();
+			List<RepresentanteFilialIntegration> ls =  controller.buscarPorDataAlteracao(changeDate, idEmpresa);
+
+			final ServiceResponse<List<RepresentanteFilialIntegration>> response = new ServiceResponse<List<RepresentanteFilialIntegration>>(ls, ls != null ?  ls.size() : 0l);
+			apiResponse.setResult(response);
+			apiResponse.setStatus(ApiResponse.STATUS_SUCCESS);
+			apiResponse.setMessage(ApiResponse.STATUS_SUCCESS);
+		} catch (Exception e) {
+			apiResponse.setStatus(ApiResponse.STATUS_FAILURE);
+			apiResponse.setCode("500");			
+			apiResponse.setMessage("Problemas na sincronização. Tente novamente mais tarde!");			
+			e.printStackTrace();
+		}  finally{
+			closeTransaction();
+		}
+
+		return new Gson().toJson(apiResponse);
 	}
 
 	@GET
@@ -111,12 +183,30 @@ public class RepresentanteResource extends Resource{
 			@QueryParam("idEmpresa") int idEmpresa, 
 			@QueryParam("idFilial") int idFilial,
 			@QueryParam("idRepresentante") int idRepresentante) throws Exception {
-		openTransaction();
-		RepresentanteParcelamentoController controller = new RepresentanteParcelamentoController();
-		List<RepresentanteParcelamentoIntegration> lsProduto =  controller.buscarPorDataAlteracao(changeDate, idEmpresa, idFilial, idRepresentante);
-		closeTransaction();
-		
-		return new Gson().toJson(lsProduto);
+
+
+		ApiResponse<ServiceResponse<List<RepresentanteParcelamentoIntegration>>> apiResponse = new ApiResponse<ServiceResponse<List<RepresentanteParcelamentoIntegration>>>();
+
+		try {
+			openTransaction();
+
+			RepresentanteParcelamentoController controller = new RepresentanteParcelamentoController();
+			List<RepresentanteParcelamentoIntegration> ls =  controller.buscarPorDataAlteracao(changeDate, idEmpresa, idFilial, idRepresentante);
+
+			final ServiceResponse<List<RepresentanteParcelamentoIntegration>> response = new ServiceResponse<List<RepresentanteParcelamentoIntegration>>(ls, ls != null ?  ls.size() : 0l);
+			apiResponse.setResult(response);
+			apiResponse.setStatus(ApiResponse.STATUS_SUCCESS);
+			apiResponse.setMessage(ApiResponse.STATUS_SUCCESS);
+		} catch (Exception e) {
+			apiResponse.setStatus(ApiResponse.STATUS_FAILURE);
+			apiResponse.setCode("500");
+			apiResponse.setMessage("Problemas na sincronização. Tente novamente mais tarde!");			
+			e.printStackTrace();
+		}  finally{
+			closeTransaction();
+		}
+
+		return new Gson().toJson(apiResponse);
 	}
 	
 	
@@ -128,12 +218,29 @@ public class RepresentanteResource extends Resource{
 			@QueryParam("idEmpresa") int idEmpresa, 
 			@QueryParam("idFilial") int idFilial,
 			@QueryParam("idRepresentante") int idRepresentante) throws Exception {
-		openTransaction();
-		RepresentanteTabPrecoController controller = new RepresentanteTabPrecoController();
-		List<RepresentanteTabPrecoIntegration> ls =  controller.buscarPorDataAlteracao(changeDate, idEmpresa, idFilial, idRepresentante);
-		closeTransaction();
-		
-		return new Gson().toJson(ls);
+
+		ApiResponse<ServiceResponse<List<RepresentanteTabPrecoIntegration>>> apiResponse = new ApiResponse<ServiceResponse<List<RepresentanteTabPrecoIntegration>>>();
+
+		try {
+			openTransaction();
+			RepresentanteTabPrecoController controller = new RepresentanteTabPrecoController();
+			List<RepresentanteTabPrecoIntegration> ls =  controller.buscarPorDataAlteracao(changeDate, idEmpresa, idFilial, idRepresentante);
+
+			final ServiceResponse<List<RepresentanteTabPrecoIntegration>> response = new ServiceResponse<List<RepresentanteTabPrecoIntegration>>(ls, ls != null ?  ls.size() : 0l);
+			apiResponse.setResult(response);
+			apiResponse.setStatus(ApiResponse.STATUS_SUCCESS);
+			apiResponse.setMessage(ApiResponse.STATUS_SUCCESS);
+		} catch (Exception e) {
+			apiResponse.setStatus(ApiResponse.STATUS_FAILURE);
+			apiResponse.setCode("500");
+			apiResponse.setMessage("Problemas na sincronização. Tente novamente mais tarde!");			
+			e.printStackTrace();
+		}  finally {
+			closeTransaction();
+		}
+
+		return new Gson().toJson(apiResponse);
+
 	}
 	
 	
@@ -143,12 +250,30 @@ public class RepresentanteResource extends Resource{
 	public String getAllRepresentativeByChangeDate(
 			@QueryParam("changeDate") long changeDate,			
 			@QueryParam("idEmpresa") int idEmpresa) throws Exception {
-		openTransaction();
-		RepresentanteController controller = new RepresentanteController();
-		List<RepresentanteIntegration> ls =  controller.buscarPorDataAlteracao(changeDate, idEmpresa);
-		closeTransaction();
-		
-		return new Gson().toJson(ls);
+
+		ApiResponse<ServiceResponse<List<RepresentanteIntegration>>> apiResponse = new ApiResponse<ServiceResponse<List<RepresentanteIntegration>>>();
+
+		try {
+			openTransaction();
+
+			RepresentanteController controller = new RepresentanteController();
+			List<RepresentanteIntegration> ls =  controller.buscarPorDataAlteracao(changeDate, idEmpresa);
+
+			final ServiceResponse<List<RepresentanteIntegration>> response = new ServiceResponse<List<RepresentanteIntegration>>(ls, ls != null ?  ls.size() : 0l);
+			apiResponse.setResult(response);
+			apiResponse.setStatus(ApiResponse.STATUS_SUCCESS);
+			apiResponse.setMessage(ApiResponse.STATUS_SUCCESS);
+		} catch (Exception e) {
+			apiResponse.setStatus(ApiResponse.STATUS_FAILURE);
+			apiResponse.setCode("500");
+			apiResponse.setMessage("Problemas na sincronização. Tente novamente mais tarde!");			
+			e.printStackTrace();
+		}  finally{
+			closeTransaction();
+		}
+
+		return new Gson().toJson(apiResponse);
+
 	}
 	
 	
@@ -158,30 +283,45 @@ public class RepresentanteResource extends Resource{
 	@Produces("application/json")
 	@Consumes("application/json")
 	public String addLocationRepresentative(String locationRepresentative){
-		openTransaction();
-		Gson gson = new Gson();
-		ArrayList<RepresentanteRotaIntegration> lsLocationRepresentative = new ArrayList<RepresentanteRotaIntegration>();
-		JsonParser parser = new JsonParser();
-		JsonArray array = parser.parse(locationRepresentative).getAsJsonArray();
-		
-		for (int i = 0 ; i < array.size();i++) {
-			RepresentanteRotaIntegration representanteRota = gson.fromJson(array.get(i),RepresentanteRotaIntegration.class);
-			
-			GregorianCalendar calendar = new GregorianCalendar();
-			calendar.setTimeInMillis(representanteRota.getDtHrRotaLong());
-			
-			representanteRota.setDtHrRota(calendar);
-			
-			lsLocationRepresentative.add(representanteRota);
+		final ApiResponse apiResponse = new ApiResponse();
+
+		try {
+			openTransaction();
+
+			Gson gson = new Gson();
+			ArrayList<RepresentanteRotaIntegration> lsLocationRepresentative = new ArrayList<RepresentanteRotaIntegration>();
+			JsonParser parser = new JsonParser();
+			JsonArray array = parser.parse(locationRepresentative).getAsJsonArray();
+
+			for (int i = 0 ; i < array.size();i++) {
+				RepresentanteRotaIntegration representanteRota = gson.fromJson(array.get(i),RepresentanteRotaIntegration.class);
+
+				GregorianCalendar calendar = new GregorianCalendar();
+				calendar.setTimeInMillis(representanteRota.getDtHrRotaLong());
+
+				representanteRota.setDtHrRota(calendar);
+
+				lsLocationRepresentative.add(representanteRota);
+			}
+
+			if(lsLocationRepresentative.size() > 0){
+				RepresentanteRotaController controller  = new RepresentanteRotaController();
+				controller.save(lsLocationRepresentative);
+			}
+			apiResponse.setResult("");
+			apiResponse.setStatus(ApiResponse.STATUS_SUCCESS);
+			apiResponse.setMessage(ApiResponse.STATUS_SUCCESS);
+		} catch (Exception e) {
+			apiResponse.setStatus(ApiResponse.STATUS_FAILURE);
+			apiResponse.setCode("500");
+			apiResponse.setResult(new TaxExceptionWapper("999", e.getMessage()));
+			apiResponse.setMessage("Problemas na sincronização. Tente novamente mais tarde!");			
+			e.printStackTrace();
+		}  finally{
+			closeTransaction();
 		}
-		
-		if(lsLocationRepresentative.size() > 0){
-			RepresentanteRotaController controller  = new RepresentanteRotaController();
-			controller.save(lsLocationRepresentative);
-		}
-		
-		closeTransaction();
-		return "";
+
+		return new Gson().toJson(apiResponse);
 	}
 	
 	
@@ -190,38 +330,54 @@ public class RepresentanteResource extends Resource{
 	@Produces("application/json")
 	@Consumes("application/json")
 	public String generateRepresentative(String device) throws Exception {
-		openTransaction();
-		RepresentanteController controller = new RepresentanteController();
-		DeviceController deviceController = new DeviceController();
-		RepresentanteIntegration representanteGerado = null;
-		Gson gson = new Gson();
-		JsonParser parser = new JsonParser();
-		String email = "";
-		
-		if(device != null && !device.trim().equals("")){
-			JsonObject deviceJSON = parser.parse(device).getAsJsonObject();
-			DeviceIntegration deviceIntegration = gson.fromJson(deviceJSON,DeviceIntegration.class);
-					
-			DeviceIntegration deviceSalvo = deviceController.getDeviceBySerial(deviceIntegration.getSerial());
+
+		ApiResponse<ServiceResponse<RepresentanteIntegration>> apiResponse = new ApiResponse<ServiceResponse<RepresentanteIntegration>>();
+
+		try {
+			openTransaction();
+
+			RepresentanteController controller = new RepresentanteController();
+			DeviceController deviceController = new DeviceController();
+			RepresentanteIntegration representanteGerado = null;
+			Gson gson = new Gson();
+			JsonParser parser = new JsonParser();
 			
-			if(deviceSalvo == null){
-				deviceController.save(deviceIntegration);
-			} else {
-				deviceIntegration = deviceSalvo;
+			if(device != null && !device.trim().equals("")){
+				JsonObject deviceJSON = parser.parse(device).getAsJsonObject();
+				DeviceIntegration deviceIntegration = gson.fromJson(deviceJSON,DeviceIntegration.class);
+
+				DeviceIntegration deviceSalvo = deviceController.getDeviceBySerial(deviceIntegration.getSerial());
+
+				if(deviceSalvo == null){
+					deviceController.save(deviceIntegration);
+				} else {
+					deviceIntegration = deviceSalvo;
+				}
+
+				RepresentanteIntegration representante = controller.buscaPorSerial(deviceIntegration);
+
+				if(representante == null){
+					representanteGerado = controller.geraNovoRepresentanteDemonstracao(deviceIntegration);
+				} else {
+					representanteGerado = representante;
+				}
 			}
-			
-			RepresentanteIntegration representante = controller.buscaPorSerial(deviceIntegration);
-			
-			if(representante == null){
-				representanteGerado = controller.geraNovoRepresentanteDemonstracao(deviceIntegration);
-			} else {
-				representanteGerado = representante;
-			}
+
+			final ServiceResponse<RepresentanteIntegration> response = new ServiceResponse<RepresentanteIntegration>(representanteGerado, representanteGerado != null ?  1l : 0l);			
+			apiResponse.setResult(response);
+			apiResponse.setStatus(ApiResponse.STATUS_SUCCESS);
+			apiResponse.setMessage(ApiResponse.STATUS_SUCCESS);
+		} catch (Exception e) {
+			apiResponse.setStatus(ApiResponse.STATUS_FAILURE);
+			apiResponse.setCode("500");			
+			apiResponse.setMessage("Problemas na sincronização. Tente novamente mais tarde!");			
+			e.printStackTrace();
+		}  finally{
+			closeTransaction();
 		}
-		
-		closeTransaction();
-		
-		return new Gson().toJson(representanteGerado);
+
+		return new Gson().toJson(apiResponse);
+
 	}
 
 

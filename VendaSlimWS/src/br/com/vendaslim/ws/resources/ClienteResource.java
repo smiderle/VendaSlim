@@ -1,9 +1,6 @@
 package br.com.vendaslim.ws.resources;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -16,6 +13,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import br.com.vendaslim.ws.controller.ClienteController;
 import br.com.vendaslim.ws.domain.ClienteIntegration;
+import br.com.vendaslim.ws.support.ApiResponse;
+import br.com.vendaslim.ws.support.ServiceResponse;
+import br.com.vendaslim.ws.support.TaxExceptionWapper;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -38,22 +38,35 @@ public class ClienteResource extends Resource{
 	@GET
 	@Path("/getAllCustomerByChangeDate")
 	@Produces("application/json")
-	public String getAllByChangeDate(
+	public String getAllCustomerByChangeDate(
 			@QueryParam("changeDate") long changeDate,			
 			@QueryParam("idEmpresa") int idEmpresa, 
 			@QueryParam("idFilial") int idFilial) throws Exception{
-
-		openTransaction();
 		
-		ClienteController controler = new ClienteController();
-		List<ClienteIntegration> clientes = new ArrayList<ClienteIntegration>();
+		ApiResponse<ServiceResponse<List<ClienteIntegration>>> apiResponse = new ApiResponse<ServiceResponse<List<ClienteIntegration>>>();
 		
-		clientes = controler.buscarPorDataAlteracao(changeDate, idEmpresa, idFilial);
+		try {
+			openTransaction();
 
-		closeTransaction();
-		System.out.println(clientes.size());
-		System.out.println(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date(changeDate)));
-		return new Gson().toJson(clientes);
+			ClienteController controler = new ClienteController();
+			List<ClienteIntegration> clientes = new ArrayList<ClienteIntegration>();
+			
+			clientes = controler.buscarPorDataAlteracao(changeDate, idEmpresa, idFilial);
+			
+			final ServiceResponse<List<ClienteIntegration>> response = new ServiceResponse<List<ClienteIntegration>>(clientes, clientes != null ?  clientes.size() : 0l);
+			apiResponse.setResult(response);
+			apiResponse.setStatus(ApiResponse.STATUS_SUCCESS);
+			apiResponse.setMessage(ApiResponse.STATUS_SUCCESS);
+		} catch (Exception e) {
+			apiResponse.setStatus(ApiResponse.STATUS_FAILURE);
+			apiResponse.setCode("500");			
+			apiResponse.setMessage("Problemas na sincronização. Tente novamente mais tarde!");			
+			e.printStackTrace();
+		} finally {
+			closeTransaction();
+		}
+		
+		return new Gson().toJson(apiResponse);
 	}
 	
 	@POST
@@ -61,23 +74,39 @@ public class ClienteResource extends Resource{
 	@Produces("application/json")
 	@Consumes("application/json")
 	public String addCustomers(String customers){
+				
+		ApiResponse<ServiceResponse<List<ClienteIntegration>>> apiResponse = new ApiResponse<ServiceResponse<List<ClienteIntegration>>>();
+		
 		openTransaction();
-		Gson gson = new Gson();
-		ArrayList<ClienteIntegration> lsClientes = new ArrayList<ClienteIntegration>();
-		JsonParser parser = new JsonParser();
-		JsonArray array = parser.parse(customers).getAsJsonArray();
-		
-		for (int i = 0 ; i < array.size();i++) {
-			lsClientes.add(gson.fromJson(array.get(i),ClienteIntegration.class));
+		try{
+			Gson gson = new Gson();
+			List<ClienteIntegration> lsClientes = new ArrayList<ClienteIntegration>();
+			JsonParser parser = new JsonParser();
+			JsonArray array = parser.parse(customers).getAsJsonArray();
+			
+			for (int i = 0 ; i < array.size();i++) {
+				lsClientes.add(gson.fromJson(array.get(i),ClienteIntegration.class));
+			}
+			ClienteController controller = new ClienteController();
+			
+			//Clientes, que foram inseridos com um id diferente ao cadastrado no mobile
+			List<ClienteIntegration> lsClienteIntegrationMobile =  controller.insert(lsClientes);
+			
+			final ServiceResponse<List<ClienteIntegration>> response = new ServiceResponse<List<ClienteIntegration>>(lsClienteIntegrationMobile, lsClienteIntegrationMobile != null ?  lsClienteIntegrationMobile.size() : 0l);
+			apiResponse.setResult(response);
+			apiResponse.setStatus(ApiResponse.STATUS_SUCCESS);
+			apiResponse.setMessage(ApiResponse.STATUS_SUCCESS);
+		} catch(Exception e){
+			apiResponse.setStatus(ApiResponse.STATUS_FAILURE);
+			apiResponse.setCode("500");			
+			apiResponse.setMessage("Problemas na operação. Tente novamente mais tarde!");			
+			e.printStackTrace();
+		} finally{
+
+			closeTransaction();
 		}
-		ClienteController controller = new ClienteController();
 		
-		//Clientes, que foram inseridos com um id diferente ao cadastrado no mobile
-		ArrayList<ClienteIntegration> lsClienteIntegrationMobile =  controller.insert(lsClientes);
-		String retorno = new Gson().toJson(lsClienteIntegrationMobile);
-		
-		closeTransaction();
-		return retorno;
+		return new Gson().toJson(apiResponse);
 	}
 	
 	@POST
