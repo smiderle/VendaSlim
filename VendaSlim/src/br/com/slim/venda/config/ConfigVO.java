@@ -14,7 +14,7 @@ public class ConfigVO {
 	
 	public static String email = "";
 	
-	//public static String ipServer = "192.168.0.106";
-	public static String ipServer = "www.vendaslim.com.br";
+	public static String ipServer = "192.168.0.106";
+	//public static String ipServer = "www.vendaslim.com.br";
 	public static String portaServer="8080";
 }

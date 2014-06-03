@@ -107,14 +107,6 @@ public class SincronizacaoItensView extends Activity {
 					
 					it.receberDataExpiracao(((TelephonyManager) getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId());
 					
-					/*SincronizacaoItensVO sincVO = it.enviarClientes();
-					updateItemSucesso(sincVO);
-					atualizaListView();*/
-										
-					/*SincronizacaoItensVO sincVO = it.enviarPedidos();
-					updateItemSucesso(sincVO);
-					atualizaListView();*/
-					
 					SincronizacaoItensVO sincVO = it.receberClientes(dtHrServer);
 					updateItemSucesso(sincVO);
 					atualizaListView();

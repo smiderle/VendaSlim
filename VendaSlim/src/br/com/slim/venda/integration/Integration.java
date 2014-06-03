@@ -448,7 +448,7 @@ public class Integration {
 		
 		if(lsCliente != null && lsCliente.size() > 0){
 			ClienteREST clienteREST = new ClienteREST();
-			ArrayList<ClienteIntegration> lsClienteRetorno = clienteREST.addCustomers(lsCliente);
+			List<ClienteIntegration> lsClienteRetorno = clienteREST.addCustomers(lsCliente);
 			controller.update(lsClienteRetorno);
 		}		
 	}
@@ -458,7 +458,7 @@ public class Integration {
 		ArrayList<PedidoIntegration> lsPedidoIntegration = controller.getAllNaoSincronizado();		
 		if(lsPedidoIntegration.size() > 0){
 			PedidoREST pedidoREST = new PedidoREST();
-			ArrayList<PedidoIntegration> lsPedidoRetorno = pedidoREST.addOrder(lsPedidoIntegration);				
+			List<PedidoIntegration> lsPedidoRetorno = pedidoREST.addOrder(lsPedidoIntegration);				
 			controller.update(lsPedidoRetorno);
 		}
 	}

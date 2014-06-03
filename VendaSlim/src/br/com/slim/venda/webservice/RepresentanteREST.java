@@ -1,16 +1,15 @@
 package br.com.slim.venda.webservice;
 
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
 import android.util.Log;
 import br.com.slim.venda.device.Device;
-import br.com.slim.venda.integration.domain.ClienteIntegration;
 import br.com.slim.venda.integration.domain.Endpoints;
 import br.com.slim.venda.integration.domain.GrupoRepresentanteIntegration;
-import br.com.slim.venda.integration.domain.PedidoIntegration;
 import br.com.slim.venda.representante.GrupoRepresentanteParcelamentoVO;
 import br.com.slim.venda.representante.GrupoRepresentanteTabPrecoVO;
 import br.com.slim.venda.representante.RepresentanteFilialVO;
@@ -19,13 +18,12 @@ import br.com.slim.venda.representante.RepresentanteRotaController;
 import br.com.slim.venda.representante.RepresentanteRotaVO;
 import br.com.slim.venda.representante.RepresentanteTabPrecoVO;
 import br.com.slim.venda.representante.RepresentanteVO;
-import br.com.slim.venda.representante.RepresentanteVO.Representante;
+import br.com.slim.venda.support.ApiResponse;
+import br.com.slim.venda.support.ServiceResponse;
 import br.com.slim.venda.usuario.UsuarioVO;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
 
 public class RepresentanteREST {
 	
@@ -42,15 +40,15 @@ public class RepresentanteREST {
 		String[] resposta = services.get();
 
 		if (resposta[0].equals("200")) {
-			Gson gson = new Gson();
-			ArrayList<GrupoRepresentanteIntegration> lsGrupoRepresentante = new ArrayList<GrupoRepresentanteIntegration>();
-			JsonParser parser = new JsonParser();
-			JsonArray array = parser.parse(resposta[1]).getAsJsonArray();
 			
-			for (int i = 0; i < array.size(); i++) {
-				lsGrupoRepresentante.add(gson.fromJson(array.get(i), GrupoRepresentanteIntegration.class));
+			Type serviceType = new TypeToken<ApiResponse<ServiceResponse<List<GrupoRepresentanteIntegration>>>>() {}.getType();			
+			ApiResponse<ServiceResponse<List<GrupoRepresentanteIntegration>>> apiResponse = new Gson().fromJson(resposta[1], serviceType);
+
+			if(apiResponse.getCode().equals(ApiResponse.CODE_SUCESS)){
+				return apiResponse.getResult().getValue();
+			} else {
+				throw new Exception(apiResponse.getMessage());
 			}
-			return lsGrupoRepresentante;
 		} else {
 			throw new Exception(resposta[1]);
 		}
@@ -69,16 +67,15 @@ public class RepresentanteREST {
 
 		String[] resposta = services.get();
 
-		if (resposta[0].equals("200")) {
-			Gson gson = new Gson();
-			ArrayList<GrupoRepresentanteParcelamentoVO> lsGrupoRepresentanteParcelamento = new ArrayList<GrupoRepresentanteParcelamentoVO>();
-			JsonParser parser = new JsonParser();
-			JsonArray array = parser.parse(resposta[1]).getAsJsonArray();
+		if (resposta[0].equals("200")) {			
+			Type serviceType = new TypeToken<ApiResponse<ServiceResponse<List<GrupoRepresentanteParcelamentoVO>>>>() {}.getType();			
+			ApiResponse<ServiceResponse<List<GrupoRepresentanteParcelamentoVO>>> apiResponse = new Gson().fromJson(resposta[1], serviceType);
 
-			for (int i = 0; i < array.size(); i++) {
-				lsGrupoRepresentanteParcelamento.add(gson.fromJson(array.get(i), GrupoRepresentanteParcelamentoVO.class));
+			if(apiResponse.getCode().equals(ApiResponse.CODE_SUCESS)){
+				return apiResponse.getResult().getValue();
+			} else {
+				throw new Exception(apiResponse.getMessage());
 			}
-			return lsGrupoRepresentanteParcelamento;
 		} else {
 			throw new Exception(resposta[1]);
 		}
@@ -98,15 +95,15 @@ public class RepresentanteREST {
 		String[] resposta = services.get();
 
 		if (resposta[0].equals("200")) {
-			Gson gson = new Gson();
-			ArrayList<GrupoRepresentanteTabPrecoVO> lsGrupoRepresentanteTabPreco = new ArrayList<GrupoRepresentanteTabPrecoVO>();
-			JsonParser parser = new JsonParser();
-			JsonArray array = parser.parse(resposta[1]).getAsJsonArray();
+			
+			Type serviceType = new TypeToken<ApiResponse<ServiceResponse<List<GrupoRepresentanteTabPrecoVO>>>>() {}.getType();			
+			ApiResponse<ServiceResponse<List<GrupoRepresentanteTabPrecoVO>>> apiResponse = new Gson().fromJson(resposta[1], serviceType);
 
-			for (int i = 0; i < array.size(); i++) {
-				lsGrupoRepresentanteTabPreco.add(gson.fromJson(array.get(i), GrupoRepresentanteTabPrecoVO.class));
+			if(apiResponse.getCode().equals(ApiResponse.CODE_SUCESS)){
+				return apiResponse.getResult().getValue();
+			} else {
+				throw new Exception(apiResponse.getMessage());
 			}
-			return lsGrupoRepresentanteTabPreco;
 		} else {
 			throw new Exception(resposta[1]);
 		}
@@ -126,15 +123,14 @@ public class RepresentanteREST {
 		String[] resposta = services.get();
 
 		if (resposta[0].equals("200")) {
-			Gson gson = new Gson();
-			ArrayList<RepresentanteFilialVO> lsRepresentanteFilial = new ArrayList<RepresentanteFilialVO>();
-			JsonParser parser = new JsonParser();
-			JsonArray array = parser.parse(resposta[1]).getAsJsonArray();
-			
-			for (int i = 0; i < array.size(); i++) {
-				lsRepresentanteFilial.add(gson.fromJson(array.get(i), RepresentanteFilialVO.class));
+			Type serviceType = new TypeToken<ApiResponse<ServiceResponse<List<RepresentanteFilialVO>>>>() {}.getType();			
+			ApiResponse<ServiceResponse<List<RepresentanteFilialVO>>> apiResponse = new Gson().fromJson(resposta[1], serviceType);
+
+			if(apiResponse.getCode().equals(ApiResponse.CODE_SUCESS)){
+				return apiResponse.getResult().getValue();
+			} else {
+				throw new Exception(apiResponse.getMessage());
 			}
-			return lsRepresentanteFilial;
 		} else {
 			throw new Exception(resposta[1]);
 		}
@@ -152,15 +148,15 @@ public class RepresentanteREST {
 		String[] resposta = services.get();
 
 		if (resposta[0].equals("200")) {
-			Gson gson = new Gson();
-			ArrayList<RepresentanteVO> lsRepresentante = new ArrayList<RepresentanteVO>();
-			JsonParser parser = new JsonParser();
-			JsonArray array = parser.parse(resposta[1]).getAsJsonArray();
 			
-			for (int i = 0; i < array.size(); i++) {
-				lsRepresentante.add(gson.fromJson(array.get(i), RepresentanteVO.class));
+			Type serviceType = new TypeToken<ApiResponse<ServiceResponse<List<RepresentanteVO>>>>() {}.getType();			
+			ApiResponse<ServiceResponse<List<RepresentanteVO>>> apiResponse = new Gson().fromJson(resposta[1], serviceType);
+			
+			if(apiResponse.getCode().equals(ApiResponse.CODE_SUCESS)){
+				return apiResponse.getResult().getValue();
+			} else {
+				throw new Exception(apiResponse.getMessage());
 			}
-			return lsRepresentante;
 		} else {
 			throw new Exception(resposta[1]);
 		}
@@ -180,15 +176,14 @@ public class RepresentanteREST {
 		String[] resposta = services.get();
 
 		if (resposta[0].equals("200")) {
-			Gson gson = new Gson();
-			ArrayList<RepresentanteParcelamentoVO> lsRepresentanteParcelamento = new ArrayList<RepresentanteParcelamentoVO>();
-			JsonParser parser = new JsonParser();
-			JsonArray array = parser.parse(resposta[1]).getAsJsonArray();
-
-			for (int i = 0; i < array.size(); i++) {
-				lsRepresentanteParcelamento.add(gson.fromJson(array.get(i), RepresentanteParcelamentoVO.class));
+			Type serviceType = new TypeToken<ApiResponse<ServiceResponse<List<RepresentanteParcelamentoVO>>>>() {}.getType();			
+			ApiResponse<ServiceResponse<List<RepresentanteParcelamentoVO>>> apiResponse = new Gson().fromJson(resposta[1], serviceType);
+			
+			if(apiResponse.getCode().equals(ApiResponse.CODE_SUCESS)){
+				return apiResponse.getResult().getValue();
+			} else {
+				throw new Exception(apiResponse.getMessage());
 			}
-			return lsRepresentanteParcelamento;
 		} else {
 			throw new Exception(resposta[1]);
 		}
@@ -210,15 +205,15 @@ public class RepresentanteREST {
 		String[] resposta = services.get();
 
 		if (resposta[0].equals("200")) {
-			Gson gson = new Gson();
-			ArrayList<RepresentanteTabPrecoVO> lsRepresentanteTabPreco = new ArrayList<RepresentanteTabPrecoVO>();
-			JsonParser parser = new JsonParser();
-			JsonArray array = parser.parse(resposta[1]).getAsJsonArray();
 
-			for (int i = 0; i < array.size(); i++) {
-				lsRepresentanteTabPreco.add(gson.fromJson(array.get(i), RepresentanteTabPrecoVO.class));
+			Type serviceType = new TypeToken<ApiResponse<ServiceResponse<List<RepresentanteTabPrecoVO>>>>() {}.getType();			
+			ApiResponse<ServiceResponse<List<RepresentanteTabPrecoVO>>> apiResponse = new Gson().fromJson(resposta[1], serviceType);
+			
+			if(apiResponse.getCode().equals(ApiResponse.CODE_SUCESS)){
+				return apiResponse.getResult().getValue();
+			} else {
+				throw new Exception(apiResponse.getMessage());
 			}
-			return lsRepresentanteTabPreco;
 		} else {
 			throw new Exception(resposta[1]);
 		}
@@ -249,21 +244,22 @@ public class RepresentanteREST {
 
 		String[] resposta = new ServiceRest().post(Endpoints.REPRESENTANTE_GENERATE, deviceStr);
 
-		if (resposta[0].equals("200")) {
-			if(resposta[1] != null && !resposta[1].trim().equals("")){
-				JsonParser parser = new JsonParser();
-				JsonObject repreJSON = parser.parse(resposta[1]).getAsJsonObject();
-				
-				RepresentanteVO representante = gson.fromJson(repreJSON, RepresentanteVO.class);
+		if (resposta[0].equals("200")) {			
+			Type serviceType = new TypeToken<ApiResponse<ServiceResponse<RepresentanteVO>>>() {}.getType();			
+			ApiResponse<ServiceResponse<RepresentanteVO>> apiResponse = gson.fromJson(resposta[1], serviceType);
+			
+			
+			if(apiResponse.getCode().equals("200")){
+				RepresentanteVO representante = apiResponse.getResult().getValue();
 				UsuarioVO.idEmpresa = representante.getIdEmpresa();
 				UsuarioVO.idUsuairo = representante.getIdRepresentante();
-				return representante;				
-			}			
+				return representante;
+			} else {
+				throw new Exception(apiResponse.getMessage());
+			}						
 		} else {
 			throw new Exception(resposta[1]);
-		}
-		
-		return null;
+		}		
 	}
 	
 }

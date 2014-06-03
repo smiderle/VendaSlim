@@ -80,6 +80,7 @@ public class ServiceRest {
 	             result[0] = String.valueOf(response.getStatusLine().getStatusCode());
 	             InputStream instream = entity.getContent();
 	             result[1] = toString(instream);
+	             //result[1] = "Ocorreu algum problema. Tente novamente mais tarde.";
 	             	             
 	             instream.close();
 	             Log.i("get", "Result from post JsonPost : " + result[0] + " : " + result[1]);
@@ -87,7 +88,8 @@ public class ServiceRest {
 	     } catch (Exception e) {
 	         Log.e("NGVL", "Falha ao acessar Web service", e);
 	         result[0] = "0";
-	         result[1] = "Falha de rede!";
+	         result[1] = "Ocorreu algum problema. Tente novamente mais tarde.";
+	         e.getMessage();
 	     }
 	     return result;
 	    }
@@ -116,7 +118,8 @@ public class ServiceRest {
 	     } catch (Exception e) {
 	         Log.e("NGVL", "Falha ao acessar Web service", e);
 	         result[0] = "0";
-	         result[1] = e.getMessage();
+	         result[1] = "Falha na rede.";
+	         e.getMessage();
 	     }
 	     return result;
 	    }

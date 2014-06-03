@@ -1,15 +1,16 @@
 package br.com.slim.venda.webservice;
 
-import java.util.ArrayList;
+import java.lang.reflect.Type;
 import java.util.List;
 
 import br.com.slim.venda.integration.domain.Endpoints;
 import br.com.slim.venda.mensagem.MensagemVO;
+import br.com.slim.venda.support.ApiResponse;
+import br.com.slim.venda.support.ServiceResponse;
 import br.com.slim.venda.usuario.UsuarioVO;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
 
 public class MensagemREST {
 	
@@ -26,15 +27,14 @@ public class MensagemREST {
 		String[] resposta = services.get();
 
 		if (resposta[0].equals("200")) {
-			Gson gson = new Gson();
-			ArrayList<MensagemVO> listaMensagens = new ArrayList<MensagemVO>();
-			JsonParser parser = new JsonParser();
-			JsonArray array = parser.parse(resposta[1]).getAsJsonArray();
+			Type serviceType = new TypeToken<ApiResponse<ServiceResponse<List<MensagemVO>>>>() {}.getType();			
+			ApiResponse<ServiceResponse<List<MensagemVO>>> apiResponse = new Gson().fromJson(resposta[1], serviceType);
 			
-			for (int i = 0; i < array.size(); i++) {
-				listaMensagens.add(gson.fromJson(array.get(i), MensagemVO.class));
+			if(apiResponse.getCode().equals(ApiResponse.CODE_SUCESS)){
+				return apiResponse.getResult().getValue();
+			} else {
+				throw new Exception(apiResponse.getMessage());
 			}
-			return listaMensagens;
 		} else {
 			throw new Exception(resposta[1]);
 		}

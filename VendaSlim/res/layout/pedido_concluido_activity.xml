@@ -17,7 +17,8 @@
         android:layout_alignBottom="@+id/textView1"
         android:layout_toRightOf="@+id/textView1"
         android:text="52"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        android:textSize="@dimen/time_ampm_label_size" />
 
     <TextView
         android:id="@+id/tvCliente"
@@ -26,7 +27,8 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView1"
         android:text="Ladair Carlos Smiderle Junior"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"         
+        android:textSize="@dimen/time_ampm_label_size" />
 
     <TextView
         android:id="@+id/textView4"
@@ -45,18 +47,10 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/tvCliente"
         android:layout_alignParentTop="true"
-        android:paddingTop="20dp"
+        android:paddingTop="10dp"
         android:text="Pedido:"
-        android:textColor="@color/white" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvCliente"
-        android:layout_toLeftOf="@+id/tvPedidoId"
-        android:text="Tabela:"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        android:textSize="@dimen/time_ampm_label_size" />
 
     <TextView
         android:id="@+id/tvTabela"
@@ -66,23 +60,23 @@
         android:layout_alignBottom="@+id/textView6"
         android:layout_alignLeft="@+id/tvPedidoId"
         android:text="Tabela A Vista"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        android:textSize="@dimen/time_ampm_label_size"  />
 
     <TextView
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView6"        
+        android:layout_below="@+id/textView6"
         android:text="Parcelamento:"
-        android:textColor="@color/white" />
-
-    
+        android:textColor="@color/white"
+        android:textSize="@dimen/time_ampm_label_size"  />
 
     <RelativeLayout
         android:id="@+id/relativeLayout1"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="70dp"
-        android:layout_alignLeft="@+id/btnMenu"
+        android:layout_alignLeft="@+id/linearLayout1"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/textView4"
         android:background="@color/white" >
@@ -97,18 +91,6 @@
             android:textSize="@dimen/abc_dropdownitem_icon_width" />
     </RelativeLayout>
 
-    <Button
-        android:id="@+id/btnMenu"
-        android:layout_width="0dip"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/relativeLayout1"
-        android:layout_marginTop="48dp"
-        android:background="@drawable/button_login"
-        android:text="Menu"
-        android:textColor="@color/white" />
-
     <TextView
         android:id="@+id/tvParcelamento"
         android:layout_width="wrap_content"
@@ -116,18 +98,48 @@
         android:layout_above="@+id/textView4"
         android:layout_toRightOf="@+id/textView8"
         android:text="30x60x90"
-        android:textColor="@color/white"  />
+        android:textColor="@color/white"
+        android:textSize="@dimen/time_ampm_label_size"  />
 
-    <Button
-        android:id="@+id/btnPedido"
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relativeLayout1"
+        android:orientation="horizontal"
+        android:paddingTop="15dp">
+        
+         <Button
+            android:id="@+id/btnMenu"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"            
+            android:layout_weight="1"
+            android:padding="10dip"
+            android:background="@drawable/button_login"
+            android:text="Menu"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/btnPedido"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="10dip"            
+            android:background="@drawable/button_login"            
+            android:text="Novo Pedido"
+            android:textColor="@color/white" />
+
+       
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/btnMenu"
-        android:layout_alignRight="@+id/btnMenu"
-        android:layout_below="@+id/btnMenu"
-        android:layout_marginTop="21dp"
-        android:background="@drawable/button_login"
-        android:text="Novo Pedido"
-        android:textColor="@color/white" />
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/tvCliente"
+        android:layout_toLeftOf="@+id/tvTabela"
+        android:text="Tabela:"
+        android:textColor="@color/white"
+        android:textSize="@dimen/time_ampm_label_size" />
 
 </RelativeLayout>

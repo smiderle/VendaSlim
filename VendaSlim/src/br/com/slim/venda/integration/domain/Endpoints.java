@@ -6,8 +6,8 @@ import br.com.slim.venda.config.ConfigVO;
 
 public class Endpoints {
 	
-	//public static final String ENDPOINT = "http://"+ConfigVO.ipServer+":"+ConfigVO.portaServer+"/VendaSlimWS";
-	public static final String ENDPOINT = "http://"+ConfigVO.ipServer+"/VendaSlimWS";
+	public static final String ENDPOINT = "http://"+ConfigVO.ipServer+":"+ConfigVO.portaServer+"/VendaSlimWS";
+	//public static final String ENDPOINT = "http://"+ConfigVO.ipServer+"/VendaSlimWS";
 	public static final String RESOURCE_CLIENTE = "/customer";
 	public static final String RESOURCE_PEDIDO = "/order";
 	public static final String RESOURCE_FILIAL = "/branchOffice";
